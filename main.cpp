@@ -6,6 +6,14 @@ using namespace std;
 const int TAMANHO_TABULEIRO = 15;
 char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
 
+void limparTela() {
+    #ifdef _WIN32
+        system("cls");
+    #else
+        cout << "\033[2J\033[H";
+    #endif
+}
+
 /*
 Função que preenche a matriz com um caracter que representa a água
 */
@@ -35,17 +43,17 @@ void imprimirTabuleiro() {
     }
 }
 void displayTabuleiro (){
-     system("cls"); // Limpa a tela (funciona apenas no Windows)
+    limparTela();
     inicializarTabuleiro();
     imprimirTabuleiro();
 }
 void BatalhaPvp(){
-     system("cls"); // Limpa a tela
+     limparTela();
     cout << " Jogador 1 informe o seu nome: " << endl;
     displayTabuleiro();
 }
 void menuBatalhaNaval(){
-     system("cls"); // Limpa a tela
+     limparTela();
     int resp = 0;
      cout << "Estrutura de Dados - Matrizes" << endl;
     cout << "Bem vindo ao jogo Batalha Naval" << endl;
@@ -67,7 +75,7 @@ void menuBatalhaNaval(){
             }
 }
 void Programa2(){
-     system("cls"); // Limpa a tela
+   limparTela();
     int resp = 0;
     cout << "Bem vindo a o Programa2 mundo que ainda não é mundo" << endl;
     cout << "Digite 0 para sair " << endl;
@@ -75,7 +83,7 @@ void Programa2(){
     cin.ignore(80, '\n');
 }
 void Programa3(){
-     system("cls"); // Limpa a tela
+     limparTela();
     int resp = 0;
     cout << "Bem vindo a o Programa3 mundo que ainda não é mundo" << endl;
     cout << "Digite 0 para sair " << endl;
@@ -83,7 +91,7 @@ void Programa3(){
     cin.ignore(80, '\n');
 }
 void Programa4(){
-     system("cls"); // Limpa a tela
+     limparTela();
     int resp = 0;
     cout << "Bem vindo a o Programa4 mundo que ainda não é mundo" << endl;
     cout << "Digite 0 para sair " << endl;
@@ -91,7 +99,7 @@ void Programa4(){
     cin.ignore(80, '\n');
 }
 void MatrizesVetores(){
-    system("cls"); // Limpa a tela
+    limparTela();
 
     int resp = 0;
 
@@ -120,7 +128,7 @@ void MatrizesVetores(){
             }
 }
 void menuPrincipal(){
-     system("cls"); // Limpa a tela
+     limparTela();
     int resp = 0;
     cout << "Estrutura de Dados" << endl;
     cout <<endl;
