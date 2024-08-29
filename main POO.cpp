@@ -279,6 +279,7 @@ void menuPrincipal(){
 
 int main (void)
 {
+    setlocale(LC_ALL, "Portuguese");
     int resp = 0;
     do
     {
