@@ -1,6 +1,6 @@
   #include <iostream>
   #include <iomanip> // Inclua para usar setw
-  #include <cstdlib>  // Para a função atoi
+  #include <cstdlib>  // Para a funï¿½ï¿½o atoi
   #include <string>
   using namespace std;
 
@@ -26,7 +26,7 @@
   #define FCINZA "\x1b[100m"
 
   const int TAMANHO_TABULEIRO = 15;
-  char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
+  int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
   int tabuleiro1[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
   int tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
 
@@ -37,11 +37,18 @@
           cout << "\033[2J\033[H";
       #endif
   }
-  // função que irá preencher a tela com o caracter que representa água
-  void inicializarTabuleiro(char tabuleiro[15][15]){
+  // funï¿½ï¿½o que irï¿½ preencher a tela com o caracter que representa ï¿½gua
+  /*void inicializarTabuleiro(char tabuleiro[15][15]){
       for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
           for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
               tabuleiro[i][j] = 'O';
+          }
+      }
+  }*/
+  void inicializarTabuleiro(int tabuleiro[15][15]){
+      for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+          for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
+              tabuleiro[i][j] = 0;
           }
       }
   }
@@ -63,15 +70,15 @@
 
       virtual bool validarPosicao(int p1, int p2, int m[15][15]) = 0;
   };
-
+//TODO Inicializar a matriz jogador1
   class hidrohaviao : public Embarcacoes {
   public:
       int p3;
       int p4;
 
       bool validarPosicao(int p1, int p2, int m[15][15]) override {
-          if (p1 >= 0 && p1 < 15 && p2 >= 0 && p2 < 15 && m[p1][p2] == 0) {
-              // Verificar posição específica do hidroavião
+          if (p1 >= 0 && p1 <= 14 && p2 >= 0 && p2 <= 14 && m[p1][p2] == 0) {
+              // Verificar posiï¿½ï¿½o especï¿½fica do hidroaviï¿½o
               return true;
           }
           return false;
@@ -85,7 +92,7 @@
 
       bool validarPosicao(int p1, int p2, int m[15][15]) override {
           if (p1 >= 0 && p1 < 15 && p2 >= 0 && p2 < 15 && m[p1][p2] == 0) {
-              // Verificar posição específica do encouraçado
+              // Verificar posiï¿½ï¿½o especï¿½fica do encouraï¿½ado
               return true;
           }
           return false;
@@ -99,7 +106,7 @@
 
       bool validarPosicao(int p1, int p2, int m[15][15]) override {
           if (p1 >= 0 && p1 < 15 && p2 >= 0 && p2 < 15 && m[p1][p2] == 0) {
-              // Verificar posição específica do porta-aviões
+              // Verificar posiï¿½ï¿½o especï¿½fica do porta-aviï¿½es
               return true;
           }
           return false;
@@ -113,7 +120,7 @@
 
       bool validarPosicao(int p1, int p2, int m[15][15]) override {
           if (p1 >= 0 && p1 < 15 && p2 >= 0 && p2 < 15 && m[p1][p2] == 0) {
-              // Verificar posição específica do cruzador
+              // Verificar posiï¿½ï¿½o especï¿½fica do cruzador
               return true;
           }
           return false;
@@ -127,7 +134,7 @@
 
       bool validarPosicao(int p1, int p2, int m[15][15]) override {
           if (p1 >= 0 && p1 < 15 && p2 >= 0 && p2 < 15 && m[p1][p2] == 0) {
-              // Verificar posição específica do submarino
+              // Verificar posiï¿½ï¿½o especï¿½fica do submarino
               return true;
           }
           return false;
@@ -136,22 +143,22 @@
 
   void imprimirTabuleiro() {
       char vetorLetras[TAMANHO_TABULEIRO] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'};
-      const int LARGURA_COLUNA = 3; // Largura de cada coluna, ajuste conforme necessário
+      const int LARGURA_COLUNA = 3; // Largura de cada coluna, ajuste conforme necessï¿½rio
 
-      // Imprimir os números na parte superior
-      cout << "   "; // Espaço inicial para alinhar números
+      // Imprimir os nï¿½meros na parte superior
+      cout << "   "; // Espaï¿½o inicial para alinhar nï¿½meros
       for (int i = 1; i < TAMANHO_TABULEIRO + 1; i++) {
-          cout << AMARELO  << setw(LARGURA_COLUNA) << i; // Imprime o número da coluna com largura fixa
+          cout << AMARELO  << setw(LARGURA_COLUNA) << i; // Imprime o nï¿½mero da coluna com largura fixa
       }
       cout << endl;
       cout << endl; // Pula uma linha depois de escrever os numeros
 
       // Imprimir o tabuleiro com letras na vertical
       for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
-          cout << AMARELO << setw(2) << vetorLetras[i] << " "; // Imprime a letra da linha com espaçamento fixo
+          cout << AMARELO << setw(2) << vetorLetras[i] << " "; // Imprime a letra da linha com espaï¿½amento fixo
 
           for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
-              cout << AZULC << setw(LARGURA_COLUNA) << tabuleiro[i][j]; // Imprime o conteúdo do tabuleiro com largura fixa
+              cout << AZULC << setw(LARGURA_COLUNA) << tabuleiro[i][j]; // Imprime o conteï¿½do do tabuleiro com largura fixa
           }
           cout << endl;
       }
@@ -173,11 +180,11 @@
       cout << "Jogador 1 informe o seu nome: " << endl;
       getline(cin, nomeJogador);
       cout << endl;
-      cout << nomeJogador+" Digite o numero da 1° posicoes para HidroAviao ";
+      cout << nomeJogador+" Digite o numero da 1ï¿½ posicoes para HidroAviao ";
       cout << endl;
       hidrohaviao hidrohaviao1;
       cin >> hidrohaviao1.posicao1;
-      cout << nomeJogador+" Digite a letra da 1° posicoes para HidroAviao ";
+      cout << nomeJogador+" Digite a letra da 1ï¿½ posicoes para HidroAviao ";
       cout << endl;
       cin >> letra;
       letra = toupper(letra);
@@ -189,7 +196,7 @@
       //hidrohaviao.valiadarPosicao(hidrohaviao1.posicao1, hidrohaviao1.posicao);
       if(hidrohaviao1.validarPosicao(hidrohaviao1.posicao1, hidrohaviao1.posicao2, tabuleiro1)){
           cout << "Posicao valida" << endl;
-          // Marcar a posição no tabuleiro
+          // Marcar a posiï¿½ï¿½o no tabuleiro
           tabuleiro[hidrohaviao1.posicao1][hidrohaviao1.posicao2] = 'H';
       } else {
           cout << "Posicao invalida" << endl;
@@ -222,7 +229,7 @@
   void Programa2(){
       limparTela();
       int resp = 0;
-      cout << "Bem-vindo ao Programa2, mundo que ainda não é mundo" << endl;
+      cout << "Bem-vindo ao Programa2, mundo que ainda nï¿½o ï¿½ mundo" << endl;
       cout << "Digite 0 para sair " << endl;
       cin >> resp;
       cin.ignore(80, '\n');
@@ -231,7 +238,7 @@
   void Programa3(){
       limparTela();
       int resp = 0;
-      cout << "Bem-vindo ao Programa3, mundo que ainda não é mundo" << endl;
+      cout << "Bem-vindo ao Programa3, mundo que ainda nï¿½o ï¿½ mundo" << endl;
       cout << "Digite 0 para sair " << endl;
       cin >> resp;
       cin.ignore(80, '\n');
@@ -240,7 +247,7 @@
   void Programa4(){
       limparTela();
       int resp = 0;
-      cout << "Bem-vindo ao Programa4, mundo que ainda não é mundo" << endl;
+      cout << "Bem-vindo ao Programa4, mundo que ainda nï¿½o ï¿½ mundo" << endl;
       cout << "Digite 0 para sair " << endl;
       cin >> resp;
       cin.ignore(80, '\n');
@@ -256,7 +263,7 @@
       cout << "[3] Programa 3" <<endl;
       cout << "[4] Programa 4" <<endl;
       cout << "[0] Digite  para sair " << endl;
-      cout << "Entre com a opção desejada" <<endl;
+      cout << "Entre com a opï¿½ï¿½o desejada" <<endl;
       cin >> resp;
       cin.ignore(80, '\n');
       switch(resp)
@@ -282,7 +289,7 @@
       cout << "[3] Programa 3" <<endl;
       cout << "[4] Programa 4" <<endl;
       cout << "[0] Digite para sair " << endl;
-      cout << "Entre com a opção desejada" <<endl;
+      cout << "Entre com a opï¿½ï¿½o desejada" <<endl;
       cin >> resp;
       cin.ignore(80, '\n');
       switch(resp)
