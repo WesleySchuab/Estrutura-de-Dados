@@ -218,6 +218,7 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
       letra = toupper(letra);
 
       hidrohaviao1.posicao2 = letra - 'A';
+      hidrohaviao1.posicao1 --;
 
       cout << endl << "posição nuemerica para o hidrohaviao1 " << hidrohaviao1.posicao1;
       cout << endl << "posição letra para o hidrohaviao1 " << hidrohaviao1.posicao2;
@@ -226,9 +227,9 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
           cout << "Posicao valida" << endl;
 
           // Marcar a position on tabuleiro
-          tabuleiro[hidrohaviao1.posicao1][hidrohaviao1.posicao2] = HIDROAVIAO;
+          tabuleiro1[hidrohaviao1.posicao2][hidrohaviao1.posicao1] = HIDROAVIAO;
           cout << endl << "Tabuleiro com a posição inserida" << endl;
-          imprimirTabuleiro(tabuleiro);
+          imprimirTabuleiro(tabuleiro1);
       } else {
           cout << "Posicao invalida" << endl;
       }
@@ -300,7 +301,7 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
       cin.ignore(80, '\n');
       switch(resp)
       {
-          case 1: menuBatalhaNaval();
+          case 1: BatalhaPvp();
               break;
           case 2: Programa2();
               break;
@@ -326,7 +327,7 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
       cin.ignore(80, '\n');
       switch(resp)
       {
-          case 1: MatrizesVetores();
+          case 1: MatrizesVetores(); 
               break;
           case 2: Programa2();
               break;
