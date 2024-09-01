@@ -14,27 +14,28 @@
   #endif
 
 const char AGUA = 'O';
-const char NAVIO = 'X';
+//const char NAVIO = 'X';
 const char HIDROAVIAO = 'H';
-const char TIRO_AGUA = '~';
-const char TIRO_NAVIO = '*';
+//const char TIRO_AGUA = '~';
+//const char TIRO_NAVIO = '*';
 
-  // Cosntantes para as cores
+  // Constantes para as cores
   #define AMARELO "\x1b[33m"
   #define RESET "\x1b[0m"
   #define PRETO "\x1b[30m"
   #define VERDE "\x1b[32m"
+  #define BRANCO "\x1B[37m"
   #define FBRANCO "\x1b[47m"
   #define VERMELHO "\x1b[91m"
   #define VERDEC "\x1b[92m"
   #define AZUL "\x1b[94m"
   #define AZULC "\x1b[96m"
   #define FCINZA "\x1b[100m"
-
+// variaveis Globais 
   const int TAMANHO_TABULEIRO = 15;
-  int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
-  int tabuleiro1[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
-  int tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
+char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
+char tabuleiro1[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
+char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
 
   void limparTela() {
       #ifdef _WIN32
@@ -43,11 +44,11 @@ const char TIRO_NAVIO = '*';
           cout << "\033[2J\033[H";
       #endif
   }
-  
-  void inicializarTabuleiro(int tabuleiro[15][15]){
+
+  void inicializarTabuleiro(char tabuleiro[15][15]){
       for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
           for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
-              tabuleiro[i][j] = 0;
+                  tabuleiro[i][j] = AGUA;
           }
       }
   }
@@ -66,19 +67,14 @@ const char TIRO_NAVIO = '*';
           cin >> posicao2;
           cout << endl;
       }
-      bool validarPosicaoInicial(int p1, int p2, int m[15][15]){
-      cout << endl;
-      cout<< "p1 " << p1 << endl;
-      cout <<"p2 " << p2 << endl;
-      cout <<"o valor dentro da matriz inicializada m[p1][p2] " << m[p1][p2] << endl;
-      if (p1 >= 0 && p1 <= 14 && p2 >= 0 && p2 <= 14 && m[p1][p2] == 0) {
-          // Verificar posi��o espec�fica do hidroavi�o
-          return true;
-      }
-      return false;
-  }
+    bool validaEntrada(int p1, int p2, char m[15][15]) {
+        if (p1 >= 0 && p1 <= 14 && p2 >= 0 && p2 <= 14 && m[p1][p2] == AGUA) {            
+            return true;
+        }
+        return false;
+    }
 
-      virtual bool validarPosicao(int p1, int p2, int m[15][15]) = 0;
+      virtual bool validarPosicao(int p1, int p2, char m[15][15]) = 0;
   };
 
   class hidrohaviao : public Embarcacoes {
@@ -86,16 +82,18 @@ const char TIRO_NAVIO = '*';
       int p3;
       int p4;
 
-      bool validarPosicao(int p1, int p2, int m[15][15]) override {           
-          if (p1 >= 0 && p1 <= 14 && p2 >= 0 && p2 <= 14 && m[p1][p2] == 0) {
-              // Verificar posi��o espec�fica do hidroavi�o
-              return true;
+      bool validarPosicao(int p1, int p2, char m[15][15]) override {           
+          if (p1 == 1 || p1 == 14) {
+              return false;
           }
-          return false;
+          else {          
+              return true;
+          }         
+
       }
   };
 
-  class encoracado : public Embarcacoes {
+ /* class encoracado : public Embarcacoes {
   public:
       int p3;
       int p4;
@@ -150,9 +148,9 @@ const char TIRO_NAVIO = '*';
           }
           return false;
       }
-  };
+  }; */
 //TODO a impressão do tabuleiro tem que ser
-  void imprimirTabuleiro(int tabuleiro[15][15]) {
+  void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO]) {
       char vetorLetras[TAMANHO_TABULEIRO] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'};
       const int LARGURA_COLUNA = 3; // Largura de cada coluna, ajuste conforme necess�rio
 
@@ -169,7 +167,10 @@ const char TIRO_NAVIO = '*';
           cout << AMARELO << setw(2) << vetorLetras[i] << " "; // Imprime a letra da linha com espa�amento fixo
 
           for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
-              cout << AZULC << setw(LARGURA_COLUNA) << tabuleiro[i][j]; // Imprime o conte�do do tabuleiro com largura fixa
+              if(tabuleiro[i][j] == HIDROAVIAO)
+                  cout << BRANCO << setw(LARGURA_COLUNA) << tabuleiro[i][j]; 
+              else
+                cout << AZULC << setw(LARGURA_COLUNA) << tabuleiro[i][j]; 
           }
           cout << endl;
       }
@@ -186,32 +187,52 @@ const char TIRO_NAVIO = '*';
       inicializarTabuleiro(tabuleiro2);
       string nomeJogador =  "";
       char letra ;
-      limparTela();
-      displayTabuleiro();
-      cout << endl;
-      cout << "Jogador 1 informe o seu nome: " << endl;
-      getline(cin, nomeJogador);
-      cout << endl;
-      cout << nomeJogador+" Digite o numero da 1 posicoes para HidroAviao ";
-      cout << endl;
       hidrohaviao hidrohaviao1;
-      cin >> hidrohaviao1.posicao1;
-      cout << nomeJogador+" Digite a letra da 1 posicoes para HidroAviao ";
+
+      limparTela();
+
+      displayTabuleiro();
+
+      // Le o nome do Jogador
+      cout << BRANCO << endl;
+      cout << "Jogador 1 informe o seu nome: " << endl;
+      getline(cin, nomeJogador);      
+
+
+
+      //hidrohaviao1.posicao1 --;
+      do {
+            cout << endl <<" Digite o [ Numero ] da 1 posicoes para HidroAviao "<< endl;
+            cin >> hidrohaviao1.posicao1;
+            cout << endl;
+            cout << AMARELO << nomeJogador;
+      }
+      while  (hidrohaviao1.posicao1 == 1 || hidrohaviao1.posicao1 == 14) ; // Verifica se a primeira posição é valida 
+
+      //cout << AMARELO << nomeJogador;
+      cout << endl <<" Digite o [ letra ] da 1 posicoes para HidroAviao ";
       cout << endl;
       cin >> letra;
+
+      // Deixa a letra maiuscula 
       letra = toupper(letra);
+
       hidrohaviao1.posicao2 = letra - 'A';
-     // posicaoNumero++;
-      cout << "the caracter " << letra << "igual a "<< hidrohaviao1.posicao2<< endl;
-      
-      if(hidrohaviao1.validarPosicao(hidrohaviao1.posicao1, hidrohaviao1.posicao2, tabuleiro1)){
+
+      cout << endl << "posição nuemerica para o hidrohaviao1 " << hidrohaviao1.posicao1;
+      cout << endl << "posição letra para o hidrohaviao1 " << hidrohaviao1.posicao2;
+
+      if(hidrohaviao1.validaEntrada(hidrohaviao1.posicao1, hidrohaviao1.posicao2, tabuleiro1)){
           cout << "Posicao valida" << endl;
+
           // Marcar a position on tabuleiro
-          tabuleiro[hidrohaviao1.posicao1][hidrohaviao1.posicao2] = 'H';
+          tabuleiro[hidrohaviao1.posicao1][hidrohaviao1.posicao2] = HIDROAVIAO;
+          cout << endl << "Tabuleiro com a posição inserida" << endl;
+          imprimirTabuleiro(tabuleiro);
       } else {
           cout << "Posicao invalida" << endl;
       }
-      imprimirTabuleiro(tabuleiro);
+
   }
 
   void menuBatalhaNaval(){
