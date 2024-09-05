@@ -228,7 +228,7 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
     */
       
       
-      for( int j = 1; j < 15; j++ ){
+      for( int j = 1; j < 2; j++ ){
           for( int i = 1; i < 3; i++ ){
           
           // do {
@@ -251,6 +251,8 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
             imprimirTabuleiro(tabuleiro1);
       
       }
+      
+      
       /*cout << endl;
       cout << "  Digite o [ Numero ] 1 para encoracado";
       cin encoracadop1;
@@ -267,24 +269,24 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
       
       for(int i= 0; i <= 3){
           
-      }*/
+      }
       cout << endl;
       cout << "  Digite o [ Numero ] 1 para porta Aviao";
-      cin portaAviaop1;
+      cin >> portaAviaop1;
       cout << endl <<" Digite a [ letra ] da " <<"1°" << "  posicoes para porta Aviao ";
       cout << endl;
       cin >> letra;
       
       cout << endl;
       cout << " Digite a posição 2 para porta Aviao";
-      cin portaAviaop2;
+      cin >> portaAviaop2;
       cout << endl <<" Digite a [ letra ] da " <<"2°" << "  posicoes para porta Aviao ";
       cout << endl;
       cin >> letra;
       
       for(int i= 0; i <= 5){
           
-      }
+      }*/
       
       
       
@@ -300,6 +302,28 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
           } else {
               cout << "Posicao invalida" << endl;
           }*/
+      }
+       for( int i = 1; i < 3; i++ ){
+          
+          // do {
+                cout << endl <<" Digite o [ Numero ] da " <<i << " posicoes para SUBMARINO "<< endl;
+                cin >> hidrohaviao1.posicao1;
+                cout << endl;
+                cout << AMARELO << nomeJogador;
+            // } while  (hidrohaviao1.posicao1 == 1 || hidrohaviao1.posicao1 == 14) ; // Verifica se a primeira posição é valida 
+             
+             cout << endl <<" Digite o [ letra ] da" <<i << "  posicoes para SUBMARINO ";
+             cout << endl;
+             cin >> letra;
+             // Deixa a letra maiuscula 
+            letra = toupper(letra);
+        
+            hidrohaviao1.posicao2 = letra - 'A';
+            hidrohaviao1.posicao1 --;
+            tabuleiro1[hidrohaviao1.posicao2][hidrohaviao1.posicao1] = HIDROAVIAO;
+            limparTela();
+            imprimirTabuleiro(tabuleiro1);
+      
       }
      
 
