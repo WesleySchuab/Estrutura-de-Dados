@@ -1,6 +1,6 @@
   #include <iostream>
   #include <iomanip> // Inclua para usar setw
-  #include <cstdlib>  // Para a fun  o atoi
+  #include <cstdlib>  // Para a fun��o atoi
   #include <string>
   using namespace std;
 
@@ -73,28 +73,6 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
         }
         return false;
     }
-    int LerIndiceLetra(int ordinal,string embarcacao ){
-    char letra; 
-    int p;
-     //cout << AMARELO << nomeJogador;
-     cout << endl <<" Digite o [ letra ] da " << ordinal <<" posicoes para " << embarcacao << endl;
-     cout << endl;
-     cin >> letra;
-
-     // Deixa a letra maiuscula 
-     letra = toupper(letra);
-
-    p = letra - 'A';
-    return p --;
-}
-    int LerIndiceNumero(int ordinal, string embarcacao ){
-         int p;
-         cout << endl <<" Digite o [ Numero ] da " << ordinal <<" posicoes para " << embarcacao << endl;
-          cin >> p;
-          cout << endl;         
-        return p - 1;
-    }
-
 
       virtual bool validarPosicao(int p1, int p2, char m[15][15]) = 0;
   };
@@ -137,7 +115,7 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
 
       bool validarPosicao(int p1, int p2, int m[15][15]) override {
           if (p1 >= 0 && p1 < 15 && p2 >= 0 && p2 < 15 && m[p1][p2] == 0) {
-              // Verificar posi  o espec fica do porta-avi es
+              // Verificar posi��o espec�fica do porta-avi�es
               return true;
           }
           return false;
@@ -151,7 +129,7 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
 
       bool validarPosicao(int p1, int p2, int m[15][15]) override {
           if (p1 >= 0 && p1 < 15 && p2 >= 0 && p2 < 15 && m[p1][p2] == 0) {
-              // Verificar posi  o espec fica do cruzador
+              // Verificar posi��o espec�fica do cruzador
               return true;
           }
           return false;
@@ -165,7 +143,7 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
 
       bool validarPosicao(int p1, int p2, int m[15][15]) override {
           if (p1 >= 0 && p1 < 15 && p2 >= 0 && p2 < 15 && m[p1][p2] == 0) {
-              // Verificar posi  o espec fica do submarino
+              // Verificar posi��o espec�fica do submarino
               return true;
           }
           return false;
@@ -174,19 +152,19 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
 //TODO a impressão do tabuleiro tem que ser
   void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO]) {
       char vetorLetras[TAMANHO_TABULEIRO] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'};
-      const int LARGURA_COLUNA = 3; // Largura de cada coluna, ajuste conforme necess rio
+      const int LARGURA_COLUNA = 3; // Largura de cada coluna, ajuste conforme necess�rio
 
-      // Imprimir os n meros na parte superior
-      cout << "   "; // Espa o inicial para alinhar n meros
+      // Imprimir os n�meros na parte superior
+      cout << "   "; // Espa�o inicial para alinhar n�meros
       for (int i = 1; i < TAMANHO_TABULEIRO + 1; i++) {
-          cout << AMARELO  << setw(LARGURA_COLUNA) << i; // Imprime o n mero da coluna com largura fixa
+          cout << AMARELO  << setw(LARGURA_COLUNA) << i; // Imprime o n�mero da coluna com largura fixa
       }
       cout << endl;
       cout << endl; // Pula uma linha depois de escrever os numeros
 
       // Imprimir o tabuleiro com letras na vertical
       for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
-          cout << AMARELO << setw(2) << vetorLetras[i] << " "; // Imprime a letra da linha com espa amento fixo
+          cout << AMARELO << setw(2) << vetorLetras[i] << " "; // Imprime a letra da linha com espa�amento fixo
 
           for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
               if(tabuleiro[i][j] == HIDROAVIAO)
@@ -203,21 +181,17 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
       inicializarTabuleiro(tabuleiro);
       imprimirTabuleiro(tabuleiro);
   }
-  void addHidro( hidrohaviao hidrohaviao1, int qt,string h){
-      for (int i = 0; i <= qt; i++){
-        tabuleiro1[hidrohaviao1.LerIndiceLetra(i,h)][ hidrohaviao1.LerIndiceNumero(i,h)] = HIDROAVIAO;
-    }
-  }
-
-
 
   void BatalhaPvp(){
       inicializarTabuleiro(tabuleiro1);
       inicializarTabuleiro(tabuleiro2);
       string nomeJogador =  "";
-      string h = "HidroAviao";
       char letra ;
       hidrohaviao hidrohaviao1;
+      int encoracadop1;
+      int encoracadop2;
+      int portaAviaop1;
+      int portaAviaop2;
 
       limparTela();
 
@@ -226,65 +200,108 @@ char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
       // Le o nome do Jogador
       cout << BRANCO << endl;
       cout << "Jogador 1 informe o seu nome: " << endl;
-      getline(cin, nomeJogador);
-      cout << AMARELO << nomeJogador;
+      getline(cin, nomeJogador);      
+
+
+
+      //hidrohaviao1.posicao1 --;
+    /*  do {
+          cout <<"Entrou no [Do]";
+            cout << endl <<" Digite o [ Numero ] da 1 posicoes para HidroAviao "<< endl;
+            cin >> hidrohaviao1.posicao1;
+            cout << endl;
+            cout << AMARELO << nomeJogador;
+      }
+      while  (hidrohaviao1.posicao1 == 1 || hidrohaviao1.posicao1 == 14) ; // Verifica se a primeira posição é valida 
+
+      //cout << AMARELO << nomeJogador;
+      cout << endl <<" Digite o [ letra ] da 1 posicoes para HidroAviao ";
+      cout << endl;
+      cin >> letra;
+
+      // Deixa a letra maiuscula 
+      letra = toupper(letra);
+
+      hidrohaviao1.posicao2 = letra - 'A';
+      hidrohaviao1.posicao1 --;
+
+    */
       
-      addHidro(hidrohaviao1,6,h);
       
-      /*
-
-      tabuleiro1[hidrohaviao1.LerIndiceLetra(1,h)][ hidrohaviao1.LerIndiceNumero(1,h)] = HIDROAVIAO;
-      tabuleiro1[hidrohaviao1.LerIndiceLetra(2,h)][ hidrohaviao1.LerIndiceNumero(2,h)] = HIDROAVIAO;
-      tabuleiro1[hidrohaviao1.LerIndiceLetra(2,h)][ hidrohaviao1.LerIndiceNumero(3,h)] = HIDROAVIAO;
-      */
-      /*
-
-        cout << endl <<" Digite o [ Numero ] da " << "2" <<" posicoes para HidroAviao "<< endl;
-        cin >> hidrohaviao1.posicao1;
-        cout << endl;        
-        hidrohaviao1.posicao2 = LerIndiceLetra(2);
-        tabuleiro1[hidrohaviao1.posicao2][hidrohaviao1.posicao1] = HIDROAVIAO;
-
-
-
-     for(int i = 0; i <= 3; i++){
-         if (i==0){
-             do {
-                 cout << endl <<" Digite o [ Numero ] da 1 posicoes para HidroAviao "<< endl;
-                 cin >> hidrohaviao1.posicao1;
-                 cout << endl;
-                 cout << AMARELO << nomeJogador;                                
-              }
-              while  (hidrohaviao1.posicao1 == 1 || hidrohaviao1.posicao1 == 14) ; // Verifica se a primeira posição é valida 
-             hidrohaviao1.posicao2 = LerIndiceLetra();
-         } else if(i==1){
-             do{
-                 cout << endl <<" Digite o [ Numero ] da " << i <<" posicoes para HidroAviao "<< endl;
-                   cin >> hidrohaviao1.p3;
-                   cout << endl;
-             } while(hidrohaviao1.p3 == hidrohaviao1.posicao1 );
-         }
-
-
-
-
-
-         if(hidrohaviao1.validaEntrada(hidrohaviao1.posicao1, hidrohaviao1.posicao2, tabuleiro1)){
-           cout << "Posicao valida" << endl;
-
-           // Marcar a position on tabuleiro
-           tabuleiro1[hidrohaviao1.posicao2][hidrohaviao1.posicao1] = HIDROAVIAO;
-           cout << endl << "Tabuleiro com a posição inserida" << endl;
-
-
-
-         } else {
-           cout << "Posicao invalida" << endl;
-         }*/
-imprimirTabuleiro(tabuleiro1);
-
-
-
+      for( int j = 1; j < 15; j++ ){
+          for( int i = 1; i < 3; i++ ){
+          
+          // do {
+                cout << endl <<" Digite o [ Numero ] da " <<i << " posicoes para HidroAviao "<< endl;
+                cin >> hidrohaviao1.posicao1;
+                cout << endl;
+                cout << AMARELO << nomeJogador;
+            // } while  (hidrohaviao1.posicao1 == 1 || hidrohaviao1.posicao1 == 14) ; // Verifica se a primeira posição é valida 
+             
+             cout << endl <<" Digite o [ letra ] da" <<i << "  posicoes para HidroAviao ";
+             cout << endl;
+             cin >> letra;
+             // Deixa a letra maiuscula 
+            letra = toupper(letra);
+        
+            hidrohaviao1.posicao2 = letra - 'A';
+            hidrohaviao1.posicao1 --;
+            tabuleiro1[hidrohaviao1.posicao2][hidrohaviao1.posicao1] = HIDROAVIAO;
+            limparTela();
+            imprimirTabuleiro(tabuleiro1);
+      
+      }
+      /*cout << endl;
+      cout << "  Digite o [ Numero ] 1 para encoracado";
+      cin encoracadop1;
+      cout << endl <<" Digite a [ letra ] da " <<"1°" << "  posicoes para Encoracado ";
+      cout << endl;
+      cin >> letra;
+      
+      cout << endl;
+      cout << " Digite a posição 2 para encoracado";
+      cin encoracadop2;
+      cout << endl <<" Digite a [ letra ] da " <<"2°" << "  posicoes para Encoracado ";
+      cout << endl;
+      cin >> letra;
+      
+      for(int i= 0; i <= 3){
+          
+      }*/
+      cout << endl;
+      cout << "  Digite o [ Numero ] 1 para porta Aviao";
+      cin portaAviaop1;
+      cout << endl <<" Digite a [ letra ] da " <<"1°" << "  posicoes para porta Aviao ";
+      cout << endl;
+      cin >> letra;
+      
+      cout << endl;
+      cout << " Digite a posição 2 para porta Aviao";
+      cin portaAviaop2;
+      cout << endl <<" Digite a [ letra ] da " <<"2°" << "  posicoes para porta Aviao ";
+      cout << endl;
+      cin >> letra;
+      
+      for(int i= 0; i <= 5){
+          
+      }
+      
+      
+      
+          /*cout <<"Entrou no if";
+           if(hidrohaviao1.validaEntrada(hidrohaviao1.posicao1, hidrohaviao1.posicao2, tabuleiro1)){
+              cout << "Posicao valida" << endl;
+    
+              // Marcar a position on tabuleiro
+              tabuleiro1[hidrohaviao1.posicao2][hidrohaviao1.posicao1] = HIDROAVIAO;
+              cout << endl << "Tabuleiro com a posição inserida" << endl;
+              limparTela();
+              imprimirTabuleiro(tabuleiro1);
+          } else {
+              cout << "Posicao invalida" << endl;
+          }*/
+      }
+     
 
   }
 
@@ -314,7 +331,7 @@ imprimirTabuleiro(tabuleiro1);
   void Programa2(){
       limparTela();
       int resp = 0;
-      cout << "Bem-vindo ao Programa2, mundo que ainda n o   mundo" << endl;
+      cout << "Bem-vindo ao Programa2, mundo que ainda n�o � mundo" << endl;
       cout << "Digite 0 para sair " << endl;
       cin >> resp;
       cin.ignore(80, '\n');
@@ -323,7 +340,7 @@ imprimirTabuleiro(tabuleiro1);
   void Programa3(){
       limparTela();
       int resp = 0;
-      cout << "Bem-vindo ao Programa3, mundo que ainda n o   mundo" << endl;
+      cout << "Bem-vindo ao Programa3, mundo que ainda n�o � mundo" << endl;
       cout << "Digite 0 para sair " << endl;
       cin >> resp;
       cin.ignore(80, '\n');
@@ -332,7 +349,7 @@ imprimirTabuleiro(tabuleiro1);
   void Programa4(){
       limparTela();
       int resp = 0;
-      cout << "Bem-vindo ao Programa4, mundo que ainda n o   mundo" << endl;
+      cout << "Bem-vindo ao Programa4, mundo que ainda n�o � mundo" << endl;
       cout << "Digite 0 para sair " << endl;
       cin >> resp;
       cin.ignore(80, '\n');
@@ -348,7 +365,7 @@ imprimirTabuleiro(tabuleiro1);
       cout << "[3] Programa 3" <<endl;
       cout << "[4] Programa 4" <<endl;
       cout << "[0] Digite  para sair " << endl;
-      cout << "Entre com a op  o desejada" <<endl;
+      cout << "Entre com a op��o desejada" <<endl;
       cin >> resp;
       cin.ignore(80, '\n');
       switch(resp)
@@ -374,7 +391,7 @@ imprimirTabuleiro(tabuleiro1);
       cout << "[3] Programa 3" <<endl;
       cout << "[4] Programa 4" <<endl;
       cout << "[0] Digite para sair " << endl;
-      cout << "Entre com a op  o desejada" <<endl;
+      cout << "Entre com a op��o desejada" <<endl;
       cin >> resp;
       cin.ignore(80, '\n');
       switch(resp)
