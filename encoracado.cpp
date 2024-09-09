@@ -248,10 +248,10 @@ void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 			if (tabuleiro[i][j] == HIDROAVIAO)
 			{
 				cout << BRANCO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
-				
+
 			} else 	if (tabuleiro[i][j] == ENCORACADO)
 			{
-    			cout << BRANCO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+				cout << AMARELO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
 			else
 				cout << AZULC << setw(LARGURA_COLUNA) << tabuleiro[i][j];
@@ -399,8 +399,13 @@ void BatalhaPvp()
 		letra2 = encoracado.LerIndiceLetra(2,E);
 		int j = encoracadop1+3;
 
-		for(encoracadop1; encoracadop1 <= j; encoracadop1++) {
-			if( letra1 == letra2 ) {
+		if( letra1 == letra2 ) {
+			for(encoracadop1; encoracadop1 <= j; encoracadop1++) {
+				tabuleiro1[letra1][encoracadop1] = ENCORACADO;
+			}
+		}
+		if(encoracadop1 == encoracadop2) {
+			for(letra1; letra1 <= j; letra1++) {
 				tabuleiro1[letra1][encoracadop1] = ENCORACADO;
 			}
 
