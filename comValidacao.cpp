@@ -385,9 +385,9 @@ void BatalhaPvp()
 	for(int i = 1; i <=2; i++) {
 
 		bool entradaValida =false;
+		int comprimentoEncoraCado = 4;
 		do {
 			encoracadop1 =encoracado.LerIndiceNumero( entradaValida, i,E);
-
 
 			letra1 = encoracado.LerIndiceLetra(i,E);
 
@@ -399,20 +399,38 @@ void BatalhaPvp()
 			int j = encoracadop1+3;
 
 			if( letra1 == letra2 ) {
-				entradaValida = true;
-				for(encoracadop1; encoracadop1 <= j; encoracadop1++) {
-					tabuleiro1[letra1][encoracadop1] = ENCORACADO;
+				if(TAMANHO_TABULEIRO - encoracadop1 >= comprimentoEncoraCado) {
+					entradaValida = true;
+					for(encoracadop1; encoracadop1 <= j; encoracadop1++) {
+						tabuleiro1[letra1][encoracadop1] = ENCORACADO;
+					}
 				}
+				else
+				{
+					entradaValida = false;
+				}
+
 			}
 			if(encoracadop1 == encoracadop2) {
 				entradaValida = true;
-				for(letra1; letra1 <= j; letra1++) {
-					tabuleiro1[letra1][encoracadop1] = ENCORACADO;
+				if(TAMANHO_TABULEIRO - letra1 >= comprimentoEncoraCado) {
+					for(letra1; letra1 <= j; letra1++) {
+						tabuleiro1[letra1][encoracadop1] = ENCORACADO;
+					}
+				} else
+				{
+					entradaValida = false;
 				}
+
+
 
 			}
 
+			if(! (entradaValida))
+				cout << endl <<"Coordendas Invalidas";
+
 		} while(! ( entradaValida ) );
+
 		limparTela();
 		imprimirTabuleiro(tabuleiro1);
 	}
