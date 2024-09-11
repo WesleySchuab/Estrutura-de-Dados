@@ -397,26 +397,26 @@ void BatalhaPvp()
 				letra1 = encoracado.LerIndiceLetra(i,E);
 
 
-				encoracadop2 = encoracado.LerIndiceNumero( entradaValida, ++i,E);
+				//encoracadop2 = encoracado.LerIndiceNumero( entradaValida, ++i,E);
 
 
 				int j = letra1  + comprimentoEncoraCado -1;
 
 
-			//	if(encoracadop1 == encoracadop2) {
-					//	letra2 = letra2 +3;
-					if(TAMANHO_TABULEIRO - encoracadop1 >= comprimentoEncoraCado) { // verifica se possivel posicionar na horizontal
-						entradaValida = true;
-						for(letra1; letra1 <= j; letra1++) {
-							tabuleiro1[letra1][encoracadop1] = ENCORACADO;
-						}
-					} else
-					{
-						entradaValida = false;
+				//	if(encoracadop1 == encoracadop2) {
+				//	letra2 = letra2 +3;
+				if(TAMANHO_TABULEIRO - encoracadop1 >= comprimentoEncoraCado) { // verifica se possivel posicionar na horizontal
+					entradaValida = true;
+					for(letra1; letra1 <= j; letra1++) {
+						tabuleiro1[letra1][encoracadop1] = ENCORACADO;
 					}
-			//	} else
+				} else
 				{
-					letra2 = encoracado.LerIndiceLetra(++i,E);
+					entradaValida = false;
+				}
+				//	} else
+				{
+					//letra2 = encoracado.LerIndiceLetra(++i,E);
 					if(TAMANHO_TABULEIRO - letra1 >= comprimentoEncoraCado) {// verifica se possivel posicionar na vertical
 						if(letra2 = letra1 + comprimentoEncoraCado) { // Verifica se 1 letra passada estC! correta
 
@@ -430,8 +430,16 @@ void BatalhaPvp()
 					cout << endl <<"Coordendas Invalidas";
 
 			} while(! ( entradaValida ) );
-		}else if( direcao == 2 ){
-		    
+		} else if( direcao == 2 ) {
+
+			if(TAMANHO_TABULEIRO - letra1 >= comprimentoEncoraCado) {// verifica se possivel posicionar na vertical
+				entradaValida = true;
+				for(letra1; letra1 <= j; letra1++) {
+					tabuleiro1[letra1][encoracadop1] = ENCORACADO;
+				}
+
+			}
+
 		}
 
 
