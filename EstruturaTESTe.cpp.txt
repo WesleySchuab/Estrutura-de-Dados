@@ -116,6 +116,7 @@ public:
 
 		char letra;
 		int p;
+		do {
 		//cout << AMARELO << nomeJogador;
 		cout << endl <<" Digite a [ LETRA ] da" << ordinal <<" coordenada posicoes para " << embarcacao << endl;
 		cout << endl;
@@ -124,7 +125,7 @@ public:
 		// Deixa a letra maiuscula
 		letra = toupper(letra);
 		p = letra - 'A';
-		do {
+		
 
 			if (limiteNumero(p)) // veriica se o valor informado esta dentro das dimensC5es do tabuleiro
 			{
@@ -136,7 +137,7 @@ public:
 			}
 			if( ! ( entrada ) )
 			{
-				LerIndiceLetra(ordinal,embarcacao );
+				cout << endl << "Letra fora do limite do tabuleiro";
 			}
 
 		} while( ! (entrada) );
@@ -373,10 +374,11 @@ void adicionarBarcos( Barcos& barco, string tipoBarco, char tabuleiro[15][15]) {
 	cout << endl <<" Vamos adicionar " << tipoBarco << endl;
 	int indideNumero1;
 	int indiceLetra1;
+	int tamanho = 3;
 
-	for(int i = 1; i <=2; i++) {
-		int tamanho = 3;
-		int j = letra1  + tamanho ; // para controlar o laC'o
+	for(int i = 1; i <=1; i++) {
+		
+		int j = letra1  + tamanho ; // para controlar o laco
 		cout << endl << " Valor de J: " << j << endl;
 
 		bool entradaValida =false;
@@ -395,15 +397,10 @@ void adicionarBarcos( Barcos& barco, string tipoBarco, char tabuleiro[15][15]) {
 			indiceLetra1 = barco.LerIndiceLetra(i,E);
 
 			if(direcao == 1) {
-
-				//encoracadop2 = encoracado.LerIndiceNumero( entradaValida, ++i,E);
-
-
-				//	if(encoracadop1 == encoracadop2) {
-				//	letra2 = letra2 +3;
-				if(TAMANHO_TABULEIRO - indideNumero1>= tamanho) { // verifica se possivel posicionar na horizontal
+			    int j = indideNumero1  + tamanho ; // para controlar o laC'o
+				if(TAMANHO_TABULEIRO - indideNumero1 >= tamanho) { // verifica se possivel posicionar na horizontal
 					entradaValida = true;
-					for(indideNumero1 ; indideNumero1  <= tamanho; indideNumero1++) {
+					for(indiceLetra1; indiceLetra1 <= j; indiceLetra1++) {
 						tabuleiro1[indiceLetra1][indideNumero1 ] = ENCORACADO;
 					}
 				} else
@@ -415,9 +412,10 @@ void adicionarBarcos( Barcos& barco, string tipoBarco, char tabuleiro[15][15]) {
 				if(! (entradaValida))
 					cout << endl <<"Coordendas Invalidas";
 			} else if( direcao == 2 ) {
+			    int j = indiceLetra1  + tamanho ; // para controlar o laC'o
 				if(TAMANHO_TABULEIRO - indiceLetra1 >= tamanho) {// verifica se possivel posicionar na vertical
 					entradaValida = true;
-					for(indiceLetra1; indiceLetra1 <= tamanho; indiceLetra1++) {
+					for(indideNumero1 ; indideNumero1  <= j; indideNumero1++) {
 						tabuleiro1[indiceLetra1][indideNumero1] = ENCORACADO;
 					}
 
