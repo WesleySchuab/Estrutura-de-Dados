@@ -211,7 +211,7 @@ public:
 
 class Barcos : public Embarcacoes {
 public:
-	int tamannho;
+	int tamanho = 0;
 	bool validarPosicao(int p1, int p2, char m[15][15]) override
 	{
 		// User insert 1 but it should be 0
@@ -227,6 +227,7 @@ class Encoracado : public Barcos {
 public:
 	int p3;
 	int p4;
+	int tamanho = 3;
 
 	bool validarPosicao(int p1, int p2, char m[15][15]) override {
 		// User insert 1 but it should be 0
@@ -375,10 +376,11 @@ void adicionarBarcos( Barcos& barco, string tipoBarco, char tabuleiro[15][15]) {
 	int indideNumero1;
 	int indiceLetra1;
 	int tamanho = 3;
+	//barco.tamanho;
 
 	for(int i = 1; i <=1; i++) {
 		
-		int j = letra1  + tamanho ; // para controlar o laco
+		int j = letra1  + barco.tamanho ; // para controlar o laco
 		cout << endl << " Valor de J: " << j << endl;
 
 		bool entradaValida =false;
@@ -457,8 +459,9 @@ void BatalhaPvp()
 	limparTela();
 
 	displayTabuleiro();
-	// FunC'C#o que adiciona hidroaviao
+
 	//adicionarHidroaviao( hidrohaviao1, tabuleiro1);
+	
 	adicionarBarcos(encoracado, E, tabuleiro1);
 
 	// Le o nome do Jogador
