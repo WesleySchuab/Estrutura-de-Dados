@@ -87,8 +87,10 @@ const string C = "CRUZADOR";
 
 const int TAMANHO_TABULEIRO = 15;
 char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
-char tabuleiro1[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
-char tabuleiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
+char tabuleiroMarcarTiro1[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
+char tabuleiroMarcarTiro2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
+char tabuleiroJogador1[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
+char tabuleiroJogador2[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
 
 void limparTela()
 {
@@ -110,6 +112,21 @@ void inicializarTabuleiro(char tabuleiro[15][15])
 	}
 }
 
+	bool validarNumero(){
+	    int numero;
+	     do {
+        cout << "Digite um número inteiro positivo: ";
+        cin >> numero;
+
+        if (cin.fail() || numero <= 0) {
+            cout << "Entrada inválida. Digite um número inteiro positivo." << endl;
+            cin.clear(); // Limpa o estado de falha do cin
+            cin.ignore(80, '\n'); // Ignora caracteres restantes na linha
+        }
+    } while (cin.fail() || numero <= 0);
+    return true;
+	}
+	
 class Embarcacoes
 {
 public:
@@ -128,20 +145,8 @@ public:
 		}*/
 		return indice >= 'A' && indice <= 'J';
 	}
-	bool validarNumero(){
-	    int numero;
-	     do {
-        cout << "Digite um número inteiro positivo: ";
-        cin >> numero;
-
-        if (cin.fail() || numero <= 0) {
-            cout << "Entrada inválida. Digite um número inteiro positivo." << endl;
-            cin.clear(); // Limpa o estado de falha do cin
-            cin.ignore(80, '\n'); // Ignora caracteres restantes na linha
-        }
-    } while (cin.fail() || numero <= 0);
-    return true;
-	}
+	
+	
 	bool limiteNumero(int indice)
 	{
 		// if (indice >= 0 && indice <= 9)
@@ -439,9 +444,9 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 			} while ( ! ( entradaValida ) );
 
 
-			tabuleiro1[ hidrohaviao1.LerIndiceLetra( i, H)  ][ hidrohaviao1.posicao1 ] = HIDROAVIAO;
+			tabuleiroJogador1[ hidrohaviao1.LerIndiceLetra( i, H)  ][ hidrohaviao1.posicao1 ] = HIDROAVIAO;
 			limparTela();
-			imprimirTabuleiro(tabuleiro1);
+			imprimirTabuleiro(tabuleiroJogador1);
 		}//fim do HIDROAVIAO
 
 
@@ -473,13 +478,13 @@ void adicionarBarcos( int quantBarcos, Barcos& barco, string tipoBarco, char sim
 			// trocar por encoracadop2
 			indiceLetra1 = barco.LerIndiceLetra(i,tipoBarco);
 			if(barco.tamanho == 1) {
-				tabuleiro1[indiceLetra1][indideNumero1 ] = simbolo;
+				tabuleiro[indiceLetra1][indideNumero1 ] = simbolo;
 			} else if(direcao == 1) {
 				int j = indideNumero1  + barco.tamanho ; // para controlar o laC'o
 				if(TAMANHO_TABULEIRO - indiceLetra1 >= barco.tamanho) {// verifica se possivel posicionar na vertical
 					entradaValida = true;
 					for(indideNumero1 ; indideNumero1  <= j; indideNumero1++) {
-						tabuleiro1[indiceLetra1][indideNumero1 ] = simbolo;
+						tabuleiro[indiceLetra1][indideNumero1 ] = simbolo;
 					}
 				} else
 				{
@@ -492,7 +497,7 @@ void adicionarBarcos( int quantBarcos, Barcos& barco, string tipoBarco, char sim
 				if(TAMANHO_TABULEIRO - indideNumero1 >= barco.tamanho) { // verifica se possivel posicionar na horizontal
 					entradaValida = true;
 					for(indiceLetra1; indiceLetra1 <= j; indiceLetra1++) {
-						tabuleiro1[indiceLetra1][indideNumero1] = simbolo;
+						tabuleiro[indiceLetra1][indideNumero1] = simbolo;
 					}
 
 				}
@@ -505,12 +510,12 @@ void adicionarBarcos( int quantBarcos, Barcos& barco, string tipoBarco, char sim
 
 
 		//limparTela();
-		imprimirTabuleiro(tabuleiro1);
+		imprimirTabuleiro(tabuleiroJogador1);
 
 	} // for add ENCORACADO
 
 }
-void atirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO], char tabuleiroAtual[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO]) {
+void atirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO]) {
     int posicaoNumero;
     int posicaoLetra;
     bool entradaValida = false;
@@ -531,7 +536,7 @@ void atirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO], char
     entradaValida = false;
     cout << "Digite o número da coordenada para o tiro (1-15): ";
     do {
-        cin >> posicaoNumero;
+        posicaoNumero = validarNumero();
         posicaoNumero--; // Ajusta para o índice de 0 a 14
         if (posicaoNumero >= 0 && posicaoNumero < TAMANHO_TABULEIRO) {
             entradaValida = true;
@@ -541,7 +546,7 @@ void atirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO], char
     } while (!entradaValida);
 
     // Verificar se a posição já foi atacada
-    if (tabuleiroAtual[posicaoLetra][posicaoNumero] == TIRO_AGUA || tabuleiroAtual[posicaoLetra][posicaoNumero] == TIRO_NAVIO) {
+    if (tabuleiroAdversario[posicaoLetra][posicaoNumero] == TIRO_AGUA || tabuleiroAdversario[posicaoLetra][posicaoNumero] == TIRO_NAVIO) {
         cout << "Você já atirou nessa posição. Escolha outra coordenada." << endl;
         return;
     }
@@ -549,36 +554,34 @@ void atirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO], char
     // Atualizar o tabuleiro de tiros
     if (tabuleiroAdversario[posicaoLetra][posicaoNumero] != AGUA) {
         // Acertou um navio
-        tabuleiroAtual[posicaoLetra][posicaoNumero] = TIRO_NAVIO;
+        tabuleiroAdversario[posicaoLetra][posicaoNumero] = TIRO_NAVIO;
         cout << "Você acertou um navio!" << endl;
         // Opcional: Adicionar lógica para verificar se o navio foi afundado
     } else {
         // Errou o tiro
-        tabuleiroAtual[posicaoLetra][posicaoNumero] = TIRO_AGUA;
+        tabuleiroAdversario[posicaoLetra][posicaoNumero] = TIRO_AGUA;
         cout << "Água. Tiro perdido!" << endl;
     }
 
     // Mostrar o tabuleiro atual de tiros
-    imprimirTabuleiro(tabuleiroAtual);
+    //imprimirTabuleiro(tabuleiroAtual);
 }
 
 void BatalhaPvp()
 {
-	inicializarTabuleiro(tabuleiro1);
-	inicializarTabuleiro(tabuleiro2);
+	inicializarTabuleiro(tabuleiroJogador1);
+	inicializarTabuleiro(tabuleiroJogador2);
+	inicializarTabuleiro(tabuleiroMarcarTiro1);
+	inicializarTabuleiro(tabuleiroMarcarTiro2);
 	string nomeJogador = "Wesley";
-	int quantBarcos = 2; 
+	int quantBarcos = 1; 
 	
 	Submarino submarino1;
 	Cruzador cruzador1;
 	PortaAviao portaaviao1;
 	Hidrohaviao hidrohaviao1;
 	Encoracado encoracado;
-	
-
-	//bool entradaValida = false;
-
-
+	int continuar = 0;
 
 	limparTela();
 
@@ -591,33 +594,39 @@ void BatalhaPvp()
 	cout << BRANCO << endl;
 	//cout << "Jogador 1 informe o seu nome: " << endl;
 	//getline(cin, nomeJogador);
-		//adicionarHidroaviao( hidrohaviao1, tabuleiro1);
+	//adicionarHidroaviao( hidrohaviao1, tabuleiroJogador1);
 
-	//adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
-	adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
-//	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
-	//adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
-
+	//adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiroJogador1);
+	adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiroJogador1);
+//	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiroJogador1);
+	//adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiroJogador1);
+    limparTela();
+    imprimirTabuleiro(tabuleiroJogador1);
+    cout << endl <<" acabou ";
+    cout << "Tecle <0> para trocar de jogador...";
+    cout << endl;
+    cin >> continuar;
+    
+    
+    limparTela();
+    cout << endl << "Jogador 2 irá Inserir  agora " << endl;
+    
+    adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiroJogador2);
+//	adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiroJogador2);
+//	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiroJogador2);
+	//adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiroJogador2);
+    //limparTela();
+    //imprimirTabuleiro(tabuleiroJogador2);
+   /* 
     cout << endl <<" acabou ";
     cout << "Tecle <Enter> para trocar de jogador...";
-    cin.get();
-    
-    
-    limparTela();
-    
-    //adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
-	adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
-//	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro2);
-	//adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro2);
-    limparTela();
-    
-    cout << endl <<" acabou ";
-    cout << "Tecle <Enter> para trocar de jogador...";
-    cin.get();
+    cin >> continuar;
     
     limparTela();
-    atirar(tabuleiro1, tabuleiro2);
-
+    // passa o tabuleiro do adversário  e o do jogador para marcar a jogada
+    atirar(tabuleiroJogador2);
+    //imprimirTabuleiro(tabuleiroJogador1);
+*/
 
 }
 
