@@ -313,11 +313,22 @@ void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 
 		for (int j = 0; j < TAMANHO_TABULEIRO; j++)
 		{
-			if (tabuleiro[i][j] == HIDROAVIAO)
+			if (tabuleiro[i][j] == HIDROAVIAO) // Hidro é branco
 			{
 				cout << BRANCO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 
-			} else 	if (tabuleiro[i][j] == ENCORACADO)
+			} else 	if (tabuleiro[i][j] == ENCORACADO) // Encoraçãdo é amarelo
+			{
+				cout << AMARELO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+			}
+			else 	if (tabuleiro[i][j] == PORTAAVIAO) //Porta Avião é amarelo
+			{
+				cout << AMARELO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+				
+			}else 	if (tabuleiro[i][j] == CRUZADOR) //amarelo
+			{
+				cout << AMARELO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+			}else 	if (tabuleiro[i][j] == SUBMARINO) //amarelo
 			{
 				cout << AMARELO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
@@ -481,7 +492,7 @@ void BatalhaPvp()
 	
 	cout << endl <<" Jogador "<< nomeJogador << "Insira as embarcações" << endl;
 
-	adicionarHidroaviao( hidrohaviao1, tabuleiro1);
+	//adicionarHidroaviao( hidrohaviao1, tabuleiro1);
 
 	adicionarBarcos(encoracado, E, ENCORACADO, tabuleiro1);
 	adicionarBarcos(portaaviao1, P, PORTAAVIAO, tabuleiro1);
