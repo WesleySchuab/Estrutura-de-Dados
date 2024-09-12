@@ -129,6 +129,7 @@ public:
 		return indice >= 'A' && indice <= 'J';
 	}
 	bool validarNumero(){
+	    int numero;
 	     do {
         cout << "Digite um número inteiro positivo: ";
         cin >> numero;
@@ -136,7 +137,7 @@ public:
         if (cin.fail() || numero <= 0) {
             cout << "Entrada inválida. Digite um número inteiro positivo." << endl;
             cin.clear(); // Limpa o estado de falha do cin
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignora caracteres restantes na linha
+            cin.ignore(80, '\n'); // Ignora caracteres restantes na linha
         }
     } while (cin.fail() || numero <= 0);
     return true;
@@ -168,6 +169,7 @@ public:
 		int p;
 		do {
 			//cout << AMARELO << nomeJogador;
+			//cout << endl <<" Digite a [ LETRA ] da" << ordinal <<" coordenada posicoes para " << embarcacao << endl;
 			cout << endl <<" Digite a [ LETRA ] da" << ordinal <<" coordenada posicoes para " << embarcacao << endl;
 			cout << endl;
 			cin >> letra;
@@ -202,7 +204,8 @@ public:
 		do
 		{
 			cout << endl <<" Digite o [ NUMERO] da " << ordinal <<" posicoes para " << embarcacao << endl;
-			cin >> p;
+			//cin >> p;
+			p = validarNumero();
 			cout << endl;
 			p--;
 
