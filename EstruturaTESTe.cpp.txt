@@ -47,7 +47,43 @@ const string C = "CRUZADOR";
 #define AZUL "\x1b[94m"
 #define AZULC "\x1b[96m"
 #define FCINZA "\x1b[100m"
+
+#define RESET   "\x1b[0m"
+#define BLACK   "\x1b[30m"
+#define RED     "\x1b[31m"
+#define GREEN   "\x1b[32m"
+#define YELLOW  "\x1b[33m"
+#define BLUE    "\x1b[34m"
+#define MAGENTA "\x1b[35m"
+#define CYAN    "\x1b[36m"
+#define WHITE   "\x1b[37m"
+#define BOLD    "\x1b[1m"
+#define UNDERLINE "\x1b[4m" 
+
+#define INVERSE "\x1b[7m"
+
+// Cores de fundo
+#define BBLACK   "\x1b[40m"
+#define BRED     "\x1b[41m"
+#define BGREEN   "\x1b[42m"
+#define BYellow  "\x1b[43m"
+#define BBLUE    "\x1b[44m"
+#define BMAGENTA "\x1b[45m"
+#define BCYAN    "\x1b[46m"
+#define BWHITE   "\x1b[47m"
+
+/*
+ std::cout << BOLD << "Texto em negrito" << RESET << std::endl;
+    std::cout << UNDERLINE << "Texto sublinhado" << RESET << std::endl;
+    std::cout << INVERSE << "Texto invertido" << RESET << std::endl;
+
+    std::cout << RED << "Texto vermelho" << RESET << std::endl;
+    std::cout << BGREEN << "Texto com fundo verde" << RESET << std::endl;
+    std::cout << YELLOW << "Texto amarelo" << BBLUE << " com fundo azul" << RESET << std::endl;
+    */
+
 // variaveis Globais
+
 const int TAMANHO_TABULEIRO = 15;
 char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
 char tabuleiro1[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
@@ -187,7 +223,6 @@ public:
 
 	bool validarPrimeiroNumero(int p1)
 	{
-		cout << "validar 1B0 num esta recebendo " << p1;
 		if (p1 == 0 || p1 == 14)
 		{
 			return false;
@@ -319,7 +354,7 @@ void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 
 			} else 	if (tabuleiro[i][j] == ENCORACADO) // Encoraçãdo é amarelo
 			{
-				cout << AMARELO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+				cout << VERMELHO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
 			else 	if (tabuleiro[i][j] == PORTAAVIAO) //Porta Avião é amarelo
 			{
@@ -357,14 +392,12 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 			{
 
 				//TODO fazer passagem de parametro por referencia para pegar o resultado da validaC'C#o
-				//hidrohaviao1.LerIndiceNumero(entradaValida, i,H);
 
 				if (i == 1)
 				{
 					hidrohaviao1.posicao1 = hidrohaviao1.LerIndiceNumero(entradaValida, i,H);
 					if ( hidrohaviao1.validarPrimeiroNumero( hidrohaviao1.posicao1 )) // verifica C) possivel formar o desenho
 					{
-						//hidrohaviao1.p3 = hidrohaviao1.LerIndiceNumero( entradaValida, i,H);
 						cout << endl <<" valor na fc hidrohaviao1.LerIndiceNumero(entradaValida, i,H) " << hidrohaviao1.p3;
 						entradaValida = true;
 						cout << endl << " primeiro numero  Valido ";
@@ -389,9 +422,6 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 			} while ( ! ( entradaValida ) );
 
 
-			// hidrohaviao1.LerIndiceLetra( i, H);
-
-
 			tabuleiro1[ hidrohaviao1.LerIndiceLetra( i, H)  ][ hidrohaviao1.posicao1 ] = HIDROAVIAO;
 			limparTela();
 			imprimirTabuleiro(tabuleiro1);
@@ -399,40 +429,37 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 
 
 
-
 	}
 }
-void adicionarBarcos( Barcos& barco, string tipoBarco, char simbolo, char tabuleiro[15][15]) {
+void adicionarBarcos( int quantBarcos, Barcos& barco, string tipoBarco, char simbolo, char tabuleiro[15][15]) {
 //	char letra1;
 	cout << endl <<" Vamos adicionar " << tipoBarco << endl;
 	int indideNumero1;
 	int indiceLetra1;
-	int tamanho = 3;
+	int tamanhoParaExibir = barco.tamanho;
 	//barco.tamanho;
 
-	for(int i = 1; i <=1; i++) {
-
-
+	for(int i = 1; i <= quantBarcos; i++) {
 
 		bool entradaValida =false;
 
 		int direcao;
 
-		cout << endl << " tamanho do barco " << barco.tamanho <<endl;
+		cout << endl << " tamanho do barco " << tamanhoParaExibir << endl;
 		cout << " digite [ 1 ] inserir na Horizontal e [ 2 ] para inserir na vertical " << endl;
 		cin >> direcao;
 
 		do {
 
-			indideNumero1= barco.LerIndiceNumero( entradaValida, i,E);
+			indideNumero1 = barco.LerIndiceNumero( entradaValida, i,tipoBarco);
 
 			// trocar por encoracadop2
-			indiceLetra1 = barco.LerIndiceLetra(i,E);
-			if(tamanho == 1) {
+			indiceLetra1 = barco.LerIndiceLetra(i,tipoBarco);
+			if(barco.tamanho == 1) {
 				tabuleiro1[indiceLetra1][indideNumero1 ] = simbolo;
 			} else if(direcao == 1) {
 				int j = indideNumero1  + barco.tamanho ; // para controlar o laC'o
-				if(TAMANHO_TABULEIRO - indiceLetra1 >= tamanho) {// verifica se possivel posicionar na vertical
+				if(TAMANHO_TABULEIRO - indiceLetra1 >= barco.tamanho) {// verifica se possivel posicionar na vertical
 					entradaValida = true;
 					for(indideNumero1 ; indideNumero1  <= j; indideNumero1++) {
 						tabuleiro1[indiceLetra1][indideNumero1 ] = simbolo;
@@ -445,7 +472,7 @@ void adicionarBarcos( Barcos& barco, string tipoBarco, char simbolo, char tabule
 			} else if( direcao == 2 ) {
 
 				int j = indiceLetra1  + barco.tamanho ; // para controlar o laco
-				if(TAMANHO_TABULEIRO - indideNumero1 >= tamanho) { // verifica se possivel posicionar na horizontal
+				if(TAMANHO_TABULEIRO - indideNumero1 >= barco.tamanho) { // verifica se possivel posicionar na horizontal
 					entradaValida = true;
 					for(indiceLetra1; indiceLetra1 <= j; indiceLetra1++) {
 						tabuleiro1[indiceLetra1][indideNumero1] = simbolo;
@@ -465,22 +492,72 @@ void adicionarBarcos( Barcos& barco, string tipoBarco, char simbolo, char tabule
 
 	} // for add ENCORACADO
 
-
-
-
-
-
 }
+void atirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO], char tabuleiroAtual[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO]) {
+    int posicaoNumero;
+    int posicaoLetra;
+    bool entradaValida = false;
+
+    cout << "Digite a letra da coordenada para o tiro (A-J): ";
+    char letra;
+    do {
+        cin >> letra;
+        letra = toupper(letra);
+        posicaoLetra = letra - 'A';
+        if (posicaoLetra >= 0 && posicaoLetra < TAMANHO_TABULEIRO) {
+            entradaValida = true;
+        } else {
+            cout << "Letra fora do limite. Digite novamente (A-J): ";
+        }
+    } while (!entradaValida);
+
+    entradaValida = false;
+    cout << "Digite o número da coordenada para o tiro (1-15): ";
+    do {
+        cin >> posicaoNumero;
+        posicaoNumero--; // Ajusta para o índice de 0 a 14
+        if (posicaoNumero >= 0 && posicaoNumero < TAMANHO_TABULEIRO) {
+            entradaValida = true;
+        } else {
+            cout << "Número fora do limite. Digite novamente (1-15): ";
+        }
+    } while (!entradaValida);
+
+    // Verificar se a posição já foi atacada
+    if (tabuleiroAtual[posicaoLetra][posicaoNumero] == TIRO_AGUA || tabuleiroAtual[posicaoLetra][posicaoNumero] == TIRO_NAVIO) {
+        cout << "Você já atirou nessa posição. Escolha outra coordenada." << endl;
+        return;
+    }
+
+    // Atualizar o tabuleiro de tiros
+    if (tabuleiroAdversario[posicaoLetra][posicaoNumero] != AGUA) {
+        // Acertou um navio
+        tabuleiroAtual[posicaoLetra][posicaoNumero] = TIRO_NAVIO;
+        cout << "Você acertou um navio!" << endl;
+        // Opcional: Adicionar lógica para verificar se o navio foi afundado
+    } else {
+        // Errou o tiro
+        tabuleiroAtual[posicaoLetra][posicaoNumero] = TIRO_AGUA;
+        cout << "Água. Tiro perdido!" << endl;
+    }
+
+    // Mostrar o tabuleiro atual de tiros
+    imprimirTabuleiro(tabuleiroAtual);
+}
+
 void BatalhaPvp()
 {
 	inicializarTabuleiro(tabuleiro1);
 	inicializarTabuleiro(tabuleiro2);
 	string nomeJogador = "Wesley";
+	int quantBarcos = 2; 
+	
 	Submarino submarino1;
 	Cruzador cruzador1;
 	PortaAviao portaaviao1;
 	Hidrohaviao hidrohaviao1;
 	Encoracado encoracado;
+	
 
 	//bool entradaValida = false;
 
@@ -492,21 +569,36 @@ void BatalhaPvp()
 	
 	cout << endl <<" Jogador "<< nomeJogador << "Insira as embarcações" << endl;
 
-	//adicionarHidroaviao( hidrohaviao1, tabuleiro1);
-
-	adicionarBarcos(encoracado, E, ENCORACADO, tabuleiro1);
-	adicionarBarcos(portaaviao1, P, PORTAAVIAO, tabuleiro1);
-	adicionarBarcos(cruzador1, C, CRUZADOR, tabuleiro1);
-	adicionarBarcos(submarino1, S, SUBMARINO, tabuleiro1);
 
 	// Le o nome do Jogador
 	cout << BRANCO << endl;
 	//cout << "Jogador 1 informe o seu nome: " << endl;
 	//getline(cin, nomeJogador);
+		//adicionarHidroaviao( hidrohaviao1, tabuleiro1);
 
+	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
+	adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
+	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
+	adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
 
-//cout << endl <<" acabou ";
-//TODO Implentar outras embarcaC'C5es
+    cout << endl <<" acabou ";
+    cout << "Tecle <Enter> para trocar de jogador...";
+    cin.get();
+    
+    
+    limparTela();
+    
+    adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
+	adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
+	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro2);
+	adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro2);
+    limparTela();
+    
+    cout << endl <<" acabou ";
+    cout << "Tecle <Enter> para trocar de jogador...";
+    cin.get();
+    
+    limparTela();
 
 
 }
