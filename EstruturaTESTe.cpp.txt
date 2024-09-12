@@ -117,15 +117,15 @@ public:
 		char letra;
 		int p;
 		do {
-		//cout << AMARELO << nomeJogador;
-		cout << endl <<" Digite a [ LETRA ] da" << ordinal <<" coordenada posicoes para " << embarcacao << endl;
-		cout << endl;
-		cin >> letra;
+			//cout << AMARELO << nomeJogador;
+			cout << endl <<" Digite a [ LETRA ] da" << ordinal <<" coordenada posicoes para " << embarcacao << endl;
+			cout << endl;
+			cin >> letra;
 
-		// Deixa a letra maiuscula
-		letra = toupper(letra);
-		p = letra - 'A';
-		
+			// Deixa a letra maiuscula
+			letra = toupper(letra);
+			p = letra - 'A';
+
 
 			if (limiteNumero(p)) // veriica se o valor informado esta dentro das dimensC5es do tabuleiro
 			{
@@ -148,14 +148,14 @@ public:
 
 	int LerIndiceNumero(bool &entrada, int ordinal, string embarcacao ) {
 		int p;
-		
+
 		do
 		{
-		cout << endl <<" Digite o [ NUMERO] da " << ordinal <<" posicoes para " << embarcacao << endl;
-		cin >> p;
-		cout << endl;
-		p--;
-		
+			cout << endl <<" Digite o [ NUMERO] da " << ordinal <<" posicoes para " << embarcacao << endl;
+			cin >> p;
+			cout << endl;
+			p--;
+
 			if (limiteNumero(p)) // veriica se o valor informado esta dentro das dimensC5es do tabuleiro
 			{
 				entrada = true;
@@ -179,7 +179,7 @@ public:
 	virtual bool validarPosicao(int p1, int p2, char m[15][15]) = 0;
 };
 
-class hidrohaviao : public Embarcacoes
+class Hidrohaviao : public Embarcacoes
 {
 public:
 	int p3;
@@ -211,7 +211,7 @@ public:
 
 class Barcos : public Embarcacoes {
 public:
-    Barcos(int tamanho) : tamanho(tamanho) {}
+	Barcos(int tamanho) : tamanho(tamanho) {}
 	int tamanho = 0;
 	bool validarPosicao(int p1, int p2, char m[15][15]) override
 	{
@@ -257,7 +257,7 @@ public:
 	}
 };
 
-class cruzador : public Embarcacoes {
+class Cruzador : public Barcos {
 public:
 	int tamanho = 2;
 
@@ -272,7 +272,7 @@ public:
 	}
 };
 
-class submarino : public Embarcacoes {
+class Submarino : public Barcos {
 public:
 	int tamanho = 1;
 
@@ -330,7 +330,7 @@ void displayTabuleiro()
 	inicializarTabuleiro(tabuleiro);
 	imprimirTabuleiro(tabuleiro);
 }
-void adicionarHidroaviao(hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
+void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 	bool entradaValida = false;
 	for (int j = 1; j <= 2; j++)
 	{
@@ -387,7 +387,7 @@ void adicionarHidroaviao(hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 
 	}
 }
-void adicionarBarcos( Barcos& barco, string tipoBarco, char tabuleiro[15][15]) {
+void adicionarBarcos( Barcos& barco, string tipoBarco, char simbolo, char tabuleiro[15][15]) {
 //	char letra1;
 	cout << endl <<" Vamos adicionar " << tipoBarco << endl;
 	int indideNumero1;
@@ -396,14 +396,14 @@ void adicionarBarcos( Barcos& barco, string tipoBarco, char tabuleiro[15][15]) {
 	//barco.tamanho;
 
 	for(int i = 1; i <=1; i++) {
-		
-	
+
+
 
 		bool entradaValida =false;
 
 		int direcao;
 
-        cout << endl << " tamanho do barco " << barco.tamanho <<endl;
+		cout << endl << " tamanho do barco " << barco.tamanho <<endl;
 		cout << " digite [ 1 ] inserir na Horizontal e [ 2 ] para inserir na vertical " << endl;
 		cin >> direcao;
 
@@ -413,35 +413,34 @@ void adicionarBarcos( Barcos& barco, string tipoBarco, char tabuleiro[15][15]) {
 
 			// trocar por encoracadop2
 			indiceLetra1 = barco.LerIndiceLetra(i,E);
-			
-
-			if(direcao == 1) {
-			   int j = indiceLetra1  + barco.tamanho ; // para controlar o laC'o
+			if(tamanho == 1) {
+				tabuleiro1[indiceLetra1][indideNumero1 ] = simbolo;
+			} else if(direcao == 1) {
+				int j = indideNumero1  + barco.tamanho ; // para controlar o laC'o
 				if(TAMANHO_TABULEIRO - indiceLetra1 >= tamanho) {// verifica se possivel posicionar na vertical
 					entradaValida = true;
 					for(indideNumero1 ; indideNumero1  <= j; indideNumero1++) {
-						tabuleiro1[indiceLetra1][indideNumero1 ] = ENCORACADO;
+						tabuleiro1[indiceLetra1][indideNumero1 ] = simbolo;
 					}
 				} else
 				{
 					entradaValida = false;
 				}
 
-
-				if(! (entradaValida))
-					cout << endl <<"Coordendas Invalidas";
 			} else if( direcao == 2 ) {
-			    
-			     int j = indiceLetra1  + barco.tamanho ; // para controlar o laco
+
+				int j = indiceLetra1  + barco.tamanho ; // para controlar o laco
 				if(TAMANHO_TABULEIRO - indideNumero1 >= tamanho) { // verifica se possivel posicionar na horizontal
 					entradaValida = true;
 					for(indiceLetra1; indiceLetra1 <= j; indiceLetra1++) {
-						tabuleiro1[indiceLetra1][indideNumero1] = ENCORACADO;
+						tabuleiro1[indiceLetra1][indideNumero1] = simbolo;
 					}
 
 				}
 
 			}
+				if(! (entradaValida))
+					cout << endl <<"Coordendas Invalidas";
 
 		} while(! ( entradaValida ) );
 
@@ -462,14 +461,10 @@ void BatalhaPvp()
 	inicializarTabuleiro(tabuleiro1);
 	inicializarTabuleiro(tabuleiro2);
 	string nomeJogador = "Wesley";
-//	char letra1;
-	//char letra2;
-	hidrohaviao hidrohaviao1;
+//	Submarino submarino1;
+	Hidrohaviao hidrohaviao1;
 	Encoracado encoracado;
-//	int encoracadop1;
-//	int encoracadop2;
-//	int portaAviaop1;
-//	int portaAviaop2;
+
 	bool entradaValida = false;
 
 
@@ -479,8 +474,9 @@ void BatalhaPvp()
 	displayTabuleiro();
 
 	//adicionarHidroaviao( hidrohaviao1, tabuleiro1);
-	
-	adicionarBarcos(encoracado, E, tabuleiro1);
+
+	adicionarBarcos(encoracado, E, ENCORACADO, tabuleiro1);
+	//adicionarBarcos(submarino1, S, SUBMARINO, tabuleiro1);
 
 	// Le o nome do Jogador
 	cout << BRANCO << endl;
