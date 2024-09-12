@@ -3,6 +3,7 @@
 #include <cstdlib> // Para a funo?=o?=o atoi
 #include <string>
 #include <ncurses.h>
+#include <cctype> // para veriica entrada numero
 using namespace std;
 
 // Criando constantes para selecionar o SO
@@ -47,7 +48,43 @@ const string C = "CRUZADOR";
 #define AZUL "\x1b[94m"
 #define AZULC "\x1b[96m"
 #define FCINZA "\x1b[100m"
+
+#define RESET   "\x1b[0m"
+#define BLACK   "\x1b[30m"
+#define RED     "\x1b[31m"
+#define GREEN   "\x1b[32m"
+#define YELLOW  "\x1b[33m"
+#define BLUE    "\x1b[34m"
+#define MAGENTA "\x1b[35m"
+#define CYAN    "\x1b[36m"
+#define WHITE   "\x1b[37m"
+#define BOLD    "\x1b[1m"
+#define UNDERLINE "\x1b[4m" 
+
+#define INVERSE "\x1b[7m"
+
+// Cores de fundo
+#define BBLACK   "\x1b[40m"
+#define BRED     "\x1b[41m"
+#define BGREEN   "\x1b[42m"
+#define BYellow  "\x1b[43m"
+#define BBLUE    "\x1b[44m"
+#define BMAGENTA "\x1b[45m"
+#define BCYAN    "\x1b[46m"
+#define BWHITE   "\x1b[47m"
+
+/*
+ std::cout << BOLD << "Texto em negrito" << RESET << std::endl;
+    std::cout << UNDERLINE << "Texto sublinhado" << RESET << std::endl;
+    std::cout << INVERSE << "Texto invertido" << RESET << std::endl;
+
+    std::cout << RED << "Texto vermelho" << RESET << std::endl;
+    std::cout << BGREEN << "Texto com fundo verde" << RESET << std::endl;
+    std::cout << YELLOW << "Texto amarelo" << BBLUE << " com fundo azul" << RESET << std::endl;
+    */
+
 // variaveis Globais
+
 const int TAMANHO_TABULEIRO = 15;
 char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
 char tabuleiro1[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
@@ -73,6 +110,21 @@ void inicializarTabuleiro(char tabuleiro[15][15])
 	}
 }
 
+	bool validarNumero(){
+	    int numero;
+	     do {
+        cout << "Digite um número inteiro positivo: ";
+        cin >> numero;
+
+        if (cin.fail() || numero <= 0) {
+            cout << "Entrada inválida. Digite um número inteiro positivo." << endl;
+            cin.clear(); // Limpa o estado de falha do cin
+            cin.ignore(80, '\n'); // Ignora caracteres restantes na linha
+        }
+    } while (cin.fail() || numero <= 0);
+    return true;
+	}
+	
 class Embarcacoes
 {
 public:
@@ -91,6 +143,8 @@ public:
 		}*/
 		return indice >= 'A' && indice <= 'J';
 	}
+	
+	
 	bool limiteNumero(int indice)
 	{
 		// if (indice >= 0 && indice <= 9)
@@ -116,15 +170,17 @@ public:
 
 		char letra;
 		int p;
-		//cout << AMARELO << nomeJogador;
-		cout << endl <<" Digite a [ LETRA ] da" << ordinal <<" coordenada posicoes para " << embarcacao << endl;
-		cout << endl;
-		cin >> letra;
-
-		// Deixa a letra maiuscula
-		letra = toupper(letra);
-		p = letra - 'A';
 		do {
+			//cout << AMARELO << nomeJogador;
+			//cout << endl <<" Digite a [ LETRA ] da" << ordinal <<" coordenada posicoes para " << embarcacao << endl;
+			cout << endl <<" Digite a [ LETRA ] da" << ordinal <<" coordenada posicoes para " << embarcacao << endl;
+			cout << endl;
+			cin >> letra;
+
+			// Deixa a letra maiuscula
+			letra = toupper(letra);
+			p = letra - 'A';
+
 
 			if (limiteNumero(p)) // veriica se o valor informado esta dentro das dimensC5es do tabuleiro
 			{
@@ -136,7 +192,7 @@ public:
 			}
 			if( ! ( entrada ) )
 			{
-				LerIndiceLetra(ordinal,embarcacao );
+				cout << endl << "Letra fora do limite do tabuleiro";
 			}
 
 		} while( ! (entrada) );
@@ -147,12 +203,15 @@ public:
 
 	int LerIndiceNumero(bool &entrada, int ordinal, string embarcacao ) {
 		int p;
-		cout << endl <<" Digite o [ NUMERO] da " << ordinal <<" posicoes para " << embarcacao << endl;
-		cin >> p;
-		cout << endl;
-		p--;
+
 		do
 		{
+			cout << endl <<" Digite o [ NUMERO] da " << ordinal <<" posicoes para " << embarcacao << endl;
+			//cin >> p;
+			p = validarNumero();
+			cout << endl;
+			p--;
+
 			if (limiteNumero(p)) // veriica se o valor informado esta dentro das dimensC5es do tabuleiro
 			{
 				entrada = true;
@@ -165,7 +224,7 @@ public:
 			if( ! ( entrada ) )
 			{
 				cout << endl << "valor fora do limite do tabuleiro";
-				LerIndiceNumero(entrada, ordinal, embarcacao );
+				//LerIndiceNumero(entrada, ordinal, embarcacao );
 			}
 		} while( ! (entrada) );
 		cout << endl ;
@@ -176,7 +235,7 @@ public:
 	virtual bool validarPosicao(int p1, int p2, char m[15][15]) = 0;
 };
 
-class hidrohaviao : public Embarcacoes
+class Hidrohaviao : public Embarcacoes
 {
 public:
 	int p3;
@@ -184,7 +243,6 @@ public:
 
 	bool validarPrimeiroNumero(int p1)
 	{
-		cout << "validar 1B0 num esta recebendo " << p1;
 		if (p1 == 0 || p1 == 14)
 		{
 			return false;
@@ -206,13 +264,12 @@ public:
 	}
 };
 
-class encoracado : public Embarcacoes {
+class Barcos : public Embarcacoes {
 public:
-	int p3;
-	int p4;
-
-	bool validarPosicao(int p1, int p2, char m[15][15]) override {
-		// User insert 1 but it should be 0
+	Barcos(int tamanho) : tamanho(tamanho) {}
+	int tamanho = 0;
+	bool validarPosicao(int p1, int p2, char m[15][15]) override
+	{
 		// User insert 1 but it should be 0
 		if (m[p1][p2] == '0')
 		{
@@ -221,28 +278,66 @@ public:
 		return false;
 	}
 };
-class cruzador : public Embarcacoes {
-public:
-	int p3;
-	int p4;
 
-	bool validarPosicao(int p1, int p2, char m[15][15]) override {
-		if (p1 >= 0 && p1 < 15 && p2 >= 0 && p2 < 15 && m[p1][p2] == 0) {
-			// Verificar posi  o espec fica do cruzador
+class PortaAviao : public Barcos {
+public:
+//	int tamanho = 5;
+	PortaAviao() : Barcos(5) {}
+
+	bool validarPosicao(int p1, int p2, char m[15][15]) override
+	{
+		// User insert 1 but it should be 0
+		if (m[p1][p2] == '0')
+		{
 			return true;
 		}
 		return false;
 	}
 };
 
-class submarino : public Embarcacoes {
-public:
-	int p3;
-	int p4;
 
-	bool validarPosicao(int p1, int p2, char m[15][15]) override {
-		if (p1 >= 0 && p1 < 15 && p2 >= 0 && p2 < 15 && m[p1][p2] == 0) {
-			// Verificar posi  o espec fica do submarino
+class Encoracado : public Barcos {
+public:
+	//int tamanho = 3;
+	Encoracado() : Barcos(3) {}
+
+	bool validarPosicao(int p1, int p2, char m[15][15]) override
+	{
+		// User insert 1 but it should be 0
+		if (m[p1][p2] == '0')
+		{
+			return true;
+		}
+		return false;
+	}
+};
+
+class Cruzador : public Barcos {
+public:
+	//int tamanho = 3;
+	Cruzador() : Barcos(2) {}
+
+	bool validarPosicao(int p1, int p2, char m[15][15]) override
+	{
+		// User insert 1 but it should be 0
+		if (m[p1][p2] == '0')
+		{
+			return true;
+		}
+		return false;
+	}
+};
+
+class Submarino : public Barcos {
+public:
+	//int tamanho = 3;
+	Submarino() : Barcos(1) {}
+
+	bool validarPosicao(int p1, int p2, char m[15][15]) override
+	{
+		// User insert 1 but it should be 0
+		if (m[p1][p2] == '0')
+		{
 			return true;
 		}
 		return false;
@@ -273,11 +368,22 @@ void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 
 		for (int j = 0; j < TAMANHO_TABULEIRO; j++)
 		{
-			if (tabuleiro[i][j] == HIDROAVIAO)
+			if (tabuleiro[i][j] == HIDROAVIAO) // Hidro é branco
 			{
 				cout << BRANCO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 
-			} else 	if (tabuleiro[i][j] == ENCORACADO)
+			} else 	if (tabuleiro[i][j] == ENCORACADO) // Encoraçãdo é amarelo
+			{
+				cout << VERMELHO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+			}
+			else 	if (tabuleiro[i][j] == PORTAAVIAO) //Porta Avião é amarelo
+			{
+				cout << AMARELO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+				
+			}else 	if (tabuleiro[i][j] == CRUZADOR) //amarelo
+			{
+				cout << AMARELO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+			}else 	if (tabuleiro[i][j] == SUBMARINO) //amarelo
 			{
 				cout << AMARELO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
@@ -294,7 +400,7 @@ void displayTabuleiro()
 	inicializarTabuleiro(tabuleiro);
 	imprimirTabuleiro(tabuleiro);
 }
-void adicionarHidroaviao(hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
+void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 	bool entradaValida = false;
 	for (int j = 1; j <= 2; j++)
 	{
@@ -306,14 +412,12 @@ void adicionarHidroaviao(hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 			{
 
 				//TODO fazer passagem de parametro por referencia para pegar o resultado da validaC'C#o
-				//hidrohaviao1.LerIndiceNumero(entradaValida, i,H);
 
 				if (i == 1)
 				{
 					hidrohaviao1.posicao1 = hidrohaviao1.LerIndiceNumero(entradaValida, i,H);
 					if ( hidrohaviao1.validarPrimeiroNumero( hidrohaviao1.posicao1 )) // verifica C) possivel formar o desenho
 					{
-						//hidrohaviao1.p3 = hidrohaviao1.LerIndiceNumero( entradaValida, i,H);
 						cout << endl <<" valor na fc hidrohaviao1.LerIndiceNumero(entradaValida, i,H) " << hidrohaviao1.p3;
 						entradaValida = true;
 						cout << endl << " primeiro numero  Valido ";
@@ -338,9 +442,6 @@ void adicionarHidroaviao(hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 			} while ( ! ( entradaValida ) );
 
 
-			// hidrohaviao1.LerIndiceLetra( i, H);
-
-
 			tabuleiro1[ hidrohaviao1.LerIndiceLetra( i, H)  ][ hidrohaviao1.posicao1 ] = HIDROAVIAO;
 			limparTela();
 			imprimirTabuleiro(tabuleiro1);
@@ -348,112 +449,178 @@ void adicionarHidroaviao(hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 
 
 
-
 	}
 }
-void BatalhaPvp()
-{
-	inicializarTabuleiro(tabuleiro1);
-	inicializarTabuleiro(tabuleiro2);
-	string nomeJogador = "Wesley";
-	char letra1;
-	char letra2;
-	hidrohaviao hidrohaviao1;
-	encoracado encoracado;
-	int encoracadop1;
-	int encoracadop2;
-	int portaAviaop1;
-	int portaAviaop2;
-	bool entradaValida = false;
+void adicionarBarcos( int quantBarcos, Barcos& barco, string tipoBarco, char simbolo, char tabuleiro[15][15]) {
+//	char letra1;
+	cout << endl <<" Vamos adicionar " << tipoBarco << endl;
+	int indideNumero1;
+	int indiceLetra1;
+	int tamanhoParaExibir = barco.tamanho;
+	//barco.tamanho;
 
-
-	limparTela();
-
-	displayTabuleiro();
-	// FunC'C#o que adiciona hidroaviao
-	//  adicionarHidroaviao( hidrohaviao1, tabuleiro1);
-
-	// Le o nome do Jogador
-	cout << BRANCO << endl;
-	//cout << "Jogador 1 informe o seu nome: " << endl;
-	//getline(cin, nomeJogador);
-
-
-//cout << endl <<" acabou ";
-//TODO Implentar outras embarcaC'C5es
-
-	for(int i = 1; i <=2; i++) {
+	for(int i = 1; i <= quantBarcos; i++) {
 
 		bool entradaValida =false;
-		int comprimentoEncoraCado = 4;
+
+		int direcao;
+
+		cout << endl << " tamanho do barco " << tamanhoParaExibir << endl;
+		cout << " digite [ 1 ] inserir na Horizontal e [ 2 ] para inserir na vertical " << endl;
+		cin >> direcao;
+
 		do {
-			encoracadop1 =encoracado.LerIndiceNumero( entradaValida, i,E);
 
-			letra1 = encoracado.LerIndiceLetra(i,E);
+			indideNumero1 = barco.LerIndiceNumero( entradaValida, i,tipoBarco);
 
-
-			encoracadop2 = encoracado.LerIndiceNumero( entradaValida, ++i,E);
-
-
-			letra2 = encoracado.LerIndiceLetra(++i,E);
-			int j = encoracadop1+3;
-
-			if( letra1 == letra2 ) {
-				if(TAMANHO_TABULEIRO - encoracadop1 >= comprimentoEncoraCado) {
+			// trocar por encoracadop2
+			indiceLetra1 = barco.LerIndiceLetra(i,tipoBarco);
+			if(barco.tamanho == 1) {
+				tabuleiro1[indiceLetra1][indideNumero1 ] = simbolo;
+			} else if(direcao == 1) {
+				int j = indideNumero1  + barco.tamanho ; // para controlar o laC'o
+				if(TAMANHO_TABULEIRO - indiceLetra1 >= barco.tamanho) {// verifica se possivel posicionar na vertical
 					entradaValida = true;
-					for(encoracadop1; encoracadop1 <= j; encoracadop1++) {
-						tabuleiro1[letra1][encoracadop1] = ENCORACADO;
-					}
-				}
-				else
-				{
-					entradaValida = false;
-				}
-
-			}
-			if(encoracadop1 == encoracadop2) {
-				entradaValida = true;
-				if(TAMANHO_TABULEIRO - letra1 >= comprimentoEncoraCado) {
-					for(letra1; letra1 <= j; letra1++) {
-						tabuleiro1[letra1][encoracadop1] = ENCORACADO;
+					for(indideNumero1 ; indideNumero1  <= j; indideNumero1++) {
+						tabuleiro1[indiceLetra1][indideNumero1 ] = simbolo;
 					}
 				} else
 				{
 					entradaValida = false;
 				}
 
+			} else if( direcao == 2 ) {
 
+				int j = indiceLetra1  + barco.tamanho ; // para controlar o laco
+				if(TAMANHO_TABULEIRO - indideNumero1 >= barco.tamanho) { // verifica se possivel posicionar na horizontal
+					entradaValida = true;
+					for(indiceLetra1; indiceLetra1 <= j; indiceLetra1++) {
+						tabuleiro1[indiceLetra1][indideNumero1] = simbolo;
+					}
+
+				}
 
 			}
-
-			if(! (entradaValida))
-				cout << endl <<"Coordendas Invalidas";
+				if(! (entradaValida))
+					cout << endl <<"Coordendas Invalidas";
 
 		} while(! ( entradaValida ) );
 
-		limparTela();
+
+		//limparTela();
 		imprimirTabuleiro(tabuleiro1);
-	}
 
-	/*
-	cout << endl;
-	cout << "  Digite o [ Numero ] 1 para porta Aviao";
-	cin >> portaAviaop1;
-	cout << endl <<" Digite a [ letra ] da " <<"1B0" << "  posicoes para porta Aviao ";
-	cout << endl;
-	cin >> letra;
+	} // for add ENCORACADO
 
-	cout << endl;
-	cout << " Digite a posiC'C#o 2 para porta Aviao";
-	cin >> portaAviaop2;
-	cout << endl <<" Digite a [ letra ] da " <<"2B0" << "  posicoes para porta Aviao ";
-	cout << endl;
-	cin >> letra;
+}
+void atirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO], char tabuleiroAtual[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO]) {
+    int posicaoNumero;
+    int posicaoLetra;
+    bool entradaValida = false;
 
-	for(int i= 0; i <= 5){
+    cout << "Digite a letra da coordenada para o tiro (A-J): ";
+    char letra;
+    do {
+        cin >> letra;
+        letra = toupper(letra);
+        posicaoLetra = letra - 'A';
+        if (posicaoLetra >= 0 && posicaoLetra < TAMANHO_TABULEIRO) {
+            entradaValida = true;
+        } else {
+            cout << "Letra fora do limite. Digite novamente (A-J): ";
+        }
+    } while (!entradaValida);
 
-	}
-	*/
+    entradaValida = false;
+    cout << "Digite o número da coordenada para o tiro (1-15): ";
+    do {
+        posicaoNumero = validarNumero();
+        posicaoNumero--; // Ajusta para o índice de 0 a 14
+        if (posicaoNumero >= 0 && posicaoNumero < TAMANHO_TABULEIRO) {
+            entradaValida = true;
+        } else {
+            cout << "Número fora do limite. Digite novamente (1-15): ";
+        }
+    } while (!entradaValida);
+
+    // Verificar se a posição já foi atacada
+    if (tabuleiroAtual[posicaoLetra][posicaoNumero] == TIRO_AGUA || tabuleiroAtual[posicaoLetra][posicaoNumero] == TIRO_NAVIO) {
+        cout << "Você já atirou nessa posição. Escolha outra coordenada." << endl;
+        return;
+    }
+
+    // Atualizar o tabuleiro de tiros
+    if (tabuleiroAdversario[posicaoLetra][posicaoNumero] != AGUA) {
+        // Acertou um navio
+        tabuleiroAtual[posicaoLetra][posicaoNumero] = TIRO_NAVIO;
+        cout << "Você acertou um navio!" << endl;
+        // Opcional: Adicionar lógica para verificar se o navio foi afundado
+    } else {
+        // Errou o tiro
+        tabuleiroAtual[posicaoLetra][posicaoNumero] = TIRO_AGUA;
+        cout << "Água. Tiro perdido!" << endl;
+    }
+
+    // Mostrar o tabuleiro atual de tiros
+    imprimirTabuleiro(tabuleiroAtual);
+}
+
+void BatalhaPvp()
+{
+	inicializarTabuleiro(tabuleiro1);
+	inicializarTabuleiro(tabuleiro2);
+	string nomeJogador = "Wesley";
+	int quantBarcos = 2; 
+	
+	Submarino submarino1;
+	Cruzador cruzador1;
+	PortaAviao portaaviao1;
+	Hidrohaviao hidrohaviao1;
+	Encoracado encoracado;
+	
+
+	//bool entradaValida = false;
+
+
+
+	limparTela();
+
+	displayTabuleiro();
+	
+	cout << endl <<" Jogador "<< nomeJogador << "Insira as embarcações" << endl;
+
+
+	// Le o nome do Jogador
+	cout << BRANCO << endl;
+	//cout << "Jogador 1 informe o seu nome: " << endl;
+	//getline(cin, nomeJogador);
+		//adicionarHidroaviao( hidrohaviao1, tabuleiro1);
+
+	//adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
+	adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
+//	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
+	//adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
+
+    cout << endl <<" acabou ";
+    cout << "Tecle <Enter> para trocar de jogador...";
+    cin.get();
+    
+    
+    limparTela();
+    
+    //adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
+	adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
+//	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro2);
+	//adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro2);
+    limparTela();
+    
+    cout << endl <<" acabou ";
+    cout << "Tecle <Enter> para trocar de jogador...";
+    cin.get();
+    
+    limparTela();
+    atirar(tabuleiro1, tabuleiro2);
+
 
 }
 
