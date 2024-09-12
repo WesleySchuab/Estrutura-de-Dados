@@ -577,11 +577,6 @@ void BatalhaPvp()
 	PortaAviao portaaviao1;
 	Hidrohaviao hidrohaviao1;
 	Encoracado encoracado;
-	
-
-	//bool entradaValida = false;
-
-
 
 	limparTela();
 
@@ -607,6 +602,8 @@ void BatalhaPvp()
     
     
     limparTela();
+    cout << endl << "Jogador 2 irá Inserir  agora " << endl;
+     cout << endl <<" acabou ";
     
     //adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
 	adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
