@@ -3,6 +3,7 @@
 #include <cstdlib> // Para a funo?=o?=o atoi
 #include <string>
 #include <ncurses.h>
+#include <cctype> // para veriica entrada numero
 using namespace std;
 
 // Criando constantes para selecionar o SO
@@ -126,6 +127,19 @@ public:
 		    return true;
 		}*/
 		return indice >= 'A' && indice <= 'J';
+	}
+	bool validarNumero(){
+	     do {
+        cout << "Digite um número inteiro positivo: ";
+        cin >> numero;
+
+        if (cin.fail() || numero <= 0) {
+            cout << "Entrada inválida. Digite um número inteiro positivo." << endl;
+            cin.clear(); // Limpa o estado de falha do cin
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignora caracteres restantes na linha
+        }
+    } while (cin.fail() || numero <= 0);
+    return true;
 	}
 	bool limiteNumero(int indice)
 	{
@@ -576,10 +590,10 @@ void BatalhaPvp()
 	//getline(cin, nomeJogador);
 		//adicionarHidroaviao( hidrohaviao1, tabuleiro1);
 
-	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
+	//adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
 	adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
-	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
-	adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
+//	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
+	//adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
 
     cout << endl <<" acabou ";
     cout << "Tecle <Enter> para trocar de jogador...";
@@ -588,10 +602,10 @@ void BatalhaPvp()
     
     limparTela();
     
-    adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
+    //adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
 	adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
-	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro2);
-	adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro2);
+//	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro2);
+	//adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro2);
     limparTela();
     
     cout << endl <<" acabou ";
@@ -599,6 +613,7 @@ void BatalhaPvp()
     cin.get();
     
     limparTela();
+    atirar(tabuleiro1, tabuleiro2);
 
 
 }
