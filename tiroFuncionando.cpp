@@ -457,7 +457,7 @@ void adicionarBarcos( int quantBarcos, Barcos& barco, string tipoBarco, char sim
 	cout << endl <<" Vamos adicionar " << tipoBarco << endl;
 	int indiceNumero;
 	int indiceLetra1;
-	int tamanhoParaExibir = barco.tamanho;
+	int tamanhoParaExibir = barco.tamanho + 1;
 	//barco.tamanho;
 
 	for(int i = 1; i <= quantBarcos; i++) {
@@ -641,7 +641,7 @@ void adicionarBarcosAleatoriamente(char tabuleiro[15][15], char tipoBarco, int t
 
 		displayTabuleiro();
 
-		cout << endl <<" Jogador "<< nomeJogador << "Insira as embarcaC'C5es" << endl;
+		cout << endl <<" Jogador "<< nomeJogador << " Insira seus barcos" << endl;
 
 
 		// Le o nome do Jogador
@@ -675,6 +675,7 @@ void adicionarBarcosAleatoriamente(char tabuleiro[15][15], char tipoBarco, int t
 		cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
 		cout << endl;
 		cin >> continuar;
+		
 
 
 	// passa o tabuleiro do adversário  e o do jogador para marcar a jogada
