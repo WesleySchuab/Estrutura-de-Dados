@@ -253,6 +253,7 @@ public:
 			return true;
 		}
 	}
+	
 	bool validarFormaHidro(int p1, int p2)
 	{
 		if (p2 == p1+1 || p2 == p1-1)
@@ -416,6 +417,7 @@ void displayTabuleiro()
 void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 	bool entradaValida = false;
 	int coluna = 0;
+	int coluna2 = 0;
 	for (int j = 1; j <= 2; j++)
 	{
 		cout <<endl <<j <<"B0 " << H;
@@ -452,9 +454,13 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 					{
 						entradaValida = true;
 						
-						coluna = hidrohaviao1.LerIndiceLetra( i, H);
+						do{ // verifica se a segunda letra é valida
+						    coluna2 = hidrohaviao1.LerIndiceLetra( i, H);
+						}while ( ! (hidrohaviao1.validarFormaHidro(coluna, coluna2) ) );
 						
-						tabuleiro[ coluna ][ hidrohaviao1.posicao2 ] = HIDROAVIAO;
+						
+						
+						tabuleiro[ coluna2 ][ hidrohaviao1.posicao2 ] = HIDROAVIAO;
 						limparTela();
 						imprimirTabuleiro(tabuleiro);
 					} else {
