@@ -173,6 +173,7 @@ public:
 		int p;
 		do {
 			//cout << AMARELO << nomeJogador;
+			cout << BRANCO;
 			//cout << endl <<" Digite a [ LETRA ] da" << ordinal <<" coordenada posicoes para " << embarcacao << endl;
 			cout << endl <<" Digite a [ LETRA ] da" << ordinal <<" coordenada posicoes para " << embarcacao << endl;
 			cout << endl;
@@ -189,11 +190,11 @@ public:
 				cout << BRANCO;
 			} else {
 				entrada =false;
-				cout << BRANCO;
 			}
 			if( ! ( entrada ) )
 			{
-				cout << endl << "Letra fora do limite do tabuleiro";
+				cout << VERMELHO <<endl << "Letra fora do limite do tabuleiro";
+				cout << BRANCO;
 			}
 
 		} while( ! (entrada) );
@@ -224,8 +225,8 @@ public:
 			}
 			if( ! ( entrada ) )
 			{
-				cout << endl << "valor fora do limite do tabuleiro";
-				//LerIndiceNumero(entrada, ordinal, embarcacao );
+				cout << VERMELHO <<endl << "valor fora do limite do tabuleiro";
+				cout << BRANCO;
 			}
 		} while( ! (entrada) );
 		cout << endl ;
@@ -420,14 +421,12 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 	int coluna2 = 0;
 	for (int j = 1; j <= 2; j++)
 	{
-		cout <<endl <<j <<"B0 " << H;
+		cout <<endl <<j <<" " << H;
 		for (int i = 1; i <= 3; i++)
 		{
 
 			do
 			{
-
-				//TODO fazer passagem de parametro por referencia para pegar o resultado da validaC'C#o
 
 				if (i == 1)
 				{
