@@ -113,12 +113,12 @@ void inicializarTabuleiro(char tabuleiro[15][15])
 int validarNumero() {
 	int numero;
 	do {
-		cout << "Digite um nC:mero inteiro positivo: ";
+		cout << "Digite um numero inteiro positivo: ";
 		cin >> numero;
 		cout << endl << " numero digitado " << numero << endl;
 
 		if (cin.fail() || numero <= 0) {
-			cout << "Entrada invC!lida. Digite um nC:mero inteiro positivo." << endl;
+			cout << "Entrada invalida. Digite um numero inteiro positivo." << endl;
 			cin.clear(); // Limpa o estado de falha do cin
 			cin.ignore(80, '\n'); // Ignora caracteres restantes na linha
 		}
@@ -419,9 +419,9 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 					hidrohaviao1.posicao1 = hidrohaviao1.LerIndiceNumero(entradaValida, i,H);
 					if ( hidrohaviao1.validarPrimeiroNumero( hidrohaviao1.posicao1 )) // verifica C) possivel formar o desenho
 					{
-						cout << endl <<" valor na fc hidrohaviao1.LerIndiceNumero(entradaValida, i,H) " << hidrohaviao1.p3;
+						//cout << endl <<" valor na fc hidrohaviao1.LerIndiceNumero(entradaValida, i,H) " << hidrohaviao1.p3;
 						entradaValida = true;
-						cout << endl << " primeiro numero  Valido ";
+						//cout << endl << " primeiro numero  Valido ";
 					}
 					else
 					{
