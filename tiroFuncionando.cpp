@@ -517,56 +517,55 @@ void adicionarBarcos( int quantBarcos, Barcos& barco, string tipoBarco, char sim
 	} // for add ENCORACADO
 
 }
-void atirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO], char tabuleiroAtual[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO]) {
+void  atirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO]) {
 	int posicaoNumero;
-	int posicaoLetra;
-	bool entradaValida = false;
+    int posicaoLetra;
+    bool entradaValida = false;
 
-	cout << "Digite a letra da coordenada para o tiro (A-J): ";
-	char letra;
-	do {
-		cin >> letra;
-		letra = toupper(letra);
-		posicaoLetra = letra - 'A';
-		if (posicaoLetra >= 0 && posicaoLetra < TAMANHO_TABULEIRO) {
-			entradaValida = true;
-		} else {
-			cout << "Letra fora do limite. Digite novamente (A-J): ";
-		}
-	} while (!entradaValida);
+    cout << "Digite a letra da coordenada para o tiro (A-J): ";
+    char letra;
+    do {
+        cin >> letra;
+        letra = toupper(letra);
+        posicaoLetra = letra - 'A';
+        if (posicaoLetra >= 0 && posicaoLetra < TAMANHO_TABULEIRO) {
+            entradaValida = true;
+        } else {
+            cout << "Letra fora do limite. Digite novamente (A-J): ";
+        }
+    } while (!entradaValida);
 
-	entradaValida = false;
-	cout << "Digite o nC:mero da coordenada para o tiro (1-15): ";
-	do {
-		posicaoNumero = validarNumero();
-		posicaoNumero--; // Ajusta para o C-ndice de 0 a 14
-		if (posicaoNumero >= 0 && posicaoNumero < TAMANHO_TABULEIRO) {
-			entradaValida = true;
-		} else {
-			cout << "NC:mero fora do limite. Digite novamente (1-15): ";
-		}
-	} while (!entradaValida);
+    entradaValida = false;
+    cout << "Digite o número da coordenada para o tiro (1-15): ";
+    do {
+        posicaoNumero = validarNumero();
+        posicaoNumero--; // Ajusta para o índice de 0 a 14
+        if (posicaoNumero >= 0 && posicaoNumero < TAMANHO_TABULEIRO) {
+            entradaValida = true;
+        } else {
+            cout << "Número fora do limite. Digite novamente (1-15): ";
+        }
+    } while (!entradaValida);
 
-	// Verificar se a posiC'C#o jC! foi atacada
-	if (tabuleiroAtual[posicaoLetra][posicaoNumero] == TIRO_AGUA || tabuleiroAtual[posicaoLetra][posicaoNumero] == TIRO_NAVIO) {
-		cout << "VocC* jC! atirou nessa posiC'C#o. Escolha outra coordenada." << endl;
-		return;
-	}
+    // Verificar se a posição já foi atacada
+    if (tabuleiroAdversario[posicaoLetra][posicaoNumero] == TIRO_AGUA || tabuleiroAdversario[posicaoLetra][posicaoNumero] == TIRO_NAVIO) {
+        cout << "Você já atirou nessa posição. Escolha outra coordenada." << endl;
+        return;
+    }
 
-	// Atualizar o tabuleiro de tiros
-	if (tabuleiroAdversario[posicaoLetra][posicaoNumero] != AGUA) {
-		// Acertou um navio
-		tabuleiroAtual[posicaoLetra][posicaoNumero] = TIRO_NAVIO;
-		cout << "VocC* acertou um navio!" << endl;
-		// Opcional: Adicionar lC3gica para verificar se o navio foi afundado
-	} else {
-		// Errou o tiro
-		tabuleiroAtual[posicaoLetra][posicaoNumero] = TIRO_AGUA;
-		cout << "Cgua. Tiro perdido!" << endl;
-	}
+    // Atualizar o tabuleiro de tiros
+    if (tabuleiroAdversario[posicaoLetra][posicaoNumero] != AGUA) {
+        // Acertou um navio
+        tabuleiroAdversario[posicaoLetra][posicaoNumero] = TIRO_NAVIO;
+        cout << "Você acertou um navio!" << endl;
+        // Opcional: Adicionar lógica para verificar se o navio foi afundado
+    } else {
+        // Errou o tiro
+        tabuleiroAdversario[posicaoLetra][posicaoNumero] = TIRO_AGUA;
+        cout << "Água. Tiro perdido!" << endl;
+    }
 
-	// Mostrar o tabuleiro atual de tiros
-	imprimirTabuleiro(tabuleiroAtual);
+    // Mostrar o tabuleiro atual de tiros
 }
 /*
 void adicionarBarcosAleatoriamente(char tabuleiro[15][15], char tipoBarco, int tamanhoBarco) {
@@ -627,6 +626,7 @@ void adicionarBarcosAleatoriamente(char tabuleiro[15][15], char tipoBarco, int t
 	{
 		inicializarTabuleiro(tabuleiro1);
 		inicializarTabuleiro(tabuleiro2);
+		//inicializarTabuleiro(tabuleiroJogador2);
 		string nomeJogador = "Wesley";
 		int quantBarcos = 1;
 
@@ -655,14 +655,14 @@ void adicionarBarcosAleatoriamente(char tabuleiro[15][15], char tipoBarco, int t
 //	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
 		//adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
 
-		cout << endl <<" acabou ";
-		cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
-		cout << endl;
-		cin >> continuar;
+	cout << endl <<" acabou ";
+    cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
+    cout << endl;
+    cin >> continuar;
 
 
 		limparTela();
-		cout << endl << "Jogador 2 irC! Inserir  agora " << endl;
+		cout << endl << "Jogador 2 ira colocar os barcos " << endl;
 		cout << endl <<" acabou ";
 
 		//adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
@@ -677,8 +677,9 @@ void adicionarBarcosAleatoriamente(char tabuleiro[15][15], char tipoBarco, int t
 		cin >> continuar;
 
 
-		// limparTela();
-		// atirar(tabuleiro1, tabuleiro2);
+	// passa o tabuleiro do adversário  e o do jogador para marcar a jogada
+    atirar(tabuleiro2);
+    //imprimirTabuleiro(tabuleiroJogador1);
 
 
 	}
