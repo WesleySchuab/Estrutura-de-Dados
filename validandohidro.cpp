@@ -253,15 +253,15 @@ public:
 			return true;
 		}
 	}
-	bool validarSegundoNumero(int p1, int p2)
+	bool validarFormaHidro(int p1, int p2)
 	{
 		if (p2 == p1+1 || p2 == p1-1)
 		{
-	    	return true;
+			return true;
 		}
 		else
 		{
-			
+
 			return false;
 		}
 	}
@@ -415,6 +415,7 @@ void displayTabuleiro()
 }
 void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 	bool entradaValida = false;
+	int coluna = 0;
 	for (int j = 1; j <= 2; j++)
 	{
 		cout <<endl <<j <<"B0 " << H;
@@ -431,24 +432,35 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 					hidrohaviao1.posicao1 = hidrohaviao1.LerIndiceNumero(entradaValida, i,H);
 					if ( hidrohaviao1.validarPrimeiroNumero( hidrohaviao1.posicao1 )) // verifica C) possivel formar o desenho
 					{
-						//cout << endl <<" valor na fc hidrohaviao1.LerIndiceNumero(entradaValida, i,H) " << hidrohaviao1.p3;
+						coluna = hidrohaviao1.LerIndiceLetra( i, H);
 						entradaValida = true;
-						//cout << endl << " primeiro numero  Valido ";
+						tabuleiro[ coluna ][ hidrohaviao1.posicao1 ] = HIDROAVIAO;
+						limparTela();
+						imprimirTabuleiro(tabuleiro);
 					}
 					else
 					{
 						entradaValida = false;
 						cout << endl << " primeiro numero  Invalido para formar o desenho ";
+					
 					}
-				} else if (i == 2){
-				    hidrohaviao1.posicao2 = hidrohaviao1.LerIndiceNumero( entradaValida, i,H);
-				    	cout << endl << "verificando validarSegundoNumero "<<hidrohaviao1.posicao2;
-				    if(hidrohaviao1.validarSegundoNumero(hidrohaviao1.posicao1, hidrohaviao1.posicao2))
-				    {
-				        	entradaValida = true;
-				    }else{
-				        entradaValida = false;
-				    }
+
+				} else {
+					hidrohaviao1.posicao2 = hidrohaviao1.LerIndiceNumero( entradaValida, i,H);
+					cout << endl << "verificando validarSegundoNumero "<<hidrohaviao1.posicao2;
+					if(hidrohaviao1.validarFormaHidro(hidrohaviao1.posicao1, hidrohaviao1.posicao2))
+					{
+						entradaValida = true;
+						
+						coluna = hidrohaviao1.LerIndiceLetra( i, H);
+						
+						tabuleiro[ coluna ][ hidrohaviao1.posicao2 ] = HIDROAVIAO;
+						limparTela();
+						imprimirTabuleiro(tabuleiro);
+					} else {
+						entradaValida = false;
+					}
+
 				}
 
 
@@ -460,10 +472,6 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 
 			} while ( ! ( entradaValida ) );
 
-
-			tabuleiro[ hidrohaviao1.LerIndiceLetra( i, H)  ][ hidrohaviao1.posicao1 ] = HIDROAVIAO;
-			limparTela();
-			imprimirTabuleiro(tabuleiro);
 		}//fim do HIDROAVIAO
 
 
@@ -537,53 +545,53 @@ void adicionarBarcos( int quantBarcos, Barcos& barco, string tipoBarco, char sim
 }
 void  atirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO]) {
 	int posicaoNumero;
-    int posicaoLetra;
-    bool entradaValida = false;
+	int posicaoLetra;
+	bool entradaValida = false;
 
-    cout << "Digite a letra da coordenada para o tiro (A-J): ";
-    char letra;
-    do {
-        cin >> letra;
-        letra = toupper(letra);
-        posicaoLetra = letra - 'A';
-        if (posicaoLetra >= 0 && posicaoLetra < TAMANHO_TABULEIRO) {
-            entradaValida = true;
-        } else {
-            cout << "Letra fora do limite. Digite novamente (A-J): ";
-        }
-    } while (!entradaValida);
+	cout << "Digite a letra da coordenada para o tiro (A-J): ";
+	char letra;
+	do {
+		cin >> letra;
+		letra = toupper(letra);
+		posicaoLetra = letra - 'A';
+		if (posicaoLetra >= 0 && posicaoLetra < TAMANHO_TABULEIRO) {
+			entradaValida = true;
+		} else {
+			cout << "Letra fora do limite. Digite novamente (A-J): ";
+		}
+	} while (!entradaValida);
 
-    entradaValida = false;
-    cout << "Digite o número da coordenada para o tiro (1-15): ";
-    do {
-        posicaoNumero = validarNumero();
-        posicaoNumero--; // Ajusta para o índice de 0 a 14
-        if (posicaoNumero >= 0 && posicaoNumero < TAMANHO_TABULEIRO) {
-            entradaValida = true;
-        } else {
-            cout << "Número fora do limite. Digite novamente (1-15): ";
-        }
-    } while (!entradaValida);
+	entradaValida = false;
+	cout << "Digite o nC:mero da coordenada para o tiro (1-15): ";
+	do {
+		posicaoNumero = validarNumero();
+		posicaoNumero--; // Ajusta para o C-ndice de 0 a 14
+		if (posicaoNumero >= 0 && posicaoNumero < TAMANHO_TABULEIRO) {
+			entradaValida = true;
+		} else {
+			cout << "NC:mero fora do limite. Digite novamente (1-15): ";
+		}
+	} while (!entradaValida);
 
-    // Verificar se a posição já foi atacada
-    if (tabuleiroAdversario[posicaoLetra][posicaoNumero] == TIRO_AGUA || tabuleiroAdversario[posicaoLetra][posicaoNumero] == TIRO_NAVIO) {
-        cout << "Você já atirou nessa posição. Escolha outra coordenada." << endl;
-        return;
-    }
+	// Verificar se a posiC'C#o jC! foi atacada
+	if (tabuleiroAdversario[posicaoLetra][posicaoNumero] == TIRO_AGUA || tabuleiroAdversario[posicaoLetra][posicaoNumero] == TIRO_NAVIO) {
+		cout << "VocC* jC! atirou nessa posiC'C#o. Escolha outra coordenada." << endl;
+		return;
+	}
 
-    // Atualizar o tabuleiro de tiros
-    if (tabuleiroAdversario[posicaoLetra][posicaoNumero] != AGUA) {
-        // Acertou um navio
-        tabuleiroAdversario[posicaoLetra][posicaoNumero] = TIRO_NAVIO;
-        cout << "Você acertou um navio!" << endl;
-        // Opcional: Adicionar lógica para verificar se o navio foi afundado
-    } else {
-        // Errou o tiro
-        tabuleiroAdversario[posicaoLetra][posicaoNumero] = TIRO_AGUA;
-        cout << "Água. Tiro perdido!" << endl;
-    }
+	// Atualizar o tabuleiro de tiros
+	if (tabuleiroAdversario[posicaoLetra][posicaoNumero] != AGUA) {
+		// Acertou um navio
+		tabuleiroAdversario[posicaoLetra][posicaoNumero] = TIRO_NAVIO;
+		cout << "VocC* acertou um navio!" << endl;
+		// Opcional: Adicionar lC3gica para verificar se o navio foi afundado
+	} else {
+		// Errou o tiro
+		tabuleiroAdversario[posicaoLetra][posicaoNumero] = TIRO_AGUA;
+		cout << "Cgua. Tiro perdido!" << endl;
+	}
 
-    // Mostrar o tabuleiro atual de tiros
+	// Mostrar o tabuleiro atual de tiros
 }
 /*
 void adicionarBarcosAleatoriamente(char tabuleiro[15][15], char tipoBarco, int tamanhoBarco) {
@@ -640,199 +648,199 @@ void adicionarBarcosAleatoriamente(char tabuleiro[15][15], char tipoBarco, int t
 		}
 	}
 */
-	void BatalhaPvp()
-	{
-		inicializarTabuleiro(tabuleiro1);
-		inicializarTabuleiro(tabuleiro2);
-		//inicializarTabuleiro(tabuleiroJogador2);
-		string nomeJogador = "Wesley";
-		int quantBarcos = 1;
+void BatalhaPvp()
+{
+	inicializarTabuleiro(tabuleiro1);
+	inicializarTabuleiro(tabuleiro2);
+	//inicializarTabuleiro(tabuleiroJogador2);
+	string nomeJogador = "Wesley";
+	int quantBarcos = 1;
 
-		Submarino submarino1;
-		Cruzador cruzador1;
-		PortaAviao portaaviao1;
-		Hidrohaviao hidrohaviao1;
-		Encoracado encoracado;
-		int continuar = 0;
+	Submarino submarino1;
+	Cruzador cruzador1;
+	PortaAviao portaaviao1;
+	Hidrohaviao hidrohaviao1;
+	Encoracado encoracado;
+	int continuar = 0;
 
-		limparTela();
+	limparTela();
 
-		displayTabuleiro();
+	displayTabuleiro();
 
-		cout << endl <<" Jogador "<< nomeJogador << " Insira seus barcos" << endl;
+	cout << endl <<" Jogador "<< nomeJogador << " Insira seus barcos" << endl;
 
 
-		// Le o nome do Jogador
-		cout << BRANCO << endl;
-		//cout << "Jogador 1 informe o seu nome: " << endl;
-		//getline(cin, nomeJogador);
-		
-		adicionarHidroaviao( hidrohaviao1, tabuleiro1);
+	// Le o nome do Jogador
+	cout << BRANCO << endl;
+	//cout << "Jogador 1 informe o seu nome: " << endl;
+	//getline(cin, nomeJogador);
+
+	adicionarHidroaviao( hidrohaviao1, tabuleiro1);
 
 	//	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
-		//adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
+	//adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
 //	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
-		//adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
+	//adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
 
 	cout << endl <<" acabou ";
-    cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
-    cout << endl;
-    cin >> continuar;
+	cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
+	cout << endl;
+	cin >> continuar;
 
 
-		limparTela();
-		cout << endl << "Jogador 2 ira colocar os barcos " << endl;
-		cout << endl <<" acabou ";
+	limparTela();
+	cout << endl << "Jogador 2 ira colocar os barcos " << endl;
+	cout << endl <<" acabou ";
 
-		//adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
-		adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
+	//adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
+	adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
 //	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro2);
-		//adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro2);
+	//adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro2);
 
 
-		cout << endl <<" acabou ";
-		cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
-		cout << endl;
-		cin >> continuar;
-		
+	cout << endl <<" acabou ";
+	cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
+	cout << endl;
+	cin >> continuar;
 
 
-	// passa o tabuleiro do adversário  e o do jogador para marcar a jogada
-    atirar(tabuleiro2);
-    //imprimirTabuleiro(tabuleiroJogador1);
+
+	// passa o tabuleiro do adversC!rio  e o do jogador para marcar a jogada
+	atirar(tabuleiro2);
+	//imprimirTabuleiro(tabuleiroJogador1);
 
 
-	}
+}
 
-	void menuBatalhaNaval()
+void menuBatalhaNaval()
+{
+	limparTela();
+	int resp = 0;
+	cout << "Estrutura de Dados - Matrizes" << endl;
+	cout << "Bem vindo ao jogo Batalha Naval" << endl;
+	cout << "Digite 1 para P x P " << endl;
+	cout << "Digite 2 para P x CPU " << endl;
+	cout << "Digite 3 para CPU x P " << endl;
+	cout << "Digite 0 para sair " << endl;
+	cin >> resp;
+	cin.ignore(80, '\n');
+	switch (resp)
 	{
-		limparTela();
-		int resp = 0;
-		cout << "Estrutura de Dados - Matrizes" << endl;
-		cout << "Bem vindo ao jogo Batalha Naval" << endl;
-		cout << "Digite 1 para P x P " << endl;
-		cout << "Digite 2 para P x CPU " << endl;
-		cout << "Digite 3 para CPU x P " << endl;
-		cout << "Digite 0 para sair " << endl;
+	case 1:
+		cout << "Tu escolheu P x P" << endl;
+		BatalhaPvp();
+		break;
+	case 2:
+		cout << "Tu escolheu P x CPU" << endl;
+		break;
+	case 3:
+		cout << "Tu escolheu CPU x P" << endl;
+		break;
+	}
+}
+
+void Programa2()
+{
+	limparTela();
+	int resp = 0;
+	cout << "Bem-vindo ao Programa2, mundo que ainda no?=o o?= mundo" << endl;
+	cout << "Digite 0 para sair " << endl;
+	cin >> resp;
+	cin.ignore(80, '\n');
+}
+
+void Programa3()
+{
+	limparTela();
+	int resp = 0;
+	cout << "Bem-vindo ao Programa3, mundo que ainda no?=o o?= mundo" << endl;
+	cout << "Digite 0 para sair " << endl;
+	cin >> resp;
+	cin.ignore(80, '\n');
+}
+
+void Programa4()
+{
+	limparTela();
+	int resp = 0;
+	cout << "Bem-vindo ao Programa4, mundo que ainda no?=o o?= mundo" << endl;
+	cout << "Digite 0 para sair " << endl;
+	cin >> resp;
+	cin.ignore(80, '\n');
+}
+
+void MatrizesVetores()
+{
+	limparTela();
+	int resp = 0;
+	cout << "Estrutura de Dados Matrizes e Vetores" << endl;
+	cout << endl;
+	cout << "[1] Batalha Naval " << endl;
+	cout << "[2] Programa 2" << endl;
+	cout << "[3] Programa 3" << endl;
+	cout << "[4] Programa 4" << endl;
+	cout << "[0] Digite  para sair " << endl;
+	cout << "Entre com a opo?=o?=o desejada" << endl;
+	cin >> resp;
+	cin.ignore(80, '\n');
+	switch (resp)
+	{
+	case 1:
+		BatalhaPvp();
+		break;
+	case 2:
+		Programa2();
+		break;
+	case 3:
+		Programa3();
+		break;
+	case 4:
+		Programa4();
+		break;
+	}
+}
+
+void menuPrincipal()
+{
+	limparTela();
+	int resp = 0;
+	cout << "Estrutura de Dados" << endl;
+	cout << endl;
+	cout << "[1] Matrizes e Vetores " << endl;
+	cout << "[2] Programa 2" << endl;
+	cout << "[3] Programa 3" << endl;
+	cout << "[4] Programa 4" << endl;
+	cout << "[0] Digite para sair " << endl;
+	cout << "Entre com a opo?=o?=o desejada" << endl;
+	cin >> resp;
+	cin.ignore(80, '\n');
+	switch (resp)
+	{
+	case 1:
+		BatalhaPvp();
+		break;
+	case 2:
+		Programa2();
+		break;
+	case 3:
+		Programa3();
+		break;
+	case 4:
+		Programa4();
+		break;
+	}
+}
+
+int main(void)
+{
+
+	setlocale(LC_ALL, "Portuguese");
+	int resp = 0;
+	do
+	{
+		BatalhaPvp();
 		cin >> resp;
 		cin.ignore(80, '\n');
-		switch (resp)
-		{
-		case 1:
-			cout << "Tu escolheu P x P" << endl;
-			BatalhaPvp();
-			break;
-		case 2:
-			cout << "Tu escolheu P x CPU" << endl;
-			break;
-		case 3:
-			cout << "Tu escolheu CPU x P" << endl;
-			break;
-		}
-	}
-
-	void Programa2()
-	{
-		limparTela();
-		int resp = 0;
-		cout << "Bem-vindo ao Programa2, mundo que ainda no?=o o?= mundo" << endl;
-		cout << "Digite 0 para sair " << endl;
-		cin >> resp;
-		cin.ignore(80, '\n');
-	}
-
-	void Programa3()
-	{
-		limparTela();
-		int resp = 0;
-		cout << "Bem-vindo ao Programa3, mundo que ainda no?=o o?= mundo" << endl;
-		cout << "Digite 0 para sair " << endl;
-		cin >> resp;
-		cin.ignore(80, '\n');
-	}
-
-	void Programa4()
-	{
-		limparTela();
-		int resp = 0;
-		cout << "Bem-vindo ao Programa4, mundo que ainda no?=o o?= mundo" << endl;
-		cout << "Digite 0 para sair " << endl;
-		cin >> resp;
-		cin.ignore(80, '\n');
-	}
-
-	void MatrizesVetores()
-	{
-		limparTela();
-		int resp = 0;
-		cout << "Estrutura de Dados Matrizes e Vetores" << endl;
-		cout << endl;
-		cout << "[1] Batalha Naval " << endl;
-		cout << "[2] Programa 2" << endl;
-		cout << "[3] Programa 3" << endl;
-		cout << "[4] Programa 4" << endl;
-		cout << "[0] Digite  para sair " << endl;
-		cout << "Entre com a opo?=o?=o desejada" << endl;
-		cin >> resp;
-		cin.ignore(80, '\n');
-		switch (resp)
-		{
-		case 1:
-			BatalhaPvp();
-			break;
-		case 2:
-			Programa2();
-			break;
-		case 3:
-			Programa3();
-			break;
-		case 4:
-			Programa4();
-			break;
-		}
-	}
-
-	void menuPrincipal()
-	{
-		limparTela();
-		int resp = 0;
-		cout << "Estrutura de Dados" << endl;
-		cout << endl;
-		cout << "[1] Matrizes e Vetores " << endl;
-		cout << "[2] Programa 2" << endl;
-		cout << "[3] Programa 3" << endl;
-		cout << "[4] Programa 4" << endl;
-		cout << "[0] Digite para sair " << endl;
-		cout << "Entre com a opo?=o?=o desejada" << endl;
-		cin >> resp;
-		cin.ignore(80, '\n');
-		switch (resp)
-		{
-		case 1:
-			BatalhaPvp();
-			break;
-		case 2:
-			Programa2();
-			break;
-		case 3:
-			Programa3();
-			break;
-		case 4:
-			Programa4();
-			break;
-		}
-	}
-
-	int main(void)
-	{
-
-		setlocale(LC_ALL, "Portuguese");
-		int resp = 0;
-		do
-		{
-			BatalhaPvp();
-			cin >> resp;
-			cin.ignore(80, '\n');
-		} while (resp != 0);
-		return 0;
-	}
+	} while (resp != 0);
+	return 0;
+}
