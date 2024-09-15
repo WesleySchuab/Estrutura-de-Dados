@@ -421,7 +421,7 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15]) {
 	int coluna2 = 0;
 	for (int j = 1; j <= 2; j++)
 	{
-		cout <<endl <<j <<" " << H;
+		//cout <<endl <<j <<" " << H;
 		for (int i = 1; i <= 3; i++)
 		{
 
