@@ -198,7 +198,7 @@ public:
 
 		return p;
 	}
-	// Fazendo a funC'C#o ler indide numero
+	// Fazendo a funCao ler indide numero
 
 	int LerIndiceNumero(bool &entrada, int ordinal, string embarcacao)
 	{
@@ -207,7 +207,7 @@ public:
 		do
 		{
 			cout << endl
-				 << " Digite 0 Numero [ coluna] da " << ordinal << " posicoes para " << embarcacao << endl;
+				 << " Digite 0 [ Numero / coluna] da " << ordinal << " posicoes para " << embarcacao << endl;
 			// cin >> p;
 			p = validarNumero();
 			cout << endl;
@@ -266,20 +266,7 @@ public:
 
 			cout << endl
 				 << " Validou colunas hidro";
-			if (m[letra2][colunaNumero2] == AGUA)
-			{
-				cout << endl
-					 << " Validou casa escolhido com gua  hidro";
-				retorno = true;
-			}
-			else
-			{
-				cout << VERMELHO << endl
-					 << " NAO ha colunas para formar hidro";
-				cout << BRANCO;
-
-				retorno = false;
-			}
+			
 			if ((letra2 == letra1 + 1) || (letra2 == letra1 - 1))
 			{
 				cout << AMARELO << endl
@@ -295,6 +282,20 @@ public:
 				retorno = false;
 			}
 		}
+		if (m[letra2][colunaNumero2] == AGUA)
+			{
+				cout << endl
+					 << " Validou casa escolhido com gua  hidro";
+				retorno = true;
+			}
+			else
+			{
+				cout << VERMELHO << endl
+					 << " NAO ha colunas para formar hidro";
+				cout << BRANCO;
+
+				retorno = false;
+			}
 		return retorno;
 	}
 
@@ -491,9 +492,9 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 				}
 				else // Verifica a segunda e terceria coordenada par ao hidrohaviao
 				{
-//TODO precisar corrigir a validação do segundo hidro quando inserir a primeira posição tem que verifica se ha espaço para formar desenho 
-					do
-					{ // verifica se as demais coordenada sao valida
+            //TODO precisar corrigir a validação do segundo hidro quando inserir a primeira posição tem que verifica se ha espaço para formar desenho 
+				//	
+				 // verifica se as demais coordenada sao valida
 
 						colunaNumero2 = hidrohaviao1.LerIndiceNumero(entradaValida, i, H);
 
@@ -508,9 +509,10 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 						{
 							entradaValida = false;
 						    cout << endl << VERMELHO << "Nao forma HIDROAVIAO" << endl;
+						    tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
+						    i--;
 						}
 					
-					} while (!(entradaValida));
 				}
 
 
@@ -525,7 +527,8 @@ void adicionarBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char simb
 {
 	//	char letra1;
 	cout << endl
-		 << " Vamos adicionar " << tipoBarco << endl;
+		 << AMARELO << " Vamos adicionar " << tipoBarco << endl;
+		 cout << BRANCO;
 	int indiceNumero;
 	int indiceLetra1;
 	int tamanhoParaExibir = barco.tamanho + 1;
