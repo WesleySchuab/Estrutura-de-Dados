@@ -170,7 +170,7 @@ public:
 			cout << BRANCO;
 			// cout << endl <<" Digite a [ LETRA ] da" << ordinal <<" coordenada posicoes para " << embarcacao << endl;
 			cout << endl
-				 << " Digite a [ LETRA ] da" << ordinal << " coordenada posicoes para " << embarcacao << endl;
+				 << " Digite a [ LETRA \ Linha] da " << ordinal << " coordenada posicoes para " << embarcacao << endl;
 			cout << endl;
 			cin >> letra;
 
@@ -198,7 +198,7 @@ public:
 
 		return p;
 	}
-	// Fazendo a funCao ler indide numero
+	// Fazendo a funCao ler indice numero
 
 	int LerIndiceNumero(bool &entrada, int ordinal, string embarcacao)
 	{
@@ -206,7 +206,7 @@ public:
 
 		do
 		{
-			cout << endl
+			cout << BRANCO << endl
 				 << " Digite 0 [ Numero / coluna] da " << ordinal << " posicoes para " << embarcacao << endl;
 			// cin >> p;
 			p = validarNumero();
@@ -216,7 +216,6 @@ public:
 			if (limiteNumero(p)) // veriica se o valor informado esta dentro das dimensC5es do tabuleiro
 			{
 				entrada = true;
-				cout << BRANCO;
 			}
 			else
 			{
@@ -261,7 +260,7 @@ public:
 	{
 		bool retorno = false;
 		// TODO validando segunda entrada
-		if ((colunaNumero2 == colunaNumero1 + 1) || (colunaNumero2 == colunaNumero1 - 1)) // verifica nas colunas ao lado
+		if ((colunaNumero2 == colunaNumero1 + 1) || (colunaNumero2 == colunaNumero1 - 1) && (m[letra2][colunaNumero2] == AGUA)) // verifica nas colunas ao lado
 		{
 
 			cout << endl
@@ -282,20 +281,7 @@ public:
 				retorno = false;
 			}
 		}
-		if (m[letra2][colunaNumero2] == AGUA)
-			{
-				cout << endl
-					 << " Validou casa escolhido com gua  hidro";
-				retorno = true;
-			}
-			else
-			{
-				cout << VERMELHO << endl
-					 << " NAO ha colunas para formar hidro";
-				cout << BRANCO;
-
-				retorno = false;
-			}
+		
 		return retorno;
 	}
 
@@ -492,7 +478,7 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 				}
 				else // Verifica a segunda e terceria coordenada par ao hidrohaviao
 				{
-            //TODO precisar corrigir a validação do segundo hidro quando inserir a primeira posição tem que verifica se ha espaço para formar desenho 
+            //TODO esta voltando para inserir a primeira posicao caso de alguim erro
 				//	
 				 // verifica se as demais coordenada sao valida
 
@@ -509,6 +495,8 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 						{
 							entradaValida = false;
 						    cout << endl << VERMELHO << "Nao forma HIDROAVIAO" << endl;
+
+							// TODO posso dividir a funcao validar hidro para não excluir a primeira posicao se for valida 
 						    tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
 						    i--;
 						}
