@@ -1,9 +1,10 @@
-#include <iostream>
-#include <iomanip> // Inclua para usar setw
-#include <cstdlib> // Para a funo?=o?=o atoi
+#include <iostream> // controla entra e saida
+#include <iomanip>  // Inclua para usar setw
+#include <cstdlib>  // Para a funo?=o?=o atoi
 #include <string>
 #include <ncurses.h>
 #include <cctype> // para veriica entrada numero
+#include <random> // Gerar numeros aleatorios
 using namespace std;
 
 // Criando constantes para selecionar o SO
@@ -259,7 +260,7 @@ public:
     bool validarFormaHidro(int colunaNumero1, int colunaNumero2, int letra1, int letra2, char m[15][15])
     {
         bool retorno = false;
-        // TODO validando segunda entrada
+        //  validando segunda entrada
         if ((colunaNumero2 == colunaNumero1 + 1) || (colunaNumero2 == colunaNumero1 - 1) && (m[letra2][colunaNumero2] == AGUA)) // verifica nas colunas ao lado
         {
 
@@ -282,6 +283,20 @@ public:
             }
         }
 
+        return retorno;
+    }
+    bool validarTerceiraFormaHidro(int colunaNumero2, int colunaNumero3,  int letra2, int letra3, char m[15][15])
+    {
+        bool retorno = false;
+        if ((colunaNumero3 == colunaNumero2) || (letra3 == letra2) && (m[letra3][colunaNumero3] == AGUA)) // verifica nas colunas ao lado
+        {
+            cout << AMARELO << endl
+                 << " Letra valida";
+            cout << BRANCO;
+            retorno = true;
+        }else{
+            return false;
+        }
         return retorno;
     }
 
@@ -440,8 +455,10 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
     bool entradaValida = false;
     int linhaLetra1 = 0;
     int linhaLetra2 = 0;
+    int linhaLetra3 = 0;
     int colunaNumero1 = 0;
     int colunaNumero2 = 0;
+    int colunaNumero3 = 0;
     for (int j = 1; j <= 2; j++)
     {
         // cout <<endl <<j <<" " << H;
@@ -479,7 +496,7 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
                     } while (!entradaValida); // verifica se a coordenda passada foi usada
                     tabuleiro[linhaLetra1][colunaNumero1] = HIDROAVIAO;
                 }
-                else // Verifica a segunda e terceria coordenada par ao hidrohaviao
+                else if (i == 2) // Verifica a segunda e terceria coordenada par ao hidrohaviao
                 {
                     // TODO esta voltando para inserir a primeira posicao caso de alguim erro
                     //
@@ -505,9 +522,36 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
                         i--;
                     }
                 }
+                else if (i == 3)
+                {
+                    colunaNumero3 = hidrohaviao1.LerIndiceNumero(entradaValida, i, H);
+
+                    linhaLetra3 = hidrohaviao1.LerIndiceLetra(i, H);
+
+                    //validarTerceiraFormaHidro(int colunaNumero2, int colunaNumero3,  int letra2, int letra3, char m[15][15])
+
+                    if (hidrohaviao1.validarTerceiraFormaHidro( colunaNumero2, colunaNumero3,  linhaLetra2, linhaLetra3, tabuleiro))
+                    {
+                        entradaValida = true;
+                        tabuleiro[linhaLetra3][colunaNumero3] = HIDROAVIAO;
+                    }
+                    else
+                    {
+                        entradaValida = false;
+                        cout << endl
+                             << VERMELHO << "Nao forma HIDROAVIAO" << endl;
+
+                        // TODO posso dividir a funcao validar hidro para não excluir a primeira posicao se for valida
+                        tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
+                        tabuleiro[linhaLetra2][colunaNumero2] = AGUA;
+                        i--;
+                        i--;
+                    }
+                }
 
             } while (!(entradaValida));
-            limparTela();
+            //limparTela();
+            cout << endl << "Vai imprimir tabuleiro " << endl;
             imprimirTabuleiro(tabuleiro);
 
         } // fim do HIDROAVIAO
@@ -591,10 +635,10 @@ void adicionarBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char simb
     } // for add ENCORACADO
 }
 
-int numeroAleatorio1(int limite)
+int numeroAleatorio(int limite)
 {
     srand(time(0));
-     int numeroAleatorio;
+    int numeroAleatorio;
 
     if (limite == 14)
     {
@@ -603,12 +647,21 @@ int numeroAleatorio1(int limite)
     else
     {
         // Gera um número aleatório entre 0 e 12 (inclusive)
-        int numeroAleatorio = rand() % 13;
+        numeroAleatorio = rand() % 13;
 
         // Adiciona 2 ao número gerado para obter o intervalo desejado (2 a 14)
         numeroAleatorio += 2;
     }
     return numeroAleatorio;
+}
+int gerarNumeroAleatorio(int min, int max)
+{
+    // Cria um gerador de números aleatórios usando a semente do relógio
+    std::random_device rd;
+    std::mt19937 gerador(rd());                             // mt19937 é um gerador de números aleatórios Mersenne Twister
+    std::uniform_int_distribution<> distribuicao(min, max); // Define a distribuição uniforme no intervalo [min, max]
+
+    return distribuicao(gerador); // Gera e retorna o número aleatório
 }
 
 void cpuAdicionaHidro(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
@@ -636,11 +689,11 @@ void cpuAdicionaHidro(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
                     do
                     {
 
-                        colunaNumero1 = numeroAleatorio();
+                        colunaNumero1 = gerarNumeroAleatorio(1, 13);
 
                         if (hidrohaviao1.validarPrimeiroNumero(colunaNumero1)) // verifica se e possivel formar o desenho
                         {
-                            linhaLetra1 = numeroAleatorio();
+                            linhaLetra1 = gerarNumeroAleatorio(0, 14);
 
                             entradaValida = true;
                         }
@@ -666,9 +719,13 @@ void cpuAdicionaHidro(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
                     //
                     //  verifica se as demais coordenada sao valida
 
-                    colunaNumero2 = hidrohaviao1.LerIndiceNumero(entradaValida, i, H);
+                    // colunaNumero2 = hidrohaviao1.LerIndiceNumero(entradaValida, i, H);
 
-                    linhaLetra2 = hidrohaviao1.LerIndiceLetra(i, H);
+                    // linhaLetra2 = hidrohaviao1.LerIndiceLetra(i, H);
+
+                    colunaNumero2 = gerarNumeroAleatorio(colunaNumero1 - 1, colunaNumero1 + 1);
+
+                    linhaLetra2 = gerarNumeroAleatorio(linhaLetra1 - 1, linhaLetra1 + 1);
 
                     if (hidrohaviao1.validarFormaHidro(colunaNumero1, colunaNumero2, linhaLetra1, linhaLetra2, tabuleiro))
                     {
@@ -688,7 +745,7 @@ void cpuAdicionaHidro(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
                 }
 
             } while (!(entradaValida));
-            limparTela();
+            // limparTela();
             imprimirTabuleiro(tabuleiro);
 
         } // fim do HIDROAVIAO
@@ -840,8 +897,8 @@ void BatalhaPvp()
     // cout << "Jogador 1 informe o seu nome: " << endl;
     // getline(cin, nomeJogador);
 
-    // adicionarHidroaviao(hidrohaviao1, tabuleiro1);
-    cpuAdicionaHidro(hidrohaviao1, tabuleiro1);
+    adicionarHidroaviao(hidrohaviao1, tabuleiro1);
+    // cpuAdicionaHidro(hidrohaviao1, tabuleiro1);
 
     //	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
     // adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
@@ -861,7 +918,7 @@ void BatalhaPvp()
          << " acabou ";
 
     // adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
-    adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
+    //adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
     //	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro2);
     // adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro2);
 
