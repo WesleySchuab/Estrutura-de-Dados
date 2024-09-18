@@ -770,8 +770,9 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 						if (hidrohaviao1.validarPrimeiroNumero(colunaNumero1)) // verifica se e possivel formar o desenho
 						{
 							linhaLetra1 = gerarNumeroAleatorio(0, 14);
-
-							entradaValida = true;
+							cout << endl << "Forma o desenho ";
+							   entradaValida = true;
+						
 						}
 						else
 						{
@@ -779,21 +780,17 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 							cout << VERMELHO << endl
 							     << " primeiro numero  Invalido para formar o desenho ";
 						}
-						if (tabuleiro[linhaLetra1][colunaNumero1] == AGUA)
-						{
-							entradaValida = false;
-							cout << VERMELHO << endl
-							     << " primeiro numero  Invalido para formar o desenho ";
-						}else if (tabuleiro[linhaLetra1][colunaNumero1] != AGUA)
+						if (tabuleiro[linhaLetra1][colunaNumero1] != AGUA)
 						{
 							entradaValida = false;
 							cout << VERMELHO << endl
 							     << " primeiro numero  Invalido para formar o desenho ";
 						}
+							if(entradaValida) {
+						tabuleiro[linhaLetra1][colunaNumero1] = HIDROAVIAO;
+					}
 
 					} while (!entradaValida); // verifica se a coordenda passada foi usada
-					tabuleiro[linhaLetra1][colunaNumero1] = HIDROAVIAO;
-					imprimirTabuleiro(tabuleiro);
 				}
 				else if (i == 2) // Verifica a segunda e coordenada par ao hidrohaviao
 				{
@@ -813,7 +810,7 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 						tabuleiro[linhaLetra2][colunaNumero2] = HIDROAVIAO;
 						cout << endl
 						     << "mostrando tabuleiro depois da coordenada " << i << endl;
-						imprimirTabuleiro(tabuleiro);
+					//	imprimirTabuleiro(tabuleiro);
 					}
 					else
 					{
@@ -826,8 +823,7 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 						tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
 						i--;
 					}
-					//imprimirTabuleiro(tabuleiro1);
-				//	cin >> pause;
+			
 				}
 				else if (i == 3)
 				{
@@ -884,7 +880,6 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 			cout << endl
 			     << "analise o desenho " << endl;
 			// cin  >> pause;
-			imprimirTabuleiro(tabuleiro);
 
 		} // fim do HIDROAVIAO
 	} // Fim do for que adiciona hidro
@@ -1014,7 +1009,7 @@ void BatalhaPvp()
 	inicializarTabuleiro(tabuleiro2);
 	// inicializarTabuleiro(tabuleiroJogador2);
 	string nomeJogador = "Wesley";
-	int quantBarcos = 2;
+	int quantBarcos = 6;
 
 	Submarino submarino1;
 	Cruzador cruzador1;
@@ -1037,9 +1032,10 @@ void BatalhaPvp()
 
 	//adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
 	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
-	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
-	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
-	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
+	limparTela();
+	 imprimirTabuleiro(tabuleiro1);
+	 return;
+
 	
 
 	//	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
