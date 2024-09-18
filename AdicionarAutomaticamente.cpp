@@ -171,7 +171,7 @@ public:
             cout << BRANCO;
             // cout << endl <<" Digite a [ LETRA ] da" << ordinal <<" coordenada posicoes para " << embarcacao << endl;
             cout << endl
-                 << " Digite a [ LETRA \ Linha] da " << ordinal << " coordenada posicoes para " << embarcacao << endl;
+                 << " Digite a [ LETRA | Linha] da " << ordinal << " coordenada posicoes para " << embarcacao << endl;
             cout << endl;
             cin >> letra;
 
@@ -536,8 +536,21 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
                 else if (i == 3)
                 {
                     colunaNumero3 = hidrohaviao1.LerIndiceNumero(entradaValida, i, H);
+                    
+                    // Se a segunda letra maior que a primeira letra3 = letra1 - 1
+                    if (colunaNumero3 == colunaNumero2){
+                        if( linhaLetra1 > linhaLetra1 ){
+                            if( linhaLetra1 -1 >= 0 ){
+                                linhaLetra3 = linhaLetra1 - 1;
+                            }
+                            
+                        } else
+                        {
+                            linhaLetra3 = linhaLetra1 + 1;
+                        }
+                    }
 
-                    linhaLetra3 = hidrohaviao1.LerIndiceLetra(i, H);
+                    //linhaLetra3 = hidrohaviao1.LerIndiceLetra(i, H);
 
                     //validarTerceiraFormaHidro(int colunaNumero2, int colunaNumero3,  int letra2, int letra3, char m[15][15])
 
@@ -946,8 +959,8 @@ void BatalhaPvp()
     // cout << "Jogador 1 informe o seu nome: " << endl;
     // getline(cin, nomeJogador);
 
-    //adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
-     cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
+    adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
+     //cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
 
     //	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
     // adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
