@@ -540,6 +540,7 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
 					colunaNumero3 = hidrohaviao1.LerIndiceNumero(entradaValida, i, H);
 
 					// Se a segunda letra maior que a primeira letra3 = letra1 - 1
+					//if ((colunaNumero3 == colunaNumero1 + 1) || (colunaNumero3 == colunaNumero1 - 1) ) // verifica nas colunas ao lado
 					if (colunaNumero3 == colunaNumero2)
 					{
 
@@ -562,12 +563,21 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
 							}
 						}
 					}
-					else
+					else if (colunaNumero3 != colunaNumero1)
 					{
 						linhaLetra3 = linhaLetra2;
+					} else {
+						entradaValida = false;
 					}
 					if(entradaValida) {
-						tabuleiro[linhaLetra3][colunaNumero3] = HIDROAVIAO;
+						if ( (tabuleiro[linhaLetra3][colunaNumero3] == AGUA))
+						{
+							tabuleiro[linhaLetra3][colunaNumero3] = HIDROAVIAO;
+						} else {
+							entradaValida = false;
+						}
+						
+						
 					} else {
 						entradaValida = false;
 						cout << endl
@@ -769,7 +779,12 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 							cout << VERMELHO << endl
 							     << " primeiro numero  Invalido para formar o desenho ";
 						}
-						if (tabuleiro[linhaLetra1][colunaNumero1] != AGUA)
+						if (tabuleiro[linhaLetra1][colunaNumero1] == AGUA)
+						{
+							entradaValida = false;
+							cout << VERMELHO << endl
+							     << " primeiro numero  Invalido para formar o desenho ";
+						}else if (tabuleiro[linhaLetra1][colunaNumero1] != AGUA)
 						{
 							entradaValida = false;
 							cout << VERMELHO << endl
@@ -811,22 +826,46 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 						tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
 						i--;
 					}
+					//imprimirTabuleiro(tabuleiro1);
+				//	cin >> pause;
 				}
 				else if (i == 3)
 				{
 					colunaNumero3 = gerarNumeroAleatorio(colunaNumero1 - 1, colunaNumero1 + 1);
 
-					linhaLetra3 = gerarNumeroAleatorio(linhaLetra1 - 1, linhaLetra1 + 1);
-
-					// validarTerceiraFormaHidro(int colunaNumero2, int colunaNumero3,  int letra2, int letra3, char m[15][15])
-
-					if (hidrohaviao1.validarTerceiraFormaHidro(colunaNumero2, colunaNumero3, linhaLetra2, linhaLetra3, tabuleiro))
+					// Se a segunda letra maior que a primeira letra3 = letra1 - 1
+					if (colunaNumero3 == colunaNumero2 && colunaNumero3 != colunaNumero1)
 					{
-						entradaValida = true;
-						tabuleiro[linhaLetra3][colunaNumero3] = HIDROAVIAO;
+
+						if (linhaLetra2 > linhaLetra1)
+						{
+							if (linhaLetra1 - 1 >= 0)
+							{
+								linhaLetra3 = linhaLetra1 - 1;
+							} else {
+								entradaValida = false;
+							}
+						}
+						else if ( linhaLetra2 < linhaLetra1 )
+						{
+							if (linhaLetra1 + 1 <= 14)
+							{
+								linhaLetra3 = linhaLetra1 + 1;
+							} else {
+								entradaValida = false;
+							}
+						}
 					}
-					else
+					else if (colunaNumero3 != colunaNumero1)
 					{
+						linhaLetra3 = linhaLetra2;
+						entradaValida = true;
+					}else{
+						entradaValida = false;						
+					}
+					if(entradaValida) {
+						tabuleiro[linhaLetra3][colunaNumero3] = HIDROAVIAO;
+					} else {
 						entradaValida = false;
 						cout << endl
 						     << VERMELHO << "Nao forma HIDROAVIAO" << endl;
@@ -838,6 +877,7 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 						i--;
 					}
 				}
+
 
 			} while (!(entradaValida));
 			// limparTela();
@@ -974,7 +1014,7 @@ void BatalhaPvp()
 	inicializarTabuleiro(tabuleiro2);
 	// inicializarTabuleiro(tabuleiroJogador2);
 	string nomeJogador = "Wesley";
-	int quantBarcos = 3;
+	int quantBarcos = 2;
 
 	Submarino submarino1;
 	Cruzador cruzador1;
@@ -995,8 +1035,12 @@ void BatalhaPvp()
 	// cout << "Jogador 1 informe o seu nome: " << endl;
 	// getline(cin, nomeJogador);
 
-	adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
-	// cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
+	//adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
+	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
+	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
+	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
+	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
+	
 
 	//	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
 	// adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
@@ -1007,7 +1051,7 @@ void BatalhaPvp()
 	     << " acabou ";
 	cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
 	cout << endl;
-	cin >> continuar;
+	//cin >> continuar;
 
 	limparTela();
 	cout << endl
@@ -1024,10 +1068,10 @@ void BatalhaPvp()
 	     << " acabou ";
 	cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
 	cout << endl;
-	cin >> continuar;
+	//cin >> continuar;
 
 	// passa o tabuleiro do adversC!rio  e o do jogador para marcar a jogada
-	atirar(tabuleiro2);
+	//atirar(tabuleiro2);
 	// imprimirTabuleiro(tabuleiroJogador1);
 }
 
