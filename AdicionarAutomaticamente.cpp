@@ -541,7 +541,7 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
 
 					// Se a segunda letra maior que a primeira letra3 = letra1 - 1
 					//if ((colunaNumero3 == colunaNumero1 + 1) || (colunaNumero3 == colunaNumero1 - 1) ) // verifica nas colunas ao lado
-					if (colunaNumero3 == colunaNumero2)
+					if (colunaNumero3 == colunaNumero2 && colunaNumero3 != colunaNumero1)
 					{
 
 						if (linhaLetra2 > linhaLetra1)
@@ -576,8 +576,8 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
 						} else {
 							entradaValida = false;
 						}
-						
-						
+
+
 					} else {
 						entradaValida = false;
 						cout << endl
@@ -586,34 +586,13 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
 						// TODO posso dividir a funcao validar hidro para nC#o excluir a primeira posicao se for valida
 						tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
 						tabuleiro[linhaLetra2][colunaNumero2] = AGUA;
+						tabuleiro[linhaLetra3][colunaNumero3] = AGUA;
+						i--;
 						i--;
 						i--;
 					}
 
-					// linhaLetra3 = hidrohaviao1.LerIndiceLetra(i, H);
-
-					// validarTerceiraFormaHidro(int colunaNumero2, int colunaNumero3,  int letra2, int letra3, char m[15][15])
-					/*
-
-					if (true) //(hidrohaviao1.validarTerceiraFormaHidro( colunaNumero2, colunaNumero3,  linhaLetra2, linhaLetra3, tabuleiro))
-					{
-					    entradaValida = true;
-					    cout << endl
-					         << "Linha letra 3 " << linhaLetra3;
-					    tabuleiro[linhaLetra3][colunaNumero3] = HIDROAVIAO;
-					}
-					else
-					{
-					    entradaValida = false;
-					    cout << endl
-					         << VERMELHO << "Nao forma HIDROAVIAO" << endl;
-
-					    // TODO posso dividir a funcao validar hidro para nC#o excluir a primeira posicao se for valida
-					    tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
-					    tabuleiro[linhaLetra2][colunaNumero2] = AGUA;
-					    i--;
-					    i--;
-					} */
+				
 				}
 
 			} while (!(entradaValida));
@@ -771,8 +750,8 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 						{
 							linhaLetra1 = gerarNumeroAleatorio(0, 14);
 							cout << endl << "Forma o desenho ";
-							   entradaValida = true;
-						
+							entradaValida = true;
+
 						}
 						else
 						{
@@ -780,15 +759,19 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 							cout << VERMELHO << endl
 							     << " primeiro numero  Invalido para formar o desenho ";
 						}
-						if (tabuleiro[linhaLetra1][colunaNumero1] != AGUA)
+						if (tabuleiro[linhaLetra1][colunaNumero1] == AGUA)
 						{
+							if(entradaValida) {
+								tabuleiro[linhaLetra1][colunaNumero1] = HIDROAVIAO;
+								entradaValida = true;
+							}
+
+						}
+						if ( ! (entradaValida) ) {
 							entradaValida = false;
 							cout << VERMELHO << endl
 							     << " primeiro numero  Invalido para formar o desenho ";
 						}
-							if(entradaValida) {
-						tabuleiro[linhaLetra1][colunaNumero1] = HIDROAVIAO;
-					}
 
 					} while (!entradaValida); // verifica se a coordenda passada foi usada
 				}
@@ -806,11 +789,15 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 
 					if (hidrohaviao1.validarFormaHidro(colunaNumero1, colunaNumero2, linhaLetra1, linhaLetra2, tabuleiro))
 					{
-						entradaValida = true;
-						tabuleiro[linhaLetra2][colunaNumero2] = HIDROAVIAO;
-						cout << endl
-						     << "mostrando tabuleiro depois da coordenada " << i << endl;
-					//	imprimirTabuleiro(tabuleiro);
+					    if (tabuleiro[linhaLetra2][colunaNumero2] == AGUA)
+						{
+							if(entradaValida) {
+								tabuleiro[linhaLetra2][colunaNumero2] = HIDROAVIAO;
+								entradaValida = true;
+							}
+
+						}
+					
 					}
 					else
 					{
@@ -821,9 +808,11 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 						//  posso dividir a funcao validar hidro para nC#o excluir a primeira posicao se for valida
 
 						tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
+						tabuleiro[linhaLetra2][colunaNumero2] = AGUA;
 						i--;
+						
 					}
-			
+
 				}
 				else if (i == 3)
 				{
@@ -852,15 +841,21 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 							}
 						}
 					}
-					else if (colunaNumero3 != colunaNumero1)
+						else if (colunaNumero3 != colunaNumero1)
 					{
 						linhaLetra3 = linhaLetra2;
-						entradaValida = true;
-					}else{
-						entradaValida = false;						
+					} else {
+						entradaValida = false;
 					}
 					if(entradaValida) {
-						tabuleiro[linhaLetra3][colunaNumero3] = HIDROAVIAO;
+						if ( (tabuleiro[linhaLetra3][colunaNumero3] == AGUA))
+						{
+							tabuleiro[linhaLetra3][colunaNumero3] = HIDROAVIAO;
+						} else {
+							entradaValida = false;
+						}
+
+
 					} else {
 						entradaValida = false;
 						cout << endl
@@ -869,8 +864,7 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 						// TODO posso dividir a funcao validar hidro para nC#o excluir a primeira posicao se for valida
 						tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
 						tabuleiro[linhaLetra2][colunaNumero2] = AGUA;
-						i--;
-						i--;
+						i = i -2; 
 					}
 				}
 
@@ -1009,7 +1003,7 @@ void BatalhaPvp()
 	inicializarTabuleiro(tabuleiro2);
 	// inicializarTabuleiro(tabuleiroJogador2);
 	string nomeJogador = "Wesley";
-	int quantBarcos = 6;
+	int quantBarcos = 5;
 
 	Submarino submarino1;
 	Cruzador cruzador1;
@@ -1033,10 +1027,10 @@ void BatalhaPvp()
 	//adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
 	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
 	limparTela();
-	 imprimirTabuleiro(tabuleiro1);
-	 return;
+	imprimirTabuleiro(tabuleiro1);
+	return;
 
-	
+
 
 	//	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
 	// adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
