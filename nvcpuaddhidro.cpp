@@ -451,6 +451,9 @@ void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 			else if (tabuleiro[i][j] == SUBMARINO) // amarelo
 			{
 				cout << AMARELO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+			}else if (tabuleiro[i][j] == 'A') // amarelo
+			{
+				cout << VERMELHO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
 			else
 				cout << AZULC << setw(LARGURA_COLUNA) << tabuleiro[i][j];
@@ -722,6 +725,8 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 	int colunaNumero1 = 0;
 	int colunaNumero2 = 0;
 	int colunaNumero3 = 0;
+	
+	quantBarcos = 6;
 
 	int pause;
 
@@ -733,11 +738,14 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 		     << j << " " << H << endl;
 		for (int i = 1; i <= 3; i++)
 		{
+		    cout << endl
+				     << "quantidade que o laço j rodou " << j << endl;
 
 			do
 			{
 				cout << endl
-				     << "coordenada " << i << endl;
+				     << " quantidade que o laço I rodou " << i << endl;
+				
 
 				if (i == 1) // Verifica se a primeira coor para o hidro
 				{
@@ -749,45 +757,46 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 						    	linhaLetra1 = gerarNumeroAleatorio(1, 13);
 						} else if (colunaNumero1 == 14){ // caso a coluna seja 14 a letra não pode ser A ou O
 						    	linhaLetra1 = gerarNumeroAleatorio(1, 13);
-						}else
+						}else 
+						    	linhaLetra1 = gerarNumeroAleatorio(0, 14);
 						if (tabuleiro[linhaLetra1][colunaNumero1] == AGUA)
 						{
-								tabuleiro[linhaLetra1][colunaNumero1] = HIDROAVIAO;
+								//tabuleiro[linhaLetra1][colunaNumero1] = HIDROAVIAO;
+								tabuleiro[linhaLetra1][colunaNumero1] = 'A';
 								entradaValida = true;
 						}
+						cout << endl << "coordenda que foi passada " << " letra " << linhaLetra1 << " colunaNumero1 " << colunaNumero1 << endl;
+						imprimirTabuleiro(tabuleiro);
+						cin >> pause;
 						
 					} while (!entradaValida); // verifica se a coordenda passada foi usada
 				}
-				else if (i == 2) // Verifica a segunda e coordenada par ao hidrohaviao
+			/*	else if (i == 2) // Verifica a segunda e coordenada par ao hidrohaviao
 				{
 					
 
-					colunaNumero2 = gerarNumeroAleatorio(colunaNumero1 - 1, colunaNumero1 + 1);
 					do {
 					    	colunaNumero2 = gerarNumeroAleatorio(colunaNumero1 - 1, colunaNumero1 + 1);
-					} while(colunaNumero2 == colunaNumero1);
+					} while(colunaNumero2 == colunaNumero1); // garante que a segunda coluna seja diferente da primeira
 					  
 					do {
 					    	linhaLetra2 = gerarNumeroAleatorio(linhaLetra1 - 1, linhaLetra1 + 1);
 					} while(linhaLetra2 == linhaLetra1); // garante que a segunda letra seja diferente da primeira
 
-					linhaLetra2 = gerarNumeroAleatorio(linhaLetra1 - 1, linhaLetra1 + 1);
-
 					if (hidrohaviao1.validarFormaHidro(colunaNumero1, colunaNumero2, linhaLetra1, linhaLetra2, tabuleiro))
 					{
 					    if (tabuleiro[linhaLetra2][colunaNumero2] == AGUA)
 						{
-							if(entradaValida) {
-								tabuleiro[linhaLetra2][colunaNumero2] = HIDROAVIAO;
-								entradaValida = true;
-							}
-
+							tabuleiro[linhaLetra2][colunaNumero2] = PORTAAVIAO;
+							entradaValida = true;
+						} else
+						{
+						    entradaValida = false;
 						}
 					
 					}
-					else
-					{
-						entradaValida = false;
+					if( ! ( entradaValida ) ){
+					    	entradaValida = false;
 						cout << endl
 						     << VERMELHO << "Nao forma HIDROAVIAO" << endl;
 
@@ -796,11 +805,10 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 						tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
 						tabuleiro[linhaLetra2][colunaNumero2] = AGUA;
 						i--;
-						
 					}
 
-				}
-				else if (i == 3)
+				}*/
+				/*else if (i == 3)
 				{
 					colunaNumero3 = gerarNumeroAleatorio(colunaNumero1 - 1, colunaNumero1 + 1);
 
@@ -852,7 +860,8 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 						tabuleiro[linhaLetra2][colunaNumero2] = AGUA;
 						i = i -2; 
 					}
-				}
+				} */
+				
 
 
 			} while (!(entradaValida));
@@ -989,7 +998,7 @@ void BatalhaPvp()
 	inicializarTabuleiro(tabuleiro2);
 	// inicializarTabuleiro(tabuleiroJogador2);
 	string nomeJogador = "Wesley";
-	int quantBarcos = 5;
+	int quantBarcos = 4;
 
 	Submarino submarino1;
 	Cruzador cruzador1;
