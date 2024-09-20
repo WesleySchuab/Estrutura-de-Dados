@@ -1,6 +1,6 @@
 #include <iostream> // controla entra e saida
-#include <iomanip>  // Inclua para usar setw
-#include <cstdlib>  // Para a funo?=o?=o atoi
+#include <iomanip>	// Inclua para usar setw
+#include <cstdlib>	// Para a funo?=o?=o atoi
 #include <string>
 #include <ncurses.h>
 #include <cctype> // para veriica entrada numero
@@ -73,13 +73,13 @@ const string C = "CRUZADOR";
 
 /*
  std::cout << BOLD << "Texto em negrito" << RESET << std::endl;
-    std::cout << UNDERLINE << "Texto sublinhado" << RESET << std::endl;
-    std::cout << INVERSE << "Texto invertido" << RESET << std::endl;
+	std::cout << UNDERLINE << "Texto sublinhado" << RESET << std::endl;
+	std::cout << INVERSE << "Texto invertido" << RESET << std::endl;
 
-    std::cout << RED << "Texto vermelho" << RESET << std::endl;
-    std::cout << BGREEN << "Texto com fundo verde" << RESET << std::endl;
-    std::cout << YELLOW << "Texto amarelo" << BBLUE << " com fundo azul" << RESET << std::endl;
-    */
+	std::cout << RED << "Texto vermelho" << RESET << std::endl;
+	std::cout << BGREEN << "Texto com fundo verde" << RESET << std::endl;
+	std::cout << YELLOW << "Texto amarelo" << BBLUE << " com fundo azul" << RESET << std::endl;
+	*/
 
 // variaveis Globais
 
@@ -116,12 +116,12 @@ int validarNumero()
 		cout << "Digite um numero inteiro positivo: ";
 		cin >> numero;
 		cout << endl
-		     << " numero digitado " << numero << endl;
+			 << " numero digitado " << numero << endl;
 
 		if (cin.fail() || numero <= 0)
 		{
 			cout << "Entrada invalida. Digite um numero inteiro positivo." << endl;
-			cin.clear();          // Limpa o estado de falha do cin
+			cin.clear();		  // Limpa o estado de falha do cin
 			cin.ignore(80, '\n'); // Ignora caracteres restantes na linha
 		}
 	} while (cin.fail() || numero <= 0);
@@ -171,7 +171,7 @@ public:
 			cout << BRANCO;
 			// cout << endl <<" Digite a [ LETRA ] da" << ordinal <<" coordenada posicoes para " << embarcacao << endl;
 			cout << endl
-			     << " Digite a [ LETRA | Linha] da " << ordinal << " coordenada posicoes para " << embarcacao << endl;
+				 << " Digite a [ LETRA | Linha] da " << ordinal << " coordenada posicoes para " << embarcacao << endl;
 			cout << endl;
 			cin >> letra;
 
@@ -191,7 +191,7 @@ public:
 			if (!(entrada))
 			{
 				cout << VERMELHO << endl
-				     << "Letra fora do limite do tabuleiro";
+					 << "Letra fora do limite do tabuleiro";
 				cout << BRANCO;
 			}
 
@@ -208,7 +208,7 @@ public:
 		do
 		{
 			cout << BRANCO << endl
-			     << " Digite 0 [ Numero / coluna] da " << ordinal << " posicoes para " << embarcacao << endl;
+				 << " Digite 0 [ Numero / coluna] da " << ordinal << " posicoes para " << embarcacao << endl;
 			// cin >> p;
 			p = validarNumero();
 			cout << endl;
@@ -222,13 +222,13 @@ public:
 			{
 				entrada = false;
 				cout << VERMELHO << endl
-				     << " Entrada Invalida fora do limite do tabuleiro ";
+					 << " Entrada Invalida fora do limite do tabuleiro ";
 				cout << BRANCO;
 			}
 			if (!(entrada))
 			{
 				cout << VERMELHO << endl
-				     << "valor fora do limite do tabuleiro";
+					 << "valor fora do limite do tabuleiro";
 				cout << BRANCO;
 			}
 		} while (!(entrada));
@@ -265,19 +265,19 @@ public:
 		{
 
 			cout << endl
-			     << " Validou colunas hidro";
+				 << " Validou colunas hidro";
 
 			if ((letra2 == letra1 + 1) || (letra2 == letra1 - 1))
 			{
 				cout << AMARELO << endl
-				     << " Letra valida" << endl;
+					 << " Letra valida" << endl;
 				cout << BRANCO;
 				retorno = true;
 			}
 			else
 			{
 				cout << VERMELHO << endl
-				     << " Letra Invalida" << endl;
+					 << " Letra Invalida" << endl;
 				cout << BRANCO;
 				retorno = false;
 			}
@@ -294,17 +294,17 @@ public:
 			if (m[letra3][colunaNumero3] == AGUA)
 			{
 				cout << AMARELO << endl
-				     << " Letra valida";
+					 << " Letra valida";
 				cout << BRANCO;
 				retorno = true;
 			}
 		}
 		else if ((letra3 == letra2) && (colunaNumero3 > colunaNumero2 + 1) || (colunaNumero3 < colunaNumero2 - 1))
-		{	// verifica nas colunas ao lado
+		{ // verifica nas colunas ao lado
 			if (m[letra3][colunaNumero3] == AGUA)
 			{
 				cout << AMARELO << endl
-				     << " Letra valida";
+					 << " Letra valida";
 				cout << BRANCO;
 				retorno = true;
 			}
@@ -451,7 +451,8 @@ void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 			else if (tabuleiro[i][j] == SUBMARINO) // amarelo
 			{
 				cout << AMARELO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
-			}else if (tabuleiro[i][j] == 'A') // amarelo
+			}
+			else if (tabuleiro[i][j] == 'A') // amarelo
 			{
 				cout << VERMELHO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
@@ -502,13 +503,13 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
 						{
 							entradaValida = false;
 							cout << VERMELHO << endl
-							     << " primeiro numero  Invalido para formar o desenho ";
+								 << " primeiro numero  Invalido para formar o desenho ";
 						}
 						if (tabuleiro[linhaLetra1][colunaNumero1] != AGUA)
 						{
 							entradaValida = false;
 							cout << VERMELHO << endl
-							     << " primeiro numero  Invalido para formar o desenho ";
+								 << " primeiro numero  Invalido para formar o desenho ";
 						}
 
 					} while (!entradaValida); // verifica se a coordenda passada foi usada
@@ -531,7 +532,7 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
 					{
 						entradaValida = false;
 						cout << endl
-						     << VERMELHO << "Nao forma HIDROAVIAO" << endl;
+							 << VERMELHO << "Nao forma HIDROAVIAO" << endl;
 
 						// TODO posso dividir a funcao validar hidro para nC#o excluir a primeira posicao se for valida
 						tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
@@ -543,7 +544,7 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
 					colunaNumero3 = hidrohaviao1.LerIndiceNumero(entradaValida, i, H);
 
 					// Se a segunda letra maior que a primeira letra3 = letra1 - 1
-					//if ((colunaNumero3 == colunaNumero1 + 1) || (colunaNumero3 == colunaNumero1 - 1) ) // verifica nas colunas ao lado
+					// if ((colunaNumero3 == colunaNumero1 + 1) || (colunaNumero3 == colunaNumero1 - 1) ) // verifica nas colunas ao lado
 					if (colunaNumero3 == colunaNumero2 && colunaNumero3 != colunaNumero1)
 					{
 
@@ -552,16 +553,20 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
 							if (linhaLetra1 - 1 >= 0)
 							{
 								linhaLetra3 = linhaLetra1 - 1;
-							} else {
+							}
+							else
+							{
 								entradaValida = false;
 							}
 						}
-						else if ( linhaLetra2 < linhaLetra1 )
+						else if (linhaLetra2 < linhaLetra1)
 						{
 							if (linhaLetra1 + 1 <= 14)
 							{
 								linhaLetra3 = linhaLetra1 + 1;
-							} else {
+							}
+							else
+							{
 								entradaValida = false;
 							}
 						}
@@ -569,22 +574,27 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
 					else if (colunaNumero3 != colunaNumero1)
 					{
 						linhaLetra3 = linhaLetra2;
-					} else {
+					}
+					else
+					{
 						entradaValida = false;
 					}
-					if(entradaValida) {
-						if ( (tabuleiro[linhaLetra3][colunaNumero3] == AGUA))
+					if (entradaValida)
+					{
+						if ((tabuleiro[linhaLetra3][colunaNumero3] == AGUA))
 						{
 							tabuleiro[linhaLetra3][colunaNumero3] = HIDROAVIAO;
-						} else {
+						}
+						else
+						{
 							entradaValida = false;
 						}
-
-
-					} else {
+					}
+					else
+					{
 						entradaValida = false;
 						cout << endl
-						     << VERMELHO << "Nao forma HIDROAVIAO" << endl;
+							 << VERMELHO << "Nao forma HIDROAVIAO" << endl;
 
 						// TODO posso dividir a funcao validar hidro para nC#o excluir a primeira posicao se for valida
 						tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
@@ -594,14 +604,12 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
 						i--;
 						i--;
 					}
-
-				
 				}
 
 			} while (!(entradaValida));
 			// limparTela();
 			cout << endl
-			     << "Vai imprimir tabuleiro " << endl;
+				 << "Vai imprimir tabuleiro " << endl;
 			imprimirTabuleiro(tabuleiro);
 
 		} // fim do HIDROAVIAO
@@ -611,7 +619,7 @@ void adicionarBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char simb
 {
 	//	char letra1;
 	cout << endl
-	     << AMARELO << " Vamos adicionar " << tipoBarco << endl;
+		 << AMARELO << " Vamos adicionar " << tipoBarco << endl;
 	cout << BRANCO;
 	int indiceNumero;
 	int indiceLetra1;
@@ -626,9 +634,9 @@ void adicionarBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char simb
 		int direcao;
 
 		cout << endl
-		     << " tamanho do barco " << tamanhoParaExibir << endl;
+			 << " tamanho do barco " << tamanhoParaExibir << endl;
 		cout << endl
-		     << " caracter que sera grvado " << simbolo << endl;
+			 << " caracter que sera grvado " << simbolo << endl;
 		cout << " digite [ 1 ] inserir na Horizontal e [ 2 ] para inserir na vertical " << endl;
 		cin >> direcao;
 
@@ -648,7 +656,7 @@ void adicionarBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char simb
 			{
 				int j = indiceNumero + barco.tamanho; // para controlar o laC'o
 				if (TAMANHO_TABULEIRO - indiceLetra1 >= barco.tamanho)
-				{	// verifica se possivel posicionar na vertical
+				{ // verifica se possivel posicionar na vertical
 					entradaValida = true;
 					for (indiceNumero; indiceNumero <= j; indiceNumero++)
 					{
@@ -665,7 +673,7 @@ void adicionarBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char simb
 
 				int j = indiceLetra1 + barco.tamanho; // para controlar o laco
 				if (TAMANHO_TABULEIRO - indiceNumero >= barco.tamanho)
-				{	// verifica se possivel posicionar na horizontal
+				{ // verifica se possivel posicionar na horizontal
 					entradaValida = true;
 					for (indiceLetra1; indiceLetra1 <= j; indiceLetra1++)
 					{
@@ -675,7 +683,7 @@ void adicionarBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char simb
 			}
 			if (!(entradaValida))
 				cout << endl
-				     << "Coordendas Invalidas";
+					 << "Coordendas Invalidas";
 
 		} while (!(entradaValida));
 
@@ -708,7 +716,7 @@ int gerarNumeroAleatorio(int min, int max)
 {
 	// Cria um gerador de nC:meros aleatC3rios usando a semente do relC3gio
 	std::random_device rd;
-	std::mt19937 gerador(rd());                             // mt19937 C) um gerador de nC:meros aleatC3rios Mersenne Twister
+	std::mt19937 gerador(rd());								// mt19937 C) um gerador de nC:meros aleatC3rios Mersenne Twister
 	std::uniform_int_distribution<> distribuicao(min, max); // Define a distribuiC'C#o uniforme no intervalo [min, max]
 
 	return distribuicao(gerador); // Gera e retorna o nC:mero aleatC3rio
@@ -725,27 +733,27 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 	int colunaNumero1 = 0;
 	int colunaNumero2 = 0;
 	int colunaNumero3 = 0;
-	
+
 	quantBarcos = 6;
 
 	int pause;
 
 	srand(time(0));
+	quantBarcos = 9;
 
 	for (int j = 1; j <= quantBarcos; j++)
 	{
 		cout << endl
-		     << j << " " << H << endl;
+			 << j << " " << H << endl;
 		for (int i = 1; i <= 3; i++)
 		{
-		    cout << endl
-				     << "quantidade que o laço j rodou " << j << endl;
+			cout << endl
+				 << "quantidade que o laço j rodou " << j << endl;
 
 			do
 			{
 				cout << endl
-				     << " quantidade que o laço I rodou " << i << endl;
-				
+					 << " quantidade que o laço I rodou " << i << endl;
 
 				if (i == 1) // Verifica se a primeira coor para o hidro
 				{
@@ -753,64 +761,86 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 					{
 
 						colunaNumero1 = gerarNumeroAleatorio(0, 14); // gera primeir numero aleatorio
-						if(colunaNumero1 == 0){ // caso a coluna seja 1 a letra nao pode ser A ou O
-						    	linhaLetra1 = gerarNumeroAleatorio(1, 13);
-						} else if (colunaNumero1 == 14){ // caso a coluna seja 14 a letra não pode ser A ou O
-						    	linhaLetra1 = gerarNumeroAleatorio(1, 13);
-						}else 
-						    	linhaLetra1 = gerarNumeroAleatorio(0, 14);
+
+						if (colunaNumero1 == 0 || colunaNumero1 == 14)
+						{ // caso a coluna seja 1 a letra nao pode ser A ou O
+							linhaLetra1 = gerarNumeroAleatorio(1, 13);
+						}
+						else
+						{
+							linhaLetra1 = 0;
+							// linhaLetra1 = gerarNumeroAleatorio(0, 14);
+						}
+
 						if (tabuleiro[linhaLetra1][colunaNumero1] == AGUA)
 						{
-								//tabuleiro[linhaLetra1][colunaNumero1] = HIDROAVIAO;
-								tabuleiro[linhaLetra1][colunaNumero1] = 'A';
-								entradaValida = true;
+							// tabuleiro[linhaLetra1][colunaNumero1] = HIDROAVIAO;
+							tabuleiro[linhaLetra1][colunaNumero1] = 'A';
+							entradaValida = true;
+						}else {
+							entradaValida = false;
 						}
-						cout << endl << "coordenda que foi passada " << " letra " << linhaLetra1 << " colunaNumero1 " << colunaNumero1 << endl;
-						imprimirTabuleiro(tabuleiro);
-						cin >> pause;
-						
+
 					} while (!entradaValida); // verifica se a coordenda passada foi usada
 				}
-			/*	else if (i == 2) // Verifica a segunda e coordenada par ao hidrohaviao
+				else if (i == 2) // Verifica a segunda e coordenada par ao hidrohaviao
 				{
-					
-
-					do {
-					    	colunaNumero2 = gerarNumeroAleatorio(colunaNumero1 - 1, colunaNumero1 + 1);
-					} while(colunaNumero2 == colunaNumero1); // garante que a segunda coluna seja diferente da primeira
-					  
-					do {
-					    	linhaLetra2 = gerarNumeroAleatorio(linhaLetra1 - 1, linhaLetra1 + 1);
-					} while(linhaLetra2 == linhaLetra1); // garante que a segunda letra seja diferente da primeira
-
-					if (hidrohaviao1.validarFormaHidro(colunaNumero1, colunaNumero2, linhaLetra1, linhaLetra2, tabuleiro))
+					do
 					{
-					    if (tabuleiro[linhaLetra2][colunaNumero2] == AGUA)
+						do // Coluna 2 sempre sera difernte da 1
 						{
-							tabuleiro[linhaLetra2][colunaNumero2] = PORTAAVIAO;
-							entradaValida = true;
-						} else
+							colunaNumero2 = gerarNumeroAleatorio(colunaNumero1 - 1, colunaNumero1 + 1);
+
+						} while (colunaNumero2 == colunaNumero1); // garante que a segunda coluna seja diferente da primeira
+
+						do
 						{
-						    entradaValida = false;
+							linhaLetra2 = gerarNumeroAleatorio(linhaLetra1 - 1, linhaLetra1 + 1);
+						} while (linhaLetra2 == linhaLetra1); // garante que a segunda letra seja diferente da primeira
+
+						if (hidrohaviao1.validarFormaHidro(colunaNumero1, colunaNumero2, linhaLetra1, linhaLetra2, tabuleiro))
+						{
+							if (tabuleiro[linhaLetra2][colunaNumero2] == AGUA)
+							{
+								tabuleiro[linhaLetra2][colunaNumero2] = PORTAAVIAO;
+								entradaValida = true;
+							}
+							else
+							{
+								entradaValida = false;
+							}
 						}
-					
-					}
-					if( ! ( entradaValida ) ){
-					    	entradaValida = false;
-						cout << endl
-						     << VERMELHO << "Nao forma HIDROAVIAO" << endl;
+						if (!(entradaValida))
+						{
+							entradaValida = false;
+							cout << endl
+								 << VERMELHO << "Nao forma HIDROAVIAO" << endl;
 
-						//  posso dividir a funcao validar hidro para nC#o excluir a primeira posicao se for valida
+							//  posso dividir a funcao validar hidro para nC#o excluir a primeira posicao se for valida
 
-						tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
-						tabuleiro[linhaLetra2][colunaNumero2] = AGUA;
-						i--;
-					}
-
-				}*/
+							tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
+							tabuleiro[linhaLetra2][colunaNumero2] = AGUA;
+							i--;
+						}
+					} while (!(entradaValida));
+				}
 				/*else if (i == 3)
 				{
-					colunaNumero3 = gerarNumeroAleatorio(colunaNumero1 - 1, colunaNumero1 + 1);
+
+					do{
+						if (linhaLetra1 == 0 || linhaLetra1 == 14)
+					{
+						do {
+						colunaNumero3 = gerarNumeroAleatorio(colunaNumero1 - 1, colunaNumero1 + 1);
+
+					}while ( colunaNumero3 != colunaNumero2 );
+					}else{
+						colunaNumero3 = gerarNumeroAleatorio(colunaNumero1 - 1, colunaNumero1 + 1);
+					}
+					} while (colunaNumero3 == colunaNumero1);
+
+
+
 
 					// Se a segunda letra maior que a primeira letra3 = letra1 - 1
 					if (colunaNumero3 == colunaNumero2 && colunaNumero3 != colunaNumero1)
@@ -853,24 +883,23 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 					} else {
 						entradaValida = false;
 						cout << endl
-						     << VERMELHO << "Nao forma HIDROAVIAO" << endl;
+							 << VERMELHO << "Nao forma HIDROAVIAO" << endl;
 
 						// TODO posso dividir a funcao validar hidro para nC#o excluir a primeira posicao se for valida
 						tabuleiro[linhaLetra1][colunaNumero1] = AGUA;
 						tabuleiro[linhaLetra2][colunaNumero2] = AGUA;
-						i = i -2; 
+						i = i -2;
 					}
 				} */
-				
-
 
 			} while (!(entradaValida));
-			// limparTela();
-			cout << endl
-			     << "analise o desenho " << endl;
-			// cin  >> pause;
 
 		} // fim do HIDROAVIAO
+		/*
+		cout << endl << "coordenda que foi passada " << " letra " << linhaLetra1 << " colunaNumero1 " << colunaNumero1 << endl;
+						imprimirTabuleiro(tabuleiro);
+						cin >> pause;
+						*/
 	} // Fim do for que adiciona hidro
 }
 
@@ -939,58 +968,58 @@ void atirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 }
 /*
 void adicionarBarcosAleatoriamente(char tabuleiro[15][15], char tipoBarco, int tamanhoBarco) {
-    bool barcoAdicionado = false;
-    while (!barcoAdicionado) {
-        linha = rand() % TAMANHO_TABULEIRO;
-        coluna = rand() % TAMANHO_TABULEIRO;
-        for(int i = 1; i <= quantBarcos; i++) {
+	bool barcoAdicionado = false;
+	while (!barcoAdicionado) {
+		linha = rand() % TAMANHO_TABULEIRO;
+		coluna = rand() % TAMANHO_TABULEIRO;
+		for(int i = 1; i <= quantBarcos; i++) {
 
-            bool entradaValida =false;
-            do {
+			bool entradaValida =false;
+			do {
 
-                indiceNumero = barco.LerIndiceNumero( entradaValida, i,tipoBarco);
+				indiceNumero = barco.LerIndiceNumero( entradaValida, i,tipoBarco);
 
-                // trocar por encoracadop2
-                indiceLetra1 = barco.LerIndiceLetra(i,tipoBarco);
-                if(barco.tamanho == 1) {
+				// trocar por encoracadop2
+				indiceLetra1 = barco.LerIndiceLetra(i,tipoBarco);
+				if(barco.tamanho == 1) {
 
-                    tabuleiro[indiceLetra1][indiceNumero ] = simbolo;
+					tabuleiro[indiceLetra1][indiceNumero ] = simbolo;
 
-                } else if(direcao == 1) {
-                    int j = indiceNumero  + barco.tamanho ; // para controlar o laC'o
-                    if(TAMANHO_TABULEIRO - indiceLetra1 >= barco.tamanho) {// verifica se possivel posicionar na vertical
-                        entradaValida = true;
-                        for(indiceNumero ; indiceNumero  <= j; indiceNumero++) {
-                            tabuleiro[indiceLetra1][indiceNumero ] = simbolo;
-                        }
-                    } else
-                    {
-                        entradaValida = false;
-                    }
+				} else if(direcao == 1) {
+					int j = indiceNumero  + barco.tamanho ; // para controlar o laC'o
+					if(TAMANHO_TABULEIRO - indiceLetra1 >= barco.tamanho) {// verifica se possivel posicionar na vertical
+						entradaValida = true;
+						for(indiceNumero ; indiceNumero  <= j; indiceNumero++) {
+							tabuleiro[indiceLetra1][indiceNumero ] = simbolo;
+						}
+					} else
+					{
+						entradaValida = false;
+					}
 
-                } else if( direcao == 2 ) {
+				} else if( direcao == 2 ) {
 
-                    int j = indiceLetra1  + barco.tamanho ; // para controlar o laco
-                    if(TAMANHO_TABULEIRO - indiceNumero >= barco.tamanho) { // verifica se possivel posicionar na horizontal
-                        entradaValida = true;
-                        for(indiceLetra1; indiceLetra1 <= j; indiceLetra1++) {
-                            tabuleiro[indiceLetra1][indiceNumero] = simbolo;
-                        }
+					int j = indiceLetra1  + barco.tamanho ; // para controlar o laco
+					if(TAMANHO_TABULEIRO - indiceNumero >= barco.tamanho) { // verifica se possivel posicionar na horizontal
+						entradaValida = true;
+						for(indiceLetra1; indiceLetra1 <= j; indiceLetra1++) {
+							tabuleiro[indiceLetra1][indiceNumero] = simbolo;
+						}
 
-                    }
+					}
 
-                }
-                if(! (entradaValida))
-                    cout << endl <<"Coordendas Invalidas";
+				}
+				if(! (entradaValida))
+					cout << endl <<"Coordendas Invalidas";
 
-            } while(! ( entradaValida ) );
+			} while(! ( entradaValida ) );
 
 
-            //limparTela();
-            imprimirTabuleiro(tabuleiro);
+			//limparTela();
+			imprimirTabuleiro(tabuleiro);
 
-        }
-    }
+		}
+	}
 */
 void BatalhaPvp()
 {
@@ -1012,20 +1041,18 @@ void BatalhaPvp()
 	displayTabuleiro();
 
 	cout << endl
-	     << " Jogador " << nomeJogador << " Insira seus barcos" << endl;
+		 << " Jogador " << nomeJogador << " Insira seus barcos" << endl;
 
 	// Le o nome do Jogador
 	cout << BRANCO << endl;
 	// cout << "Jogador 1 informe o seu nome: " << endl;
 	// getline(cin, nomeJogador);
 
-	//adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
+	// adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
 	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
 	limparTela();
 	imprimirTabuleiro(tabuleiro1);
 	return;
-
-
 
 	//	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
 	// adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
@@ -1033,16 +1060,16 @@ void BatalhaPvp()
 	// adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
 
 	cout << endl
-	     << " acabou ";
+		 << " acabou ";
 	cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
 	cout << endl;
-	//cin >> continuar;
+	// cin >> continuar;
 
 	limparTela();
 	cout << endl
-	     << "Jogador 2 ira colocar os barcos " << endl;
+		 << "Jogador 2 ira colocar os barcos " << endl;
 	cout << endl
-	     << " acabou ";
+		 << " acabou ";
 
 	// adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
 	// adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
@@ -1050,13 +1077,13 @@ void BatalhaPvp()
 	// adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro2);
 
 	cout << endl
-	     << " acabou ";
+		 << " acabou ";
 	cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
 	cout << endl;
-	//cin >> continuar;
+	// cin >> continuar;
 
 	// passa o tabuleiro do adversC!rio  e o do jogador para marcar a jogada
-	//atirar(tabuleiro2);
+	// atirar(tabuleiro2);
 	// imprimirTabuleiro(tabuleiroJogador1);
 }
 
