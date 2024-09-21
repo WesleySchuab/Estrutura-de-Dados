@@ -260,14 +260,19 @@ public:
 	bool validarFormaHidro(int colunaNumero1, int colunaNumero2, int letra1, int letra2, char m[15][15])
 	{
 		bool retorno = false;
+		int coluna1justamais1 = colunaNumero1 + 1 ;
+		int coluna1justamenos1 = colunaNumero1 - 1 ;
+		int letra1menos1 = letra1 - 1;
+		int letra1meais1 = letra1 + 1;
 		//  validando segunda entrada
-		if ((colunaNumero2 == colunaNumero1 + 1) || (colunaNumero2 == colunaNumero1 - 1) && (m[letra2][colunaNumero2] == AGUA)) // verifica nas colunas ao lado
+		if ((colunaNumero2 == coluna1justamais1) || (colunaNumero2 == coluna1justamenos1) && (m[letra2][colunaNumero2] == AGUA)) // verifica nas colunas ao lado
 		{
 
 			cout << endl
+
 			     << " Validou colunas hidro";
 
-			if ((letra2 == letra1 + 1) || (letra2 == letra1 - 1))
+			if ((letra2 == letra1meais1) || (letra2 == letra1menos1))
 			{
 				cout << AMARELO << endl
 				     << " Letra valida" << endl;
@@ -760,7 +765,8 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 					do
 					{
 
-						colunaNumero1 = gerarNumeroAleatorio(0, 14); // gera primeir numero aleatorio
+						//colunaNumero1 = gerarNumeroAleatorio(0, 14); // gera primeir numero aleatorio
+						colunaNumero1 = 0;
 
 						if (colunaNumero1 == 0 || colunaNumero1 == 14)
 						{	// caso a coluna seja 1 a letra nao pode ser A ou O
@@ -782,6 +788,10 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 						}
 
 					} while (!entradaValida); // verifica se a coordenda passada foi usada
+					imprimirTabuleiro(tabuleiro);
+					cout << endl << "coordenda que foi passada " << " letra1 " << linhaLetra1 << " colunaNumero1 " << colunaNumero1 << endl;
+					cin >> pause;
+
 				}
 				else if (i == 2) // Verifica a segunda e coordenada par ao hidrohaviao
 				{
@@ -790,25 +800,32 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 						do // Coluna 2 sempre sera difernte da 1
 						{
 							//TODO coluna nunmero 2 esta gerando numero longee letra longe
-							if( colunaNumero1 == 0 ) {
+							switch (colunaNumero1) {
+							case 0:
 								colunaNumero2 = 1;
-							} else if( colunaNumero1 = 14 ) {
+								break;
+							case 14:
 								colunaNumero2 = 13;
-							} else {
+								break;
+							default:
 								colunaNumero2 = gerarNumeroAleatorio(colunaNumero1 - 1, colunaNumero1 + 1);
+								break;
 							}
-
 
 						} while (colunaNumero2 == colunaNumero1); // garante que a segunda coluna seja diferente da primeira
 
 						do
 						{
-							if( linhaLetra1 == 0 ) {
+							switch (linhaLetra1) {
+							case 0:
 								linhaLetra2 = 1;
-							} else if( linhaLetra1 = 14 ) {
+								break;
+							case 14:
 								linhaLetra2 = 13;
-							} else {
-								linhaLetra2 = gerarNumeroAleatorio(linhaLetra1 = linhaLetra1 - 1, linhaLetra1 + 1);
+								break;
+							default:
+								linhaLetra2 = gerarNumeroAleatorio(linhaLetra1 - 1, linhaLetra1 + 1);
+								break;
 							}
 						} while (linhaLetra2 == linhaLetra1); // garante que a segunda letra seja diferente da primeira
 
@@ -907,12 +924,12 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 				} */
 
 			} while (!(entradaValida));
-			
+
 		} // fim do HIDROAVIAO
 		// Fim do for que adiciona hidro
 		cout << endl <<" j " << j;
 
-		cout << endl << "coordenda que foi passada " << " letra1 " << linhaLetra1 << " colunaNumero1 " << ++colunaNumero1 << endl;
+		//cout << endl << "coordenda que foi passada " << " letra1 " << linhaLetra1 << " colunaNumero1 " << ++colunaNumero1 << endl;
 		cout << endl << "coordenda que foi passada " << " letra2 " << linhaLetra2 << " colunaNumero2 " << ++colunaNumero2 << endl;
 		imprimirTabuleiro(tabuleiro);
 		cin >> pause;
