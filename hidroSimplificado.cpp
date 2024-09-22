@@ -795,55 +795,110 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
     int colunaNumero1 = 0;
     int colunaNumero2 = 0;
     int colunaNumero3 = 0;
-    int rodou=0;
+    int rodou = 0;
+    int posicao = 0;
 
-    quantBarcos = 6;
+    quantBarcos = 26;
 
     srand(time(0));
     for (int j = 1; j <= quantBarcos; j++)
     {
         do
-        { 
+        {
             rodou++;
             colunaNumero1 = gerarNumeroAleatorio(0, 14); // gera primeir numero aleatorio
-            //colunaNumero1 = 3;
-/*
+            // colunaNumero1 = 3;
+
             if (colunaNumero1 == 0 || colunaNumero1 == 14)
             { // caso a coluna seja 1 a letra nao pode ser A ou O
                 linhaLetra1 = gerarNumeroAleatorio(1, 13);
             }
-            */
-             //linhaLetra1 = gerarNumeroAleatorio(1, 13);
-             //linhaLetra1 = 0;
-           /*
             else
             {
-                //linhaLetra1 = 0;
-                //linhaLetra1 = gerarNumeroAleatorio(0, 14);
-                linhaLetra1 = 0;
+                // linhaLetra1 = 0;
+                linhaLetra1 = gerarNumeroAleatorio(0, 14);
+                cout << "linha não é zero nem 14 " << endl;
             }
-            */
-            linhaLetra1 = 0;
+
             if (linhaLetra1 == 0 || linhaLetra1 == 14)
             {
+
                 // quando estiver na primeira linha posiciona para baixo e quando estiver na ultima para cima
-                colunaNumero2 = colunaNumero1 - 1;
-                linhaLetra2 = 1;
-                colunaNumero3 = colunaNumero1 + 1;
-                linhaLetra3 = 1;
-                tabuleiro[linhaLetra1][colunaNumero1] = 'A';
-                tabuleiro[linhaLetra2][colunaNumero2] = PORTAAVIAO;
-                tabuleiro[linhaLetra3][colunaNumero3] = HIDROAVIAO;
-                entradaValida = true;
+                if (linhaLetra1 == 0)
+                {
+                    colunaNumero2 = colunaNumero1 - 1;
+                    linhaLetra2 = 1;
+                    colunaNumero3 = colunaNumero1 + 1;
+                    linhaLetra3 = 1;
+                }
+                else if (linhaLetra1 == 14)
+                {
+                    colunaNumero2 = colunaNumero1 - 1;
+                    linhaLetra2 = 13;
+                    colunaNumero3 = colunaNumero1 + 1;
+                    linhaLetra3 = 13;
+                }
+
+                if (casasVazias(linhaLetra1, linhaLetra2, linhaLetra3, colunaNumero1, colunaNumero2, colunaNumero3, tabuleiro))
+                {
+                    entradaValida = true;
+                    
+                }
+                else
+                {
+                    entradaValida = false;
+                }
             }
-            cout << endl << " Conseguiu posicionar: 1, falhou: 0 " 
-            << casasVazias(linhaLetra1, linhaLetra2, linhaLetra3, colunaNumero1, colunaNumero2, colunaNumero3, tabuleiro) << endl;
-            //pause(0,1);
-        } while (  ( casasVazias(linhaLetra1, linhaLetra2, linhaLetra3, colunaNumero1, colunaNumero2, colunaNumero3, tabuleiro) ) );
+            else// !( (linhaLetra1 == 0 || linhaLetra1 == 14) )
+            {
+                entradaValida = true;
+                posicao = gerarNumeroAleatorio(1, 4);
+                if (posicao == 1)
+                {
+                     linhaLetra1 = gerarNumeroAleatorio(0, 14);
+                    linhaLetra2 = linhaLetra1 + 1;
+                    colunaNumero2 =  colunaNumero1 + 1;
+                    colunaNumero3 = colunaNumero1 + 1;
+                    linhaLetra3 = 1;
+                }else  if (posicao == 2)
+                {
+                     linhaLetra1 = gerarNumeroAleatorio(0, 14);
+                    linhaLetra2 = linhaLetra1 + 1;
+                    colunaNumero2 =  colunaNumero3 = colunaNumero1 + 1;
+                    linhaLetra3 = 1;
+                } else if (posicao == 3)
+                {
+                     linhaLetra1 = gerarNumeroAleatorio(0, 14);
+                    linhaLetra2 = linhaLetra1 + 1;
+                    colunaNumero2 =  colunaNumero3 = colunaNumero1 + 1;
+                    linhaLetra3 = 1;
+                } else if (posicao == 4)
+                {
+                     linhaLetra1 = gerarNumeroAleatorio(0, 14);
+                    linhaLetra2 = linhaLetra1 + 1;
+                    colunaNumero2 =  colunaNumero3 = colunaNumero1 + 1;
+                    linhaLetra3 = 1;
+                }
+            }
+            if(casasVazias(linhaLetra1, linhaLetra2, linhaLetra3, colunaNumero1, colunaNumero2, colunaNumero3, tabuleiro)){
+                   entradaValida = true;
+                   tabuleiro[linhaLetra1][colunaNumero1] = 'A';
+                    tabuleiro[linhaLetra2][colunaNumero2] = PORTAAVIAO;
+                    tabuleiro[linhaLetra3][colunaNumero3] = HIDROAVIAO;
+            }else{
+                entradaValida = false;
+            }
+            cout << endl
+                 << " Conseguiu posicionar: 1, falhou: 0 " << endl
+                 << casasVazias(linhaLetra1, linhaLetra2, linhaLetra3, colunaNumero1, colunaNumero2, colunaNumero3, tabuleiro) << endl;
+            // pause(0,1);
+
+        } while (!(entradaValida));
     }
 
     limparTela();
-    cout << endl << "rodou " << rodou << endl;
+    cout << endl
+         << "rodou " << rodou << endl;
     imprimirTabuleiro(tabuleiro);
 }
 
@@ -984,8 +1039,8 @@ void BatalhaPvp()
 
     displayTabuleiro();
 
-   // cout << endl
-     //    << " Jogador " << nomeJogador << " Insira seus barcos" << endl;
+    // cout << endl
+    //    << " Jogador " << nomeJogador << " Insira seus barcos" << endl;
 
     // Le o nome do Jogador
     cout << BRANCO << endl;
@@ -993,45 +1048,45 @@ void BatalhaPvp()
     // getline(cin, nomeJogador);
 
     // adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
-    //limparTela();
-    //inicializarTabuleiro(tabuleiro1);
+    // limparTela();
+    // inicializarTabuleiro(tabuleiro1);
     cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
-   // limparTela();
-    //imprimirTabuleiro(tabuleiro1);
-   /*
+    // limparTela();
+    // imprimirTabuleiro(tabuleiro1);
+    /*
 
-    //	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
-    // adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
-    //	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
-    // adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
+     //	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
+     // adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
+     //	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
+     // adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
 
-    cout << endl
-         << " acabou ";
-    cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
-    cout << endl;
-    // cin >> continuar;
+     cout << endl
+          << " acabou ";
+     cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
+     cout << endl;
+     // cin >> continuar;
 
-    limparTela();
-    cout << endl
-         << "Jogador 2 ira colocar os barcos " << endl;
-    cout << endl
-         << " acabou ";
+     limparTela();
+     cout << endl
+          << "Jogador 2 ira colocar os barcos " << endl;
+     cout << endl
+          << " acabou ";
 
-    // adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
-    // adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
-    //	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro2);
-    // adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro2);
+     // adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
+     // adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
+     //	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro2);
+     // adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro2);
 
-    cout << endl
-         << " acabou ";
-    cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
-    cout << endl;
-    // cin >> continuar;
+     cout << endl
+          << " acabou ";
+     cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
+     cout << endl;
+     // cin >> continuar;
 
-    // passa o tabuleiro do adversC!rio  e o do jogador para marcar a jogada
-    // atirar(tabuleiro2);
-    // imprimirTabuleiro(tabuleiroJogador1);
-    */
+     // passa o tabuleiro do adversC!rio  e o do jogador para marcar a jogada
+     // atirar(tabuleiro2);
+     // imprimirTabuleiro(tabuleiroJogador1);
+     */
 }
 
 void menuBatalhaNaval()
