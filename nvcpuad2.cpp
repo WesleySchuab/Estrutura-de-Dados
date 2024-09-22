@@ -783,7 +783,7 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 {
 	// linha = rand() % TAMANHO_TABULEIRO;
 	// coluna = rand() % TAMANHO_TABULEIRO;
-	bool entradaValida = false;
+	bool entradaValida = false, inseriuHidro = false;
 	int linhaLetra1 = 0;
 	int linhaLetra2 = 0;
 	int linhaLetra3 = 0;
@@ -800,12 +800,14 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 	{
 		cout << endl
 			 << j << " " << H << endl;
-		for (int i = 1; i <= 3; i++)
+		do
 		{
-			cout << endl
-				 << "quantidade que o laC'o j rodou " << j << endl;
+			for (int i = 1; i <= 3; i++)
+			{
 
-			
+				cout << endl
+					 << "quantidade que o laC'o j rodou " << j << endl;
+
 				cout << endl
 					 << " quantidade que o laC'o I rodou " << i << endl;
 
@@ -904,44 +906,66 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 							i--;
 						}
 					} while (!(entradaValida));
-				}else if (i == 3){
-                    do {
+				}
+				else if (i == 3)
+				{
+					do
+					{
 
-                    if(linhaLetra1 == 0 || linhaLetra1 == 14)
-                    {
+						if (linhaLetra1 == 0 || linhaLetra1 == 14)
+						{
+							// quando estiver na primeira linha posiciona para baixo e quando estiver na ultima para cima
 
-                        if ( colunaNumero2 > colunaNumero1 )
-                        {
-                            colunaNumero3 = colunaNumero1 -1;
-                            linhaLetra3 = linhaLetra2;
-                            entradaValida = true;
-                        } else  if ( colunaNumero2 < colunaNumero1 )
-                        {
-                            colunaNumero3 = colunaNumero1 +1;
-                            linhaLetra3 = linhaLetra2;
-                            entradaValida = true;
-                        } 
-                        
-                    }else if(colunaNumero1 == 0){
-                        
-                        
-                    }                   
+							if (colunaNumero2 > colunaNumero1)
+							{
+								colunaNumero3 = colunaNumero1 - 1;
+								linhaLetra3 = linhaLetra2;
+								entradaValida = true;
+							}
+							else if (colunaNumero2 < colunaNumero1)
+							{
+								colunaNumero3 = colunaNumero1 + 1;
+								linhaLetra3 = linhaLetra2;
+								entradaValida = true;
+							}
+						}
+						else if (colunaNumero1 == 0 || colunaNumero1 == 14)
+						{
+							// Quando estiver na primeira coluna
+							if (linhaLetra2 > linhaLetra1)
+							{
+								linhaLetra1 = linhaLetra1 - 1;
+								colunaNumero3 = colunaNumero2;
+								entradaValida = true;
+							}
+							else if (linhaLetra2 < linhaLetra1)
+							{
+								linhaLetra1 = linhaLetra1 + 1;
+								colunaNumero3 = colunaNumero2;
+								entradaValida = true;
+							}
+						}
+						if (tabuleiro1[linhaLetra3][colunaNumero3] != AGUA)
+						{
+							entradaValida = false;
+						}
 
-                    }while ( ! (entradaValida ));
-                    tabuleiro1[linhaLetra3][colunaNumero2] = HIDROAVIAO;
-                    
-                }
-				
+					} while (!(entradaValida));
+					
+						tabuleiro1[linhaLetra3][colunaNumero2] = HIDROAVIAO;
+						inseriuHidro = true;
+					
+				}
 
-			//} while (!(entradaValida));
+				//} while (!(entradaValida));
 
-		} // fim do HIDROAVIAO
+			} // fim do HIDROAVIAO
+		} while (!(inseriuHidro));
+
 		// Fim do for que adiciona hidro
-		
 	}
-    
-			 
-             imprimirTabuleiro(tabuleiro);
+
+	imprimirTabuleiro(tabuleiro);
 }
 
 void atirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
@@ -1075,7 +1099,7 @@ void BatalhaPvp()
 	PortaAviao portaaviao1;
 	Hidrohaviao hidrohaviao1;
 	Encoracado encoracado;
-	//int continuar = 0;
+	// int continuar = 0;
 
 	limparTela();
 
