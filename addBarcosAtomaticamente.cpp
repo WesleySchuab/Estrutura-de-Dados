@@ -786,19 +786,21 @@ bool casasVazias(int linhaLetra1, int linhaLetra2, int linhaLetra3, int colunaNu
 }
 void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char simbolo, char tabuleiro[15][15]) {
 	srand(time(0));
-	int direcao = gerarNumeroAleatorio(1,2), indiceNumero;
+	int direcao , indiceNumero;
 	int indiceLetra1;
 	bool entradaValida = false;
 
 	for (int i = 1; i <= quantBarcos; i++)
 	{
 		do {
+		    direcao = gerarNumeroAleatorio(1,2);
 			indiceNumero = gerarNumeroAleatorio(0, 14);
 			indiceLetra1 = gerarNumeroAleatorio(0, 14);
 			if (barco.tamanho == 1)
 			{
 			    //Pociona submarino
 				tabuleiro[indiceLetra1][indiceNumero] = simbolo;
+					entradaValida = true;
 				
 			} else if (direcao == 1)
 			{
@@ -823,10 +825,11 @@ void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char si
 				int j = indiceLetra1 + barco.tamanho; // para controlar o laco
 				if (TAMANHO_TABULEIRO - indiceNumero >= barco.tamanho)
 				{	// verifica se possivel posicionar na horizontal
-					entradaValida = true;
+				
 					for (indiceLetra1; indiceLetra1 <= j; indiceLetra1++)
 					{
 						tabuleiro[indiceLetra1][indiceNumero] = simbolo;
+						entradaValida = true;
 					}
 				}
 			}
@@ -835,6 +838,7 @@ void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char si
 				     << "Coordendas Invalidas";
 
 		} while(! ( entradaValida ) );
+		imprimirTabuleiro(tabuleiro);
 
 
 	}
@@ -1104,11 +1108,15 @@ void BatalhaPvp()
 	// adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
 	// limparTela();
 	// inicializarTabuleiro(tabuleiro1);
-	//cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
-//	(int quantBarcos, Barcos &barco, string tipoBarco, char simbolo, char tabuleiro[15][15]) {
+	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
+
 	cpuAdicionaBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
 	// limparTela();
 	// imprimirTabuleiro(tabuleiro1);
+cpuAdicionaBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
+cpuAdicionaBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
+cpuAdicionaBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
+
 	/*
 
 	 //	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
