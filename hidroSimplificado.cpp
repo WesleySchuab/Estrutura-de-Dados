@@ -847,7 +847,7 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
                 cout << endl << "ELse  Letra == o ou 14 " << endl;
                 entradaValida = true;
                // posicao = gerarNumeroAleatorio(1, 4);
-               posicao =3;
+               posicao =4;
                 if (posicao == 1)
                 { 
                     //Inseri na horizontal para baixo                   
@@ -864,16 +864,18 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
                     linhaLetra3 = linhaLetra2;
                 } else if (posicao == 3)
                 {
+                    //Vertical para a direita
                     linhaLetra2 = linhaLetra1 + 1;
                     colunaNumero2 =  colunaNumero1 + 1;
                     colunaNumero3 = colunaNumero2;
                     linhaLetra3 = linhaLetra1 - 1;
                 } else if (posicao == 4)
                 {
+                    //Vertical para a esquerda
                     linhaLetra2 = linhaLetra1 + 1;
-                    colunaNumero2 =  colunaNumero1 + 1;
-                    colunaNumero3 = colunaNumero1 - 1;
-                    linhaLetra3 = linhaLetra2;
+                    colunaNumero2 =  colunaNumero1 - 1;
+                    colunaNumero3 = colunaNumero2;
+                    linhaLetra3 = linhaLetra1 - 1;
                 }
                 cout << endl << "posicao " << posicao << endl;
             }
