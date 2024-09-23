@@ -798,7 +798,7 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
     int rodou = 0;
     int posicao = 0;
 
-    quantBarcos = 26;
+    quantBarcos = 15;
 
     srand(time(0));
     for (int j = 1; j <= quantBarcos; j++)
@@ -822,6 +822,7 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 
             if (linhaLetra1 == 0 || linhaLetra1 == 14)
             {
+                cout << endl << "Linha Letra == o ou 14 ";
 
                 // quando estiver na primeira linha posiciona para baixo e quando estiver na ultima para cima
                 if (linhaLetra1 == 0)
@@ -839,46 +840,41 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
                     linhaLetra3 = 13;
                 }
 
-                if (casasVazias(linhaLetra1, linhaLetra2, linhaLetra3, colunaNumero1, colunaNumero2, colunaNumero3, tabuleiro))
-                {
-                    entradaValida = true;
-                    
-                }
-                else
-                {
-                    entradaValida = false;
-                }
+               
             }
             else// !( (linhaLetra1 == 0 || linhaLetra1 == 14) )
             {
+                cout << endl << "ELse  Letra == o ou 14 " << endl;
                 entradaValida = true;
                 posicao = gerarNumeroAleatorio(1, 4);
                 if (posicao == 1)
-                {
-                     linhaLetra1 = gerarNumeroAleatorio(0, 14);
+                { 
+                    //Inseri na horizontal para baixo                   
                     linhaLetra2 = linhaLetra1 + 1;
                     colunaNumero2 =  colunaNumero1 + 1;
-                    colunaNumero3 = colunaNumero1 + 1;
-                    linhaLetra3 = 1;
+                    colunaNumero3 = colunaNumero1 - 1;
+                    linhaLetra3 = linhaLetra2;
                 }else  if (posicao == 2)
                 {
-                     linhaLetra1 = gerarNumeroAleatorio(0, 14);
-                    linhaLetra2 = linhaLetra1 + 1;
-                    colunaNumero2 =  colunaNumero3 = colunaNumero1 + 1;
-                    linhaLetra3 = 1;
+                    //Horizontal para cima
+                  linhaLetra2 = linhaLetra1 - 1;
+                    colunaNumero2 =  colunaNumero1 + 1;
+                    colunaNumero3 = colunaNumero1 - 1;
+                    linhaLetra3 = linhaLetra2;
                 } else if (posicao == 3)
                 {
-                     linhaLetra1 = gerarNumeroAleatorio(0, 14);
                     linhaLetra2 = linhaLetra1 + 1;
-                    colunaNumero2 =  colunaNumero3 = colunaNumero1 + 1;
-                    linhaLetra3 = 1;
+                    colunaNumero2 =  colunaNumero1 + 1;
+                    colunaNumero3 = colunaNumero1 - 1;
+                    linhaLetra3 = linhaLetra2;
                 } else if (posicao == 4)
                 {
-                     linhaLetra1 = gerarNumeroAleatorio(0, 14);
                     linhaLetra2 = linhaLetra1 + 1;
-                    colunaNumero2 =  colunaNumero3 = colunaNumero1 + 1;
-                    linhaLetra3 = 1;
+                    colunaNumero2 =  colunaNumero1 + 1;
+                    colunaNumero3 = colunaNumero1 - 1;
+                    linhaLetra3 = linhaLetra2;
                 }
+                cout << endl << "posicao " << posicao << endl;
             }
             if(casasVazias(linhaLetra1, linhaLetra2, linhaLetra3, colunaNumero1, colunaNumero2, colunaNumero3, tabuleiro)){
                    entradaValida = true;
