@@ -791,55 +791,61 @@ void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char si
 	bool entradaValida = false;
 
 	for (int i = 1; i <= quantBarcos; i++)
-	{
-		do {
+	{	//For que controla a quiantidade de BArcos
+
+		do {   // Garante que vai ser inserido um barco
+
 			direcao = gerarNumeroAleatorio(1,2);
 			indiceNumero = gerarNumeroAleatorio(0, 14);
 			indiceLetra1 = gerarNumeroAleatorio(0, 14);
 			if (barco.tamanho == 1)
 			{
 				//Pociona submarino
-				tabuleiro[indiceLetra1][indiceNumero] = simbolo;
-				entradaValida = true;
+				if( tabuleiro[indiceLetra1][indiceNumero]== AGUA ) {
+					tabuleiro[indiceLetra1][indiceNumero] = simbolo;
+					entradaValida = true;
+				} else
+					entradaValida = false;
+
 
 			} else if (direcao == 1)
 			{
 				int j = indiceNumero + barco.tamanho; // para controlar o laC'o
 				if (TAMANHO_TABULEIRO - indiceLetra1 >= barco.tamanho)
 				{	// verifica se possivel posicionar na vertical
-					entradaValida = true;
-					bool posicoes = false;
-					// For que verifica se é possivel inserir
+					//entradaValida = true;
+					//bool posicoes = false;
+					// For que verifica se C) possivel inserir
 					for (indiceNumero; indiceNumero <= j; indiceNumero++)
 					{
 						if( tabuleiro[indiceLetra1][indiceNumero]== AGUA ) {
-							tabuleiro[indiceLetra1][indiceNumero] = simbolo;
+							//	tabuleiro[indiceLetra1][indiceNumero] = simbolo;
 							entradaValida = true;
-						}else{
-						posicoes = false;
-						indiceLetra1 = j;
-				    	}
-				    }
-				    // TODO Segundo for que inseri os valores
-				    if(posicoes){
-				        for (indiceNumero; indiceNumero <= j; indiceNumero++)
-					{
-						if( tabuleiro[indiceLetra1][indiceNumero]== AGUA ) {
-							tabuleiro[indiceLetra1][indiceNumero] = simbolo;
-							entradaValida = true;
-						}else{
-						entradaValida = false;
-						indiceLetra1 = j;
-				    	}
-				    }
-				    }
-				   
+						} else {
+							entradaValida = false;
+							//posicoes = false;
+						}
+					}
+					// TODO Segundo for que inseri os valores
+					if(entradaValida) {
+						for (indiceNumero; indiceNumero <= j; indiceNumero++)
+						{
+							if( tabuleiro[indiceLetra1][indiceNumero]== AGUA ) {
+								//	tabuleiro[indiceLetra1][indiceNumero] = simbolo;
+								entradaValida = true;
+							} else {
+								entradaValida = false;
+								//posicoes = false;
+							}
+
+						}
+					}
+
 				}
-				else
-				{
-					entradaValida = false;
-				}
+
 			}
+
+
 			else if (direcao == 2)
 			{
 
@@ -849,27 +855,41 @@ void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char si
 
 					for (indiceLetra1; indiceLetra1 <= j; indiceLetra1++)
 					{	if( tabuleiro[indiceLetra1][indiceNumero]== AGUA ) {
-							tabuleiro[indiceLetra1][indiceNumero] = simbolo;
 							entradaValida = true;
-						}else{
-						entradaValida = false;
-						indiceLetra1 = j;
+						} else {
+							entradaValida = false;
+							indiceLetra1 = j;
+						}
+					}
+					if(entradaValida) {
+						for (indiceLetra1; indiceLetra1 <= j; indiceLetra1++)
+						{
+							if( tabuleiro[indiceLetra1][indiceNumero]== AGUA ) {
+								//	tabuleiro[indiceLetra1][indiceNumero] = simbolo;
+								entradaValida = true;
+							} else {
+								entradaValida = false;
+								//posicoes = false;
+							}
+
+						}
 					}
 				}
 			}
-			}
 			// TODO validar se os campos estC#o vazios	if()
-			// TODO precisa apagar as posições escritas
-			if (!(entradaValida))
+			// TODO precisa apagar as posiC'C5es escritas
+			if (! ( entradaValida) ) {
 				cout << endl
 				     << "Coordendas Invalidas";
+			}
 
-		} while(! ( entradaValida ) );
-		imprimirTabuleiro(tabuleiro);
+		}  // Garante que vai ser inserido um barco
+		while(! ( entradaValida ) );
 
 
-	}
-}
+	} //For que controla a quiantidade de BArcos
+	imprimirTabuleiro(tabuleiro);
+} // Fim da FunC'C#o
 void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 {
 	// linha = rand() % TAMANHO_TABULEIRO;
@@ -1111,7 +1131,7 @@ void BatalhaPvp()
 	inicializarTabuleiro(tabuleiro2);
 	// inicializarTabuleiro(tabuleiroJogador2);
 	string nomeJogador = "Wesley";
-	int quantBarcos = 4;
+	int quantBarcos = 6;
 
 	Submarino submarino1;
 	Cruzador cruzador1;
@@ -1135,7 +1155,7 @@ void BatalhaPvp()
 	// adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
 	// limparTela();
 	// inicializarTabuleiro(tabuleiro1);
-	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
+	//cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
 
 	cpuAdicionaBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
 	// limparTela();
