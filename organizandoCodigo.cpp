@@ -786,33 +786,54 @@ bool casasVazias(int linhaLetra1, int linhaLetra2, int linhaLetra3, int colunaNu
 }
 void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char simbolo, char tabuleiro[15][15]) {
 	srand(time(0));
-	int direcao , indiceNumero;
+	int direcao, indiceNumero;
 	int indiceLetra1;
 	bool entradaValida = false;
 
 	for (int i = 1; i <= quantBarcos; i++)
 	{
 		do {
-		    direcao = gerarNumeroAleatorio(1,2);
+			direcao = gerarNumeroAleatorio(1,2);
 			indiceNumero = gerarNumeroAleatorio(0, 14);
 			indiceLetra1 = gerarNumeroAleatorio(0, 14);
 			if (barco.tamanho == 1)
 			{
-			    //Pociona submarino
+				//Pociona submarino
 				tabuleiro[indiceLetra1][indiceNumero] = simbolo;
-					entradaValida = true;
-				
+				entradaValida = true;
+
 			} else if (direcao == 1)
 			{
 				int j = indiceNumero + barco.tamanho; // para controlar o laC'o
 				if (TAMANHO_TABULEIRO - indiceLetra1 >= barco.tamanho)
 				{	// verifica se possivel posicionar na vertical
 					entradaValida = true;
+					bool posicoes = false;
+					// For que verifica se é possivel inserir
 					for (indiceNumero; indiceNumero <= j; indiceNumero++)
 					{
-						tabuleiro[indiceLetra1][indiceNumero] = simbolo;
-						entradaValida = true;
-					}
+						if( tabuleiro[indiceLetra1][indiceNumero]== AGUA ) {
+							tabuleiro[indiceLetra1][indiceNumero] = simbolo;
+							entradaValida = true;
+						}else{
+						posicoes = false;
+						indiceLetra1 = j;
+				    	}
+				    }
+				    // TODO Segundo for que inseri os valores
+				    if(posicoes){
+				        for (indiceNumero; indiceNumero <= j; indiceNumero++)
+					{
+						if( tabuleiro[indiceLetra1][indiceNumero]== AGUA ) {
+							tabuleiro[indiceLetra1][indiceNumero] = simbolo;
+							entradaValida = true;
+						}else{
+						entradaValida = false;
+						indiceLetra1 = j;
+				    	}
+				    }
+				    }
+				   
 				}
 				else
 				{
@@ -825,14 +846,20 @@ void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char si
 				int j = indiceLetra1 + barco.tamanho; // para controlar o laco
 				if (TAMANHO_TABULEIRO - indiceNumero >= barco.tamanho)
 				{	// verifica se possivel posicionar na horizontal
-				
+
 					for (indiceLetra1; indiceLetra1 <= j; indiceLetra1++)
-					{
-						tabuleiro[indiceLetra1][indiceNumero] = simbolo;
-						entradaValida = true;
+					{	if( tabuleiro[indiceLetra1][indiceNumero]== AGUA ) {
+							tabuleiro[indiceLetra1][indiceNumero] = simbolo;
+							entradaValida = true;
+						}else{
+						entradaValida = false;
+						indiceLetra1 = j;
 					}
 				}
 			}
+			}
+			// TODO validar se os campos estC#o vazios	if()
+			// TODO precisa apagar as posições escritas
 			if (!(entradaValida))
 				cout << endl
 				     << "Coordendas Invalidas";
@@ -1113,9 +1140,9 @@ void BatalhaPvp()
 	cpuAdicionaBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
 	// limparTela();
 	// imprimirTabuleiro(tabuleiro1);
-cpuAdicionaBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
-cpuAdicionaBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
-cpuAdicionaBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
+	cpuAdicionaBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
+	cpuAdicionaBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
+	cpuAdicionaBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
 
 	/*
 
