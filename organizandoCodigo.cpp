@@ -808,74 +808,62 @@ void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char si
 					entradaValida = false;
 
 
-			} else if (direcao == 1)
-			{
-				int j = indiceNumero + barco.tamanho; // para controlar o laC'o
-				if (TAMANHO_TABULEIRO - indiceLetra1 >= barco.tamanho)
-				{	// verifica se possivel posicionar na vertical
-					//entradaValida = true;
-					//bool posicoes = false;
-					// For que verifica se C) possivel inserir
-					for (indiceNumero; indiceNumero <= j; indiceNumero++)
-					{
-						if( tabuleiro[indiceLetra1][indiceNumero]== AGUA ) {
-							//	tabuleiro[indiceLetra1][indiceNumero] = simbolo;
-							entradaValida = true;
-						} else {
-							entradaValida = false;
-							//posicoes = false;
-						}
-					}
-					// TODO Segundo for que inseri os valores
-					if(entradaValida) {
-						for (indiceNumero; indiceNumero <= j; indiceNumero++)
-						{
-							if( tabuleiro[indiceLetra1][indiceNumero]== AGUA ) {
-								//	tabuleiro[indiceLetra1][indiceNumero] = simbolo;
-								entradaValida = true;
-							} else {
-								entradaValida = false;
-								//posicoes = false;
-							}
-
-						}
-					}
-
-				}
+			} else if(barco.tamanho > 1) {
 
 			}
+			switch (direcao) {
+    case 1: {  // Posicionamento vertical
+        int j = indiceNumero + barco.tamanho;
+		 
+        if (TAMANHO_TABULEIRO - indiceLetra1 >= barco.tamanho) {
+            for (int i = indiceNumero; i <= j; i++) {
+                if (tabuleiro[indiceLetra1][i] == AGUA) {
+                    entradaValida = true;
+                } else {
+                    entradaValida = false;
+                    break;
+                }
+            }
 
+            // Segundo loop para inserir os valores, se válido
+            if (entradaValida) {
+                 for (int i = indiceNumero; i <= j; i++) {
+                    
+                        tabuleiro[indiceLetra1][i] = simbolo;
+                       
+                }
+            }
+        }
+        break;
+    }
 
-			else if (direcao == 2)
-			{
+    case 2: {  // Posicionamento horizontal
+        int j = indiceLetra1 + barco.tamanho;
+        if (TAMANHO_TABULEIRO - indiceNumero >= barco.tamanho) {
+            for (; indiceLetra1 <= j; indiceLetra1++) {
+                if (tabuleiro[indiceLetra1][indiceNumero] == AGUA) {
+                    entradaValida = true;
+                } else {
+                    entradaValida = false;
+                    break;
+                }
+            }
 
-				int j = indiceLetra1 + barco.tamanho; // para controlar o laco
-				if (TAMANHO_TABULEIRO - indiceNumero >= barco.tamanho)
-				{	// verifica se possivel posicionar na horizontal
+            // Segundo loop para inserir os valores, se válido
+            if (entradaValida) {
+                for (; indiceLetra1 <= j; indiceLetra1++) {
+                   tabuleiro[indiceLetra1][indiceNumero] = simbolo;
+                }
+            }
+        }
+        break;
+    }
 
-					for (indiceLetra1; indiceLetra1 <= j; indiceLetra1++)
-					{	if( tabuleiro[indiceLetra1][indiceNumero]== AGUA ) {
-							entradaValida = true;
-						} else {
-							entradaValida = false;
-							indiceLetra1 = j;
-						}
-					}
-					if(entradaValida) {
-						for (indiceLetra1; indiceLetra1 <= j; indiceLetra1++)
-						{
-							if( tabuleiro[indiceLetra1][indiceNumero]== AGUA ) {
-								//	tabuleiro[indiceLetra1][indiceNumero] = simbolo;
-								entradaValida = true;
-							} else {
-								entradaValida = false;
-								//posicoes = false;
-							}
-
-						}
-					}
-				}
-			}
+    default:
+        // Caso não seja uma direção válida
+        entradaValida = false;
+        break;
+}
 			// TODO validar se os campos estC#o vazios	if()
 			// TODO precisa apagar as posiC'C5es escritas
 			if (! ( entradaValida) ) {
@@ -1157,7 +1145,7 @@ void BatalhaPvp()
 	// inicializarTabuleiro(tabuleiro1);
 	//cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
 
-	cpuAdicionaBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
+	//cpuAdicionaBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
 	// limparTela();
 	// imprimirTabuleiro(tabuleiro1);
 	cpuAdicionaBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
