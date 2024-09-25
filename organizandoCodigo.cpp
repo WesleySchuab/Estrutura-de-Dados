@@ -811,60 +811,61 @@ void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char si
 
 			} else if(barco.tamanho > 1) {
 
+
+				switch (direcao) {
+				case 1: {  // Posicionamento vertical
+					int j = indiceNumero + barco.tamanho;
+
+					if (j < TAMANHO_TABULEIRO ) {
+						for (int i = indiceNumero; i <= j; i++) {
+							if (tabuleiro[indiceLetra1][i] == AGUA) {
+								entradaValida = true;
+							} else {
+								entradaValida = false;
+								break;
+							}
+						}
+
+						// Segundo loop para inserir os valores, se vC!lido
+						if (entradaValida) {
+							for (int i = indiceNumero; i <= j; i++) {
+
+								tabuleiro[indiceLetra1][i] = simbolo;
+
+							}
+						}
+					}
+					break;
+				}
+
+				case 2: {  // Posicionamento horizontal
+					int j = indiceLetra1 + barco.tamanho;
+					if (j < TAMANHO_TABULEIRO ) {
+						for (int i = indiceLetra1; i < j; i++) {
+							if (tabuleiro[indiceLetra1][indiceNumero] == AGUA) {
+								entradaValida = true;
+							} else {
+								entradaValida = false;
+								break;
+							}
+						}
+
+						// Segundo loop para inserir os valores, se vC!lido
+						if (entradaValida) {
+							for (int i = indiceLetra1; i < j; i++) {
+								tabuleiro[i][indiceNumero] = simbolo;
+							}
+						}
+					}
+					break;
+				}
+
+				default:
+					// Caso nC#o seja uma direC'C#o vC!lida
+					entradaValida = false;
+					break;
+				}
 			}
-			switch (direcao) {
-    case 1: {  // Posicionamento vertical
-        int j = indiceNumero + barco.tamanho;
-		 
-        if (j < TAMANHO_TABULEIRO ) {
-            for (int i = indiceNumero; i <= j; i++) {
-                if (tabuleiro[indiceLetra1][i] == AGUA) {
-                    entradaValida = true;
-                } else {
-                    entradaValida = false;
-                    break;
-                }
-            }
-
-            // Segundo loop para inserir os valores, se válido
-            if (entradaValida) {
-                 for (int i = indiceNumero; i <= j; i++) {
-                    
-                        tabuleiro[indiceLetra1][i] = simbolo;
-                       
-                }
-            }
-        }
-        break;
-    }
-
-    case 2: {  // Posicionamento horizontal
-        int j = indiceLetra1 + barco.tamanho;
-        if (j < TAMANHO_TABULEIRO ) {
-            for (int i = indiceLetra1; i <= j; i++) {
-                if (tabuleiro[indiceLetra1][indiceNumero] == AGUA) {
-                    entradaValida = true;
-                } else {
-                    entradaValida = false;
-                    break;
-                }
-            }
-
-            // Segundo loop para inserir os valores, se válido
-            if (entradaValida) {
-                 for (int i = indiceLetra1; i <= j; i++) {
-                   tabuleiro[i][indiceNumero] = simbolo;
-                }
-            }
-        }
-        break;
-    }
-
-    default:
-        // Caso não seja uma direção válida
-        entradaValida = false;
-        break;
-}
 			// TODO validar se os campos estC#o vazios	if()
 			// TODO precisa apagar as posiC'C5es escritas
 			if (! ( entradaValida) ) {
@@ -1146,7 +1147,7 @@ void BatalhaPvp()
 	// inicializarTabuleiro(tabuleiro1);
 	//cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
 
-	//cpuAdicionaBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
+	cpuAdicionaBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
 	// limparTela();
 	// imprimirTabuleiro(tabuleiro1);
 	cpuAdicionaBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
