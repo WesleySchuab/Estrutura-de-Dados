@@ -36,6 +36,7 @@ const string C = "CRUZADOR";
 
 // Constantes para as cores
 #define AMARELO "\x1b[33m"
+#define VERDE_CLARO "\x1b[92m"
 #define RESET "\x1b[0m"
 #define PRETO "\x1b[30m"
 #define VERDE "\x1b[32m"
@@ -455,7 +456,7 @@ void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 			}
 			else if (tabuleiro[i][j] == SUBMARINO) // amarelo
 			{
-				cout << AMARELO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+				cout << VERDE_CLARO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
 			else if (tabuleiro[i][j] == 'A') // amarelo
 			{
@@ -866,19 +867,14 @@ void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char si
 					break;
 				}
 			}
-			// TODO validar se os campos estC#o vazios	if()
-			// TODO precisa apagar as posiC'C5es escritas
-			if (! ( entradaValida) ) {
-				cout << endl
-				     << "Coordendas Invalidas"<< endl;
-			}
+
 
 		}  // Garante que vai ser inserido um barco
 		while(! ( entradaValida ) );
 
 
 	} //For que controla a quiantidade de BArcos
-	imprimirTabuleiro(tabuleiro);
+	//imprimirTabuleiro(tabuleiro);
 } // Fim da FunC'C#o
 void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 {
@@ -974,8 +970,7 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 				}
 				cout << endl << "posicao " << posicao << endl;
 			}
-			if(casasVazias(linhaLetra1, linhaLetra2, linhaLetra3, colunaNumero1, colunaNumero2, colunaNumero3, tabuleiro)) {
-				entradaValida = true;
+			if(casasVazias(linhaLetra1, linhaLetra2, linhaLetra3, colunaNumero1, colunaNumero2, colunaNumero3, tabuleiro) && entradaValida == true) {
 				tabuleiro[linhaLetra1][colunaNumero1] = HIDROAVIAO;
 				tabuleiro[linhaLetra2][colunaNumero2] = HIDROAVIAO;
 				tabuleiro[linhaLetra3][colunaNumero3] = HIDROAVIAO;
@@ -1114,11 +1109,11 @@ void adicionarBarcosAleatoriamente(char tabuleiro[15][15], char tipoBarco, int t
         }
     }
 */
-void batalhaCpuxCpu(){
-    inicializarTabuleiro(tabuleiro1);
+void batalhaCpuxCpu() {
+	inicializarTabuleiro(tabuleiro1);
 	inicializarTabuleiro(tabuleiro2);
 
-    int quantBarcos = 6;
+	int quantBarcos = 6;
 
 	Submarino submarino1;
 	Cruzador cruzador1;
@@ -1131,24 +1126,33 @@ void batalhaCpuxCpu(){
 
 	displayTabuleiro();
 
-    //Adicionando barcos da CPU 1
-     cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
+	//Adicionando barcos da CPU 1
+	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
 
 	cpuAdicionaBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
 
 	cpuAdicionaBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
- cpuAdicionaBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
+	cpuAdicionaBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
 	cpuAdicionaBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
 
+	imprimirTabuleiro(tabuleiro1);
+	cout << endl << "tabuleiro CPU1 Pressione Enter para continuar...";
+	cin.get();
 
-     //Adicionando barcos da CPU 2
-     cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro2);
+
+	//Adicionando barcos da CPU 2
+	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro2);
 
 	cpuAdicionaBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro2);
 
 	cpuAdicionaBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
-    cpuAdicionaBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
+	cpuAdicionaBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
 	cpuAdicionaBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro2);
+	limparTela();
+	imprimirTabuleiro(tabuleiro2);
+	cout << endl << "tabuleiro CPU2 Pressione Enter para continuar...";
+	cin.get();
+
 
 }
 void BatalhaPvp()
@@ -1164,7 +1168,7 @@ void BatalhaPvp()
 	PortaAviao portaaviao1;
 	Hidrohaviao hidrohaviao1;
 	Encoracado encoracado;
-	
+
 
 	limparTela();
 
@@ -1179,13 +1183,13 @@ void BatalhaPvp()
 	// getline(cin, nomeJogador);
 
 	// adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
-	
-   cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
+
+	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
 
 	cpuAdicionaBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
 
 	cpuAdicionaBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
-cpuAdicionaBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
+	cpuAdicionaBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
 	cpuAdicionaBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
 
 	/*
@@ -1350,7 +1354,8 @@ int main(void)
 	int resp = 0;
 	do
 	{
-		BatalhaPvp();
+		//BatalhaPvp();
+		batalhaCpuxCpu();
 		cin >> resp;
 		cin.ignore(80, '\n');
 	} while (resp != 0);
