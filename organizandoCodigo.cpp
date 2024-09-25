@@ -842,7 +842,7 @@ void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char si
 					int j = indiceLetra1 + barco.tamanho;
 					if (j < TAMANHO_TABULEIRO ) {
 						for (int i = indiceLetra1; i < j; i++) {
-							if (tabuleiro[indiceLetra1][indiceNumero] == AGUA) {
+							if (tabuleiro[i][indiceNumero] == AGUA) {
 								entradaValida = true;
 							} else {
 								entradaValida = false;
@@ -1145,7 +1145,7 @@ void BatalhaPvp()
 	// adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
 	// limparTela();
 	// inicializarTabuleiro(tabuleiro1);
-	//cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
+   cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
 
 	cpuAdicionaBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
 	// limparTela();
