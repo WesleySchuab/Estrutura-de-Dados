@@ -796,7 +796,7 @@ void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char si
 		do {   // Garante que vai ser inserido um barco
 
 			direcao = gerarNumeroAleatorio(1,2);
-			direcao = 1;
+			direcao = 2;
 			indiceNumero = gerarNumeroAleatorio(0, 14);
 			indiceLetra1 = gerarNumeroAleatorio(0, 14);
 			if (barco.tamanho == 1)
@@ -840,8 +840,8 @@ void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char si
 
     case 2: {  // Posicionamento horizontal
         int j = indiceLetra1 + barco.tamanho;
-        if (TAMANHO_TABULEIRO - indiceNumero >= barco.tamanho) {
-            for (; indiceLetra1 <= j; indiceLetra1++) {
+        if (j < TAMANHO_TABULEIRO ) {
+            for (int i = indiceLetra1; i <= j; i++) {
                 if (tabuleiro[indiceLetra1][indiceNumero] == AGUA) {
                     entradaValida = true;
                 } else {
@@ -852,8 +852,8 @@ void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char si
 
             // Segundo loop para inserir os valores, se válido
             if (entradaValida) {
-                for (; indiceLetra1 <= j; indiceLetra1++) {
-                  // tabuleiro[indiceLetra1][indiceNumero] = simbolo;
+                 for (int i = indiceLetra1; i <= j; i++) {
+                   tabuleiro[i][indiceNumero] = simbolo;
                 }
             }
         }
