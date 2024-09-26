@@ -242,11 +242,105 @@ public:
 	virtual bool validarPosicao(int p1, int p2, char m[15][15]) = 0;
 };
 
+
+/*
+Barcos(int tamanho) : tamanho(tamanho) {}:
+
+Este é o construtor da classe Barcos.
+Ele recebe um parâmetro tamanho do tipo inteiro, que  representa o tamanho do barco.
+A parte : tamanho(tamanho) é uma lista de inicializadores, que é uma forma eficiente de inicializar membros de uma classe. 
+Nesse caso, o membro tamanho do objeto Barcos está sendo inicializado com o valor passado para o construtor.
+*/
+class Barcos : public Embarcacoes
+{
+public:
+	Barcos(int tamanho) : tamanho(tamanho) {}
+	int tamanho = 0;
+	bool validarPosicao(int p1, int p2, char m[15][15]) override
+	{
+		// User insert 1 but it should be 0
+		if (m[p1][p2] == '0')
+		{
+			return true;
+		}
+		return false;
+	}
+};
+
+class PortaAviao : public Barcos
+{
+public:
+	//	int tamanho = 5;
+	PortaAviao() : Barcos(5) {}
+
+	bool validarPosicao(int p1, int p2, char m[15][15]) override
+	{
+		// User insert 1 but it should be 0
+		if (m[p1][p2] == '0')
+		{
+			return true;
+		}
+		return false;
+	}
+};
+
+class Encoracado : public Barcos
+{
+public:
+	// int tamanho = 3;
+	Encoracado() : Barcos(3) {}
+
+	bool validarPosicao(int p1, int p2, char m[15][15]) override
+	{
+		// User insert 1 but it should be 0
+		if (m[p1][p2] == '0')
+		{
+			return true;
+		}
+		return false;
+	}
+};
+
+class Cruzador : public Barcos
+{
+public:
+	// int tamanho = 3;
+	Cruzador() : Barcos(2) {}
+
+	bool validarPosicao(int p1, int p2, char m[15][15]) override
+	{
+		// User insert 1 but it should be 0
+		if (m[p1][p2] == '0')
+		{
+			return true;
+		}
+		return false;
+	}
+};
+
+class Submarino : public Barcos
+{
+public:
+	// int tamanho = 3;
+	Submarino() : Barcos(1) {}
+
+	bool validarPosicao(int p1, int p2, char m[15][15]) override
+	{
+		// User insert 1 but it should be 0
+		if (m[p1][p2] == '0')
+		{
+			return true;
+		}
+		return false;
+	}
+};
+
 class Hidrohaviao : public Embarcacoes
 {
 public:
 	int p3;
 	int p4;
+	int quantBarcos = 5;
 
 	bool validarPrimeiroNumero(int p1)
 	{
@@ -335,90 +429,6 @@ public:
 	}
 };
 
-class Barcos : public Embarcacoes
-{
-public:
-	Barcos(int tamanho) : tamanho(tamanho) {}
-	int tamanho = 0;
-	bool validarPosicao(int p1, int p2, char m[15][15]) override
-	{
-		// User insert 1 but it should be 0
-		if (m[p1][p2] == '0')
-		{
-			return true;
-		}
-		return false;
-	}
-};
-
-class PortaAviao : public Barcos
-{
-public:
-	//	int tamanho = 5;
-	PortaAviao() : Barcos(5) {}
-
-	bool validarPosicao(int p1, int p2, char m[15][15]) override
-	{
-		// User insert 1 but it should be 0
-		if (m[p1][p2] == '0')
-		{
-			return true;
-		}
-		return false;
-	}
-};
-
-class Encoracado : public Barcos
-{
-public:
-	// int tamanho = 3;
-	Encoracado() : Barcos(3) {}
-
-	bool validarPosicao(int p1, int p2, char m[15][15]) override
-	{
-		// User insert 1 but it should be 0
-		if (m[p1][p2] == '0')
-		{
-			return true;
-		}
-		return false;
-	}
-};
-
-class Cruzador : public Barcos
-{
-public:
-	// int tamanho = 3;
-	Cruzador() : Barcos(2) {}
-
-	bool validarPosicao(int p1, int p2, char m[15][15]) override
-	{
-		// User insert 1 but it should be 0
-		if (m[p1][p2] == '0')
-		{
-			return true;
-		}
-		return false;
-	}
-};
-
-class Submarino : public Barcos
-{
-public:
-	// int tamanho = 3;
-	Submarino() : Barcos(1) {}
-
-	bool validarPosicao(int p1, int p2, char m[15][15]) override
-	{
-		// User insert 1 but it should be 0
-		if (m[p1][p2] == '0')
-		{
-			return true;
-		}
-		return false;
-	}
-};
-
 void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 {
 	char vetorLetras[TAMANHO_TABULEIRO] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'};
@@ -440,7 +450,11 @@ void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 
 		for (int j = 0; j < TAMANHO_TABULEIRO; j++)
 		{
-			if (tabuleiro[i][j] == HIDROAVIAO) // Hidro C) branco
+			if (tabuleiro[i][j] == AGUA) // EncoraC'C#do C) amarelo
+			{
+				cout << BBLUE << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+				cout << RESET;
+			}else if (tabuleiro[i][j] == HIDROAVIAO) // Hidro C) branco
 			{
 				cout << BRANCO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
@@ -1090,7 +1104,7 @@ void batalhaCpuxCpu() {
 	inicializarTabuleiro(tabuleiro1);
 	inicializarTabuleiro(tabuleiro2);
 
-	int quantBarcos = 6;
+//	int quantBarcos = 6;
 
 	Submarino submarino1;
 	Cruzador cruzador1;
@@ -1107,26 +1121,26 @@ void batalhaCpuxCpu() {
 	cpuAdicionaHidro(5, hidrohaviao1, tabuleiro1);
 
 	cpuAdicionaBarcos(4, submarino1, S, SUBMARINO, tabuleiro1);
-	
+
 	cpuAdicionaBarcos(3, cruzador1, C, CRUZADOR, tabuleiro1);
 
 	cpuAdicionaBarcos(2, encoracado, E, ENCORACADO, tabuleiro1);
-	
-	cpuAdicionaBarcos(1, portaaviao1, P, PORTAAVIAO, tabuleiro1);
-	
-	
-/*
-	limparTela();
-	imprimirTabuleiro(tabuleiro1);
-	cout << endl << "tabuleiro CPU1 Pressione Enter para continuar...";
-	cin.get();
 
-*/
+	cpuAdicionaBarcos(1, portaaviao1, P, PORTAAVIAO, tabuleiro1);
+
+
+	/*
+		limparTela();
+		imprimirTabuleiro(tabuleiro1);
+		cout << endl << "tabuleiro CPU1 Pressione Enter para continuar...";
+		cin.get();
+
+	*/
 	//Adicionando barcos da CPU 2
 	cpuAdicionaHidro(5, hidrohaviao1, tabuleiro2);
 
 	cpuAdicionaBarcos(4, submarino1, S, SUBMARINO, tabuleiro2);
-		cpuAdicionaBarcos(3, cruzador1, C, CRUZADOR, tabuleiro2);
+	cpuAdicionaBarcos(3, cruzador1, C, CRUZADOR, tabuleiro2);
 
 	cpuAdicionaBarcos(2, encoracado, E, ENCORACADO, tabuleiro2);
 	cpuAdicionaBarcos(1, portaaviao1, P, PORTAAVIAO, tabuleiro2);
@@ -1135,8 +1149,8 @@ void batalhaCpuxCpu() {
 	limparTela();
 	do {
 		cpuAtirar(tabuleiro2, quantidadeDeAcertosJogador1);
-			cout << endl << " quantidade de acertos jogador 1 "<< quantidadeDeAcertosJogador1;
-		if(quantidadeDeAcertosJogador1 < 38) {
+		cout << endl << " quantidade de acertos jogador 1 "<< quantidadeDeAcertosJogador1;
+		if(quantidadeDeAcertosJogador1 <= 36) {
 			cpuAtirar(tabuleiro1, quantidadeDeAcertosJogador2);
 			cout << endl << " quantidade de acertos jogador 2 "<< quantidadeDeAcertosJogador2;
 		}
@@ -1144,23 +1158,12 @@ void batalhaCpuxCpu() {
 		//atirarCpu(tabuleiro2);
 
 	} while( ! (quantidadeDeAcertosJogador1 == 36 || quantidadeDeAcertosJogador2 == 36  ) );
-	/*
-	imprimirTabuleiro(tabuleiro2);
-	cout << endl << "tabuleiro CPU2 Pressione Enter para continuar...";
-	cin.get();
 
-	cout << endl << "A guerra comeC'a agora..." <<endl;
-	cout << endl << "CPU1 vai atirar" <<endl;
-	cpuAtirar(tabuleiro2, quantidadeDeAcertosJogador1);
-	 //atirarCpu(tabuleiro2);
-	imprimirTabuleiro(tabuleiro2, quantidadeDeAcertosJogador2);
-	*/
-//	limparTela();
 	if(quantidadeDeAcertosJogador1 == 36 ) {
 		cout << endl << " Jogador 1 Ganhou" << endl;
 		imprimirTabuleiro(tabuleiro2);
 	} else if(quantidadeDeAcertosJogador2 == 36 ) {
-		cout << endl << " Jogador 1 Ganhou" << endl;
+		cout << endl << " Jogador 2 Ganhou" << endl;
 		imprimirTabuleiro(tabuleiro1);
 	}
 
