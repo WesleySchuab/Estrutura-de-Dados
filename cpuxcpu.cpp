@@ -421,7 +421,7 @@ void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 {
 	char vetorLetras[TAMANHO_TABULEIRO] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'};
 	const int LARGURA_COLUNA = 3; // Largura de cada coluna, ajuste conforme necesso?=rio
-
+    cout << endl;
 	// Imprimir os no?=meros na parte superior
 	cout << "   "; // Espao?=o inicial para alinhar no?=meros
 	for (int i = 1; i < TAMANHO_TABULEIRO + 1; i++)
@@ -659,9 +659,6 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
 			} while (!(entradaValida));
 			// limparTela();
 			// pause(linhaLetra3,colunaNumero3 );
-			cout << endl
-			     << "Vai imprimir tabuleiro " << endl;
-			imprimirTabuleiro(tabuleiro);
 
 		} // fim do HIDROAVIAO
 	}
@@ -908,12 +905,11 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 			{
 				// linhaLetra1 = 0;
 				linhaLetra1 = gerarNumeroAleatorio(0, 14);
-				cout << "linha nC#o C) zero nem 14 " << endl;
 			}
 
 			if (linhaLetra1 == 0 || linhaLetra1 == 14)
 			{
-				cout << endl << "Linha Letra == o ou 14 ";
+				
 
 				// quando estiver na primeira linha posiciona para baixo e quando estiver na ultima para cima
 				if (linhaLetra1 == 0)
@@ -935,7 +931,7 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 			}
 			else if (colunaNumero1 != 0 && colunaNumero1 != 14)// !( (linhaLetra1 == 0 || linhaLetra1 == 14) )
 			{
-				cout << endl << "ELse  Letra == o ou 14 " << endl;
+				
 				entradaValida = true;
 				// posicao = gerarNumeroAleatorio(1, 4);
 				posicao =4;
@@ -968,7 +964,7 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 					colunaNumero3 = colunaNumero2;
 					linhaLetra3 = linhaLetra1 - 1;
 				}
-				cout << endl << "posicao " << posicao << endl;
+				
 			}
 			if(casasVazias(linhaLetra1, linhaLetra2, linhaLetra3, colunaNumero1, colunaNumero2, colunaNumero3, tabuleiro) && entradaValida == true) {
 				tabuleiro[linhaLetra1][colunaNumero1] = HIDROAVIAO;
@@ -978,7 +974,6 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 				entradaValida = false;
 			}
 			cout << endl
-			     << " Conseguiu posicionar: 1, falhou: 0 " << endl
 			     << casasVazias(linhaLetra1, linhaLetra2, linhaLetra3, colunaNumero1, colunaNumero2, colunaNumero3, tabuleiro) << endl;
 			// pause(0,1);
 
@@ -986,9 +981,7 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 	}
 
 	limparTela();
-	cout << endl
-	     << "rodou " << rodou << endl;
-	imprimirTabuleiro(tabuleiro);
+
 }
 
 void atirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
@@ -1054,61 +1047,39 @@ void atirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 
 	// Mostrar o tabuleiro atual de tiros
 }
-/*
-void adicionarBarcosAleatoriamente(char tabuleiro[15][15], char tipoBarco, int tamanhoBarco) {
-    bool barcoAdicionado = false;
-    while (!barcoAdicionado) {
-        linha = rand() % TAMANHO_TABULEIRO;
-        coluna = rand() % TAMANHO_TABULEIRO;
-        for(int i = 1; i <= quantBarcos; i++) {
+void cpuAtirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
+{
+	srand(time(0));
+	int posicaoNumero = gerarNumeroAleatorio(0, 14);;
+	int posicaoLetra = gerarNumeroAleatorio(0, 14);;
+	bool entradaValida = false;
 
-            bool entradaValida =false;
-            do {
+	// Verificar se a posiC'C#o jC! foi atacada
+	if (tabuleiroAdversario[posicaoLetra][posicaoNumero] == TIRO_AGUA || tabuleiroAdversario[posicaoLetra][posicaoNumero] == TIRO_NAVIO)
+	{
+		cout << "VocC* jC! atirou nessa posiC'C#o. Escolha outra coordenada." << endl;
+		return;
+	}
 
-                indiceNumero = barco.LerIndiceNumero( entradaValida, i,tipoBarco);
+	// Atualizar o tabuleiro de tiros
+	if (tabuleiroAdversario[posicaoLetra][posicaoNumero] != AGUA)
+	{
+		// Acertou um navio
+		tabuleiroAdversario[posicaoLetra][posicaoNumero] = TIRO_NAVIO;
+		cout << "VocC* acertou um navio!" << endl;
+		// Opcional: Adicionar lC3gica para verificar se o navio foi afundado
+	}
+	else
+	{
+		// Errou o tiro
+		tabuleiroAdversario[posicaoLetra][posicaoNumero] = TIRO_AGUA;
+		cout << "Cgua. Tiro perdido!" << endl;
+	}
 
-                // trocar por encoracadop2
-                indiceLetra1 = barco.LerIndiceLetra(i,tipoBarco);
-                if(barco.tamanho == 1) {
-
-                    tabuleiro[indiceLetra1][indiceNumero ] = simbolo;
-
-                } else if(direcao == 1) {
-                    int j = indiceNumero  + barco.tamanho ; // para controlar o laC'o
-                    if(TAMANHO_TABULEIRO - indiceLetra1 >= barco.tamanho) {// verifica se possivel posicionar na vertical
-                        entradaValida = true;
-                        for(indiceNumero ; indiceNumero  <= j; indiceNumero++) {
-                            tabuleiro[indiceLetra1][indiceNumero ] = simbolo;
-                        }
-                    } else
-                    {
-                        entradaValida = false;
-                    }
-
-                } else if( direcao == 2 ) {
-
-                    int j = indiceLetra1  + barco.tamanho ; // para controlar o laco
-                    if(TAMANHO_TABULEIRO - indiceNumero >= barco.tamanho) { // verifica se possivel posicionar na horizontal
-                        entradaValida = true;
-                        for(indiceLetra1; indiceLetra1 <= j; indiceLetra1++) {
-                            tabuleiro[indiceLetra1][indiceNumero] = simbolo;
-                        }
-
-                    }
-
-                }
-                if(! (entradaValida))
-                    cout << endl <<"Coordendas Invalidas";
-
-            } while(! ( entradaValida ) );
+	// Mostrar o tabuleiro atual de tiros
+}
 
 
-            //limparTela();
-            imprimirTabuleiro(tabuleiro);
-
-        }
-    }
-*/
 void batalhaCpuxCpu() {
 	inicializarTabuleiro(tabuleiro1);
 	inicializarTabuleiro(tabuleiro2);
@@ -1135,6 +1106,7 @@ void batalhaCpuxCpu() {
 	cpuAdicionaBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
 	cpuAdicionaBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
 
+	limparTela();
 	imprimirTabuleiro(tabuleiro1);
 	cout << endl << "tabuleiro CPU1 Pressione Enter para continuar...";
 	cin.get();
@@ -1152,6 +1124,11 @@ void batalhaCpuxCpu() {
 	imprimirTabuleiro(tabuleiro2);
 	cout << endl << "tabuleiro CPU2 Pressione Enter para continuar...";
 	cin.get();
+	
+	cout << endl << "A guerra começa agora..." <<endl;
+	cout << endl << "CPU1 vai atirar" <<endl;
+	 atirar(tabuleiro2);
+	 imprimirTabuleiro(tabuleiro2);
 
 
 }
