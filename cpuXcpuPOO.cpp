@@ -452,11 +452,17 @@ void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 		{
 			if (tabuleiro[i][j] == AGUA) // EncoraC'C#do C) amarelo
 			{
-				cout << BBLUE << setw(LARGURA_COLUNA) << tabuleiro[i][j];
-				cout << RESET;
+				cout << BLUE << BBLUE << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}else if (tabuleiro[i][j] == HIDROAVIAO) // Hidro C) branco
 			{
-				cout << BRANCO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+				cout << BRANCO << BWHITE  << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+			}else if (tabuleiro[i][j] == TIRO_AGUA) // Hidro C) branco
+			{
+				cout << VERMELHO << BBLUE << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+			}
+			else if (tabuleiro[i][j] == TIRO_NAVIO) // Hidro C) branco
+			{
+				cout << WHITE << BRED << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
 			else if (tabuleiro[i][j] == ENCORACADO) // EncoraC'C#do C) amarelo
 			{
@@ -478,10 +484,11 @@ void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 			{
 				cout << BYellow;
 				cout << CYAN  << setw(LARGURA_COLUNA) << tabuleiro[i][j];
-				cout << RESET;
 			}
 			else
 				cout << AZULC << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+			
+			cout << RESET;
 		}
 		cout << endl;
 	}
