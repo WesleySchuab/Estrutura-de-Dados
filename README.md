@@ -3,6 +3,8 @@
 ## Descrição
 
 Este projeto implementa o clássico jogo Batalha Naval utilizando a linguagem C++. O objetivo é simular um jogo entre dois jogadores (neste caso, duas CPUs) e demonstrar a aplicação de estruturas de dados para representar o tabuleiro e as posições dos navios.
+## Formato das Embarcações
+![image](https://github.com/user-attachments/assets/d83a9d31-782c-40ee-8959-929e4f753843)
 
 ## Link para Compilar
 
