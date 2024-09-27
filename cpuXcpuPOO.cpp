@@ -339,9 +339,8 @@ public:
 class Hidrohaviao : public Embarcacoes
 {
 public:
-	int p3;
-	int p4;
-	int quantBarcos = 5;
+
+	int quantidade = 5;
 
 	bool validarPrimeiroNumero(int p1)
 	{
@@ -521,7 +520,7 @@ int definiLetra(int linhaLetra1, int linhaLetra2, int linhaLetra3, bool &entrada
 	}
 	return retorno;
 }
-void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
+void adicionarHidroaviao( Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 {
 	bool entradaValida = false;
 	int linhaLetra1 = 0;
@@ -533,7 +532,7 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
 	for (int j = 1; j <= 2; j++)
 	{
 		// cout <<endl <<j <<" " << H;
-		for (int i = 1; i <= quantBarcos; i++)
+		for (int i = 1; i <= hidrohaviao1.quantidade; i++)
 		{
 
 			do
@@ -682,7 +681,7 @@ void adicionarHidroaviao(int quantBarcos, Hidrohaviao hidrohaviao1, char tabulei
 		} // fim do HIDROAVIAO
 	}
 }
-void adicionarBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char simbolo, char tabuleiro[15][15])
+void adicionarBarcos(Barcos &barco, string tipoBarco, char simbolo, char tabuleiro[15][15])
 {
 	//	char letra1;
 	cout << endl
@@ -693,7 +692,7 @@ void adicionarBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char simb
 	int tamanhoParaExibir = barco.tamanho + 1;
 	// barco.tamanho;
 
-	for (int i = 1; i <= quantBarcos; i++)
+	for (int i = 1; i <= barco.quantidade; i++)
 	{
 
 		bool entradaValida = false;
@@ -1072,7 +1071,7 @@ void cpuAtirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO], i
 	int posicaoNumero = gerarNumeroAleatorio(0, 14);;
 	int posicaoLetra = gerarNumeroAleatorio(0, 14);;
 	bool entradaValida = false;
-//	int quantidadeDeAcertos = 0 ;
+
 
 	// Verificar se a posiC'C#o jC! foi atacada
 	if (tabuleiroAdversario[posicaoLetra][posicaoNumero] == TIRO_AGUA || tabuleiroAdversario[posicaoLetra][posicaoNumero] == TIRO_NAVIO)
@@ -1105,13 +1104,15 @@ void batalhaCpuxCpu() {
 	inicializarTabuleiro(tabuleiro1);
 	inicializarTabuleiro(tabuleiro2);
 
-//	int quantBarcos = 6;
+	
 
 	Submarino submarino1;
 	Cruzador cruzador1;
 	PortaAviao portaaviao1;
 	Hidrohaviao hidrohaviao1;
 	Encoracado encoracado;
+	
+	int quantBarcos = hidrohaviao1.quantidade*3 + submarino1.quantidade * 4 + cruzador1.quantidade*2 + portaaviao1.quantidade + encoracado.quantidade *  2;
 
 
 	limparTela();
@@ -1149,21 +1150,21 @@ void batalhaCpuxCpu() {
 
 	limparTela();
 	do {
-		cpuAtirar(tabuleiro2, quantidadeDeAcertosJogador1);
+		cpuAtirar(tabuleiro2, quantidadeDeAcertosJogador1, int quantBarcos);
 		cout << endl << " quantidade de acertos jogador 1 "<< quantidadeDeAcertosJogador1;
-		if(quantidadeDeAcertosJogador1 <= 36) {
-			cpuAtirar(tabuleiro1, quantidadeDeAcertosJogador2);
+		if(quantidadeDeAcertosJogador1 <= quantBarcos) {
+			cpuAtirar(tabuleiro1, quantidadeDeAcertosJogador2, quantBarcos);
 			cout << endl << " quantidade de acertos jogador 2 "<< quantidadeDeAcertosJogador2;
 		}
 
 		//atirarCpu(tabuleiro2);
 
-	} while( ! (quantidadeDeAcertosJogador1 == 36 || quantidadeDeAcertosJogador2 == 36  ) );
+	} while( ! (quantidadeDeAcertosJogador1 == quantBarcos || quantidadeDeAcertosJogador2 == quantBarcos  ) );
 
-	if(quantidadeDeAcertosJogador1 == 36 ) {
+	if(quantidadeDeAcertosJogador1 == quantBarcos ) {
 		cout << endl << " Jogador 1 Ganhou" << endl;
 		imprimirTabuleiro(tabuleiro2);
-	} else if(quantidadeDeAcertosJogador2 == 36 ) {
+	} else if(quantidadeDeAcertosJogador2 == quantBarcos ) {
 		cout << endl << " Jogador 2 Ganhou" << endl;
 		imprimirTabuleiro(tabuleiro1);
 	}
