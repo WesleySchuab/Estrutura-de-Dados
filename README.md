@@ -37,7 +37,7 @@ Este projeto implementa o clássico jogo Batalha Naval utilizando a linguagem C+
 As imagens a seguir ilustram diferentes momentos do jogo:
 
 * **CPU1 posicionando os barcos:**
-    * [Imagem 1]([https://github.com/user-attachments/assets/aebbd08d-734d-499c-89b7-62f5193831f5])
+    * ![image](https://github.com/user-attachments/assets/aebbd08d-734d-499c-89b7-62f5193831f5)
     * [Imagem 2]([https://github.com/user-attachments/assets/00746933-647a-4501-a9f9-6d5b6c66e15e])
 * **Resultado do jogo CPU x CPU:**
     * [Imagem 3]([https://github.com/user-attachments/assets/0f8c80c9-dddb-4af6-9c81-0b644c418f90])
