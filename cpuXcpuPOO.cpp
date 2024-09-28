@@ -25,7 +25,7 @@ const char SUBMARINO = 'S';
 const char CRUZADOR = 'C';
 
 const char TIRO_AGUA = '~';
-const char TIRO_NAVIO = '*';
+const char TIRO_NAVIO = 'X';
 int quantidadeDeAcertosJogador1, quantidadeDeAcertosJogador2=0;
 
 // titulo da embarcaC'C#o
@@ -450,35 +450,39 @@ void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 
 		for (int j = 0; j < TAMANHO_TABULEIRO; j++)
 		{
-			if (tabuleiro[i][j] == AGUA) // EncoraC'C#do C) amarelo
+			if (tabuleiro[i][j] == AGUA) // AGUA
 			{
 				cout << BLUE << BBLUE << setw(LARGURA_COLUNA) << tabuleiro[i][j];
-			}else if (tabuleiro[i][j] == HIDROAVIAO) // Hidro C) branco
+				
+			}else if (tabuleiro[i][j] == TIRO_AGUA) // TIRO AGUA
+			{
+				cout << AMARELO << BBLUE << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+				
+			}else if (tabuleiro[i][j] == TIRO_NAVIO) // TIRO NAVIO
+			{
+				cout << VERMELHO << BWHITE << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+			}
+			
+			else if (tabuleiro[i][j] == HIDROAVIAO) // Hidro  branco
 			{
 				cout << BRANCO << BWHITE  << setw(LARGURA_COLUNA) << tabuleiro[i][j];
-			}else if (tabuleiro[i][j] == TIRO_AGUA) // Hidro C) branco
-			{
-				cout << VERMELHO << BBLUE << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
-			else if (tabuleiro[i][j] == TIRO_NAVIO) // Hidro C) branco
+			
+			else if (tabuleiro[i][j] == ENCORACADO) // EncoraC amarelo
 			{
-				cout << WHITE << BRED << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+				cout  << VERMELHO <<BRED << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
-			else if (tabuleiro[i][j] == ENCORACADO) // EncoraC'C#do C) amarelo
+			else if (tabuleiro[i][j] == PORTAAVIAO) // Porta  amarelo
 			{
-				cout << VERMELHO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
-			}
-			else if (tabuleiro[i][j] == PORTAAVIAO) // Porta AviC#o C) amarelo
-			{
-				cout << AMARELO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+				cout << AMARELO <<BYellow << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
 			else if (tabuleiro[i][j] == CRUZADOR) // amarelo
 			{
-				cout << MAGENTA << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+				cout << MAGENTA << BMAGENTA << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
 			else if (tabuleiro[i][j] == SUBMARINO) // amarelo
 			{
-				cout << VERDE_CLARO << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+				cout << VERDE_CLARO << BGREEN << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
 			else if (tabuleiro[i][j] == TIRO_AGUA) // amarelo
 			{
