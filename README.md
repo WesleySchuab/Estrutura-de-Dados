@@ -7,7 +7,8 @@ Este projeto implementa o clássico jogo Batalha Naval utilizando a linguagem C+
 ![image](https://github.com/user-attachments/assets/d83a9d31-782c-40ee-8959-929e4f753843)
 
 ## Link para Compilar
-### Para garantir que não perca o progresso nos meus projetos, tenho mantido cópias locais dos arquivos, especialmente por conta da restrição de acesso ao GitHub dentro da faculdade. Dessa forma, posso rever o código a qualquer momento e evitar erros.
+### Atenção
+Para garantir que não perca o progresso nos meus projetos, tenho mantido cópias locais dos arquivos, especialmente por conta da restrição de acesso ao GitHub dentro da faculdade. Dessa forma, posso rever o código a qualquer momento e evitar erros.
 
 Verifique o último commit para saber qual versão estou trabalhando atualmente. Link do arquivo: [https://github.com/WesleySchuab/Estrutura-de-Dados/blob/main/cpuXcpuPOO.cpp]
 * **Opção 1:** https://www.onlinegdb.com/online_c++_compiler
