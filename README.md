@@ -54,7 +54,8 @@ As imagens a seguir ilustram diferentes momentos do jogo:
     * ![image](https://github.com/user-attachments/assets/b0a24cbe-2318-4128-a20f-a34983a31fa1)
 
 * **Resultado do jogo CPU x CPU:**
-    * ![image](https://github.com/user-attachments/assets/0f8c80c9-dddb-4af6-9c81-0b644c418f90)
+    * ![resultado](https://github.com/user-attachments/assets/cca830bb-05b3-42b4-926e-e2d0434fd11a)
+
 
 ## Próximos Passos
 
