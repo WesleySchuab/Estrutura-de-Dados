@@ -531,7 +531,6 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 	int colunaNumero3 = 0;
 	for (int j = 1; j <= 2; j++)
 	{
-		// cout <<endl <<j <<" " << H;
 		for (int i = 1; i <= hidrohaviao1.quantidade; i++)
 		{
 
@@ -605,7 +604,6 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 					}
 
 					// Se a segunda letra maior que a primeira letra3 = letra1 - 1
-					// if ((colunaNumero3 == colunaNumero1 + 1) || (colunaNumero3 == colunaNumero1 - 1) ) // verifica nas colunas ao lado
 					if (colunaNumero3 == colunaNumero2)
 					{
 						if (colunaNumero3 != colunaNumero1)
@@ -675,8 +673,6 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 				}
 
 			} while (!(entradaValida));
-			// limparTela();
-			// pause(linhaLetra3,colunaNumero3 );
 
 		} // fim do HIDROAVIAO
 	}
@@ -1114,7 +1110,7 @@ void cpuAtirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO], i
 		// cout << "Cgua. Tiro perdido!" << endl;
 	}
 
-	// Mostrar o tabuleiro atual de tiros
+	
 }
 
 void batalhaCpuxCpu()
@@ -1131,13 +1127,7 @@ void batalhaCpuxCpu()
 
 	int quantBarcos = hidrohaviao1.quantidade * 3 + submarino1.quantidade * submarino1.tamanho +
 					  cruzador1.quantidade * cruzador1.tamanho + portaaviao1.tamanho + encoracado.quantidade * encoracado.tamanho;
-	/*
-		int quantBarcos = hidrohaviao1.quantidade * 3;
-		quantBarcos = quantBarcos + submarino1.quantidade * submarino1.tamanho;
-		quantBarcos = quantBarcos + cruzador1.quantidade * cruzador1.tamanho;
-		quantBarcos = quantBarcos + portaaviao1.tamanho;
-		quantBarcos = quantBarcos + encoracado.quantidade *  encoracado.tamanho;
-		*/
+
 
 	limparTela();
 
@@ -1154,8 +1144,7 @@ void batalhaCpuxCpu()
 
 	cpuAdicionaBarcos(1, portaaviao1, P, PORTAAVIAO, tabuleiro1);
 
-	cout << endl
-		 << " quantidade " << quantBarcos;
+
 
 	imprimirTabuleiro(tabuleiro1);
 	// cout << endl << "tabuleiro CPU1 Pressione Enter para continuar...";
@@ -1188,10 +1177,6 @@ void batalhaCpuxCpu()
 
 	} while (!(quantidadeDeAcertosJogador1 == quantBarcos || quantidadeDeAcertosJogador2 == quantBarcos));
 
-	cout << endl
-		 << " quantidade de acertos jogador 1 " << quantidadeDeAcertosJogador1;
-	cout << endl
-		 << " quantidade de acertos jogador 2 " << quantidadeDeAcertosJogador2;
 
 	if (quantidadeDeAcertosJogador1 == quantBarcos)
 	{
@@ -1374,7 +1359,7 @@ void menuPrincipal()
 	cout << "Estrutura de Dados" << endl;
 	cout << endl;
 	cout << "[1] Matrizes e Vetores " << endl;
-	cout << "[2] Programa 2" << endl;
+	cout << "[2] CPU x CPU" << endl;
 	cout << "[3] Programa 3" << endl;
 	cout << "[4] Programa 4" << endl;
 	cout << "[0] Digite para sair " << endl;
@@ -1387,7 +1372,7 @@ void menuPrincipal()
 		BatalhaPvp();
 		break;
 	case 2:
-		Programa2();
+		batalhaCpuxCpu();
 		break;
 	case 3:
 		Programa3();
@@ -1402,13 +1387,12 @@ int main(void)
 {
 
 	setlocale(LC_ALL, "Portuguese");
-	int resp = 1;
-	//do
-	//{
-		// BatalhaPvp();
-		batalhaCpuxCpu();
-		//cin >> resp;
-		//cin.ignore(80, '\n');
-	//} while (resp != 0);
+	int resp = 0;
+	do
+	{
+		menuPrincipal();
+		cin >> resp;
+		cin.ignore(80, '\n');
+	} while (resp != 0);
 	return 0;
 }
