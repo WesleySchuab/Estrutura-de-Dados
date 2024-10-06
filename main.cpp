@@ -677,6 +677,31 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 		} // fim do HIDROAVIAO
 	}
 }
+void adicionarHidroaviao2(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
+{
+    bool entradaValida = false, inseriuHidro = false;
+	int linhaLetra1 = 0;
+	int linhaLetra2 = 0;
+	int linhaLetra3 = 0;
+	int colunaNumero1 = 0;
+	int colunaNumero2 = 0;
+	int colunaNumero3 = 0;	
+	int posicao = 0;
+
+	srand(time(0));
+//Todo precisa corrigi o for do cpu adionaHidro
+    for (int j = 1; j <= hidrohaviao1.quantidade; j++)
+	{
+		do
+		{
+
+		} while (!(entradaValida));
+	}
+
+	limparTela();
+
+}
+
 void adicionarBarcos(Barcos &barco, string tipoBarco, char simbolo, char tabuleiro[15][15])
 {
 	//	char letra1;
@@ -796,14 +821,14 @@ bool casasVazias(int linhaLetra1, int linhaLetra2, int linhaLetra3, int colunaNu
 
 	return tabuleiro[linhaLetra1][colunaNumero1] == AGUA && tabuleiro[linhaLetra2][colunaNumero2] == AGUA && tabuleiro[linhaLetra3][colunaNumero3] == AGUA;
 }
-void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char simbolo, char tabuleiro[15][15])
+void cpuAdicionaBarcos( Barcos &barco, string tipoBarco, char simbolo, char tabuleiro[15][15])
 {
 	srand(time(0));
 	int direcao, indiceNumero;
 	int indiceLetra1;
 	bool entradaValida = false;
 
-	for (int i = 1; i <= quantBarcos; i++)
+	for (int i = 1; i <= barco.quantidade; i++)
 	{ // For que controla a quiantidade de BArcos
 
 		do
@@ -904,7 +929,7 @@ void cpuAdicionaBarcos(int quantBarcos, Barcos &barco, string tipoBarco, char si
 	} // For que controla a quiantidade de BArcos
 	// imprimirTabuleiro(tabuleiro);
 } // Fim da FunC'C#o
-void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
+void cpuAdicionaHidro(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 {
 	// linha = rand() % TAMANHO_TABULEIRO;
 	// coluna = rand() % TAMANHO_TABULEIRO;
@@ -919,7 +944,7 @@ void cpuAdicionaHidro(int quantBarcos, Hidrohaviao hidrohaviao1, char tabuleiro[
 	int posicao = 0;
 
 	srand(time(0));
-	for (int j = 1; j <= quantBarcos; j++)
+	for (int j = 1; j <= hidrohaviao1.quantidade; j++)
 	{
 		do
 		{
@@ -1134,15 +1159,15 @@ void batalhaCpuxCpu()
 	// displayTabuleiro();
 
 	// Adicionando barcos da CPU 1
-	cpuAdicionaHidro(5, hidrohaviao1, tabuleiro1);
+	cpuAdicionaHidro( hidrohaviao1, tabuleiro1);
 
-	cpuAdicionaBarcos(4, submarino1, S, SUBMARINO, tabuleiro1);
+	cpuAdicionaBarcos( submarino1, S, SUBMARINO, tabuleiro1);
 
-	cpuAdicionaBarcos(3, cruzador1, C, CRUZADOR, tabuleiro1);
+	cpuAdicionaBarcos( cruzador1, C, CRUZADOR, tabuleiro1);
 
-	cpuAdicionaBarcos(2, encoracado, E, ENCORACADO, tabuleiro1);
+	cpuAdicionaBarcos( encoracado, E, ENCORACADO, tabuleiro1);
 
-	cpuAdicionaBarcos(1, portaaviao1, P, PORTAAVIAO, tabuleiro1);
+	cpuAdicionaBarcos( portaaviao1, P, PORTAAVIAO, tabuleiro1);
 
 
 
@@ -1152,13 +1177,13 @@ void batalhaCpuxCpu()
 	limparTela();
 
 	// Adicionando barcos da CPU 2
-	cpuAdicionaHidro(5, hidrohaviao1, tabuleiro2);
+	cpuAdicionaHidro( hidrohaviao1, tabuleiro2);
 
-	cpuAdicionaBarcos(4, submarino1, S, SUBMARINO, tabuleiro2);
-	cpuAdicionaBarcos(3, cruzador1, C, CRUZADOR, tabuleiro2);
+	cpuAdicionaBarcos(submarino1, S, SUBMARINO, tabuleiro2);
+	cpuAdicionaBarcos(cruzador1, C, CRUZADOR, tabuleiro2);
 
-	cpuAdicionaBarcos(2, encoracado, E, ENCORACADO, tabuleiro2);
-	cpuAdicionaBarcos(1, portaaviao1, P, PORTAAVIAO, tabuleiro2);
+	cpuAdicionaBarcos(encoracado, E, ENCORACADO, tabuleiro2);
+	cpuAdicionaBarcos(portaaviao1, P, PORTAAVIAO, tabuleiro2);
 
 	limparTela();
 	imprimirTabuleiro(tabuleiro2);
@@ -1215,18 +1240,11 @@ void BatalhaPvp()
 
 	// Le o nome do Jogador
 	cout << BRANCO << endl;
-	// cout << "Jogador 1 informe o seu nome: " << endl;
+	 cout << "Jogador 1 informe o seu nome: " << endl;
 	// getline(cin, nomeJogador);
-
-	// adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
-
-	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
-
-	cpuAdicionaBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
-
-	cpuAdicionaBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
-	cpuAdicionaBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
-	cpuAdicionaBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
+   //adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
+	adicionarHidroaviao( hidrohaviao1, tabuleiro1);
+	
 
 	/*
 
@@ -1260,7 +1278,7 @@ void BatalhaPvp()
 
 	 // passa o tabuleiro do adversC!rio  e o do jogador para marcar a jogada
 	 // atirar(tabuleiro2);
-	 // imprimirTabuleiro(tabuleiroJogador1);
+	  imprimirTabuleiro(tabuleiroJogador1);
 	 */
 }
 
@@ -1358,8 +1376,8 @@ void menuPrincipal()
 	int resp = 0;
 	cout << "Estrutura de Dados" << endl;
 	cout << endl;
-	cout << "[1] Matrizes e Vetores " << endl;
-	cout << "[2] CPU x CPU" << endl;
+	cout << "[1] Matrizes e Vetores / PVP" << endl;
+	cout << "[2] Pilha / CPU" << endl;
 	cout << "[3] Programa 3" << endl;
 	cout << "[4] Programa 4" << endl;
 	cout << "[0] Digite para sair " << endl;
