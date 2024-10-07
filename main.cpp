@@ -344,7 +344,17 @@ public:
 			return true;
 		}
 	}
+	bool verificaSegundaEntrada(int coluna1, int coluna2) {
+    cout << endl << "coluna1 " << coluna1;
+    cout << endl << "coluna2 " << coluna2;
 
+    int coluna1Incrementado = coluna1 + 1;
+    int coluna1Decrementado = coluna1 - 1;
+
+    return (coluna2 == coluna1) || (coluna2 == coluna1Incrementado) || (coluna2 == coluna1Decrementado);
+}
+
+ 
 	bool validarFormaHidro(int colunaNumero1, int colunaNumero2, int letra1, int letra2, char m[15][15])
 	{
 		bool retorno = false;
@@ -694,6 +704,47 @@ void adicionarHidroaviao2(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 	{
 		do
 		{
+			colunaNumero1 = hidrohaviao1.LerIndiceNumero(entradaValida, j, H);
+
+			if (colunaNumero1 == 0 || colunaNumero1 == 14)
+			{ // caso a coluna seja 1 a letra nao pode ser A ou O				
+				do
+				{
+					linhaLetra1 = hidrohaviao1.LerIndiceLetra(j, H); // como indice numero esta ok le o indice letra
+				} while ( ! (linhaLetra1 > 0 && linhaLetra1 < 15 ) );
+				
+				//linhaLetra1 = gerarNumeroAleatorio(1, 13);
+			}
+			else
+			{
+				// linhaLetra1 = 0;
+				linhaLetra1 = hidrohaviao1.LerIndiceLetra(j, H); // como indice numero esta ok le o indice letra
+			}
+			if (linhaLetra1 == 0 || linhaLetra1 == 14)
+			{
+
+				// quando estiver na primeira linha posiciona para baixo e quando estiver na ultima para cima
+				if (linhaLetra1 == 0)
+				{
+					colunaNumero2 = hidrohaviao1.LerIndiceNumero(entradaValida, j+1, H);
+					if( hidrohaviao1.verificaSegundaEntrada(colunaNumero1, colunaNumero2) ){
+						cout << endl << "OK";
+					}
+					else{
+						cout << endl << "fail";
+					}
+					linhaLetra2 = 1;
+					colunaNumero3 = colunaNumero1 + 1;
+					linhaLetra3 = 1;
+				}
+				else if (linhaLetra1 == 14)
+				{
+					colunaNumero2 = colunaNumero1 - 1;
+					linhaLetra2 = 13;
+					colunaNumero3 = colunaNumero1 + 1;
+					linhaLetra3 = 13;
+				}
+			}
 
 		} while (!(entradaValida));
 	}
@@ -1243,7 +1294,7 @@ void BatalhaPvp()
 	 cout << "Jogador 1 informe o seu nome: " << endl;
 	// getline(cin, nomeJogador);
    //adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
-	adicionarHidroaviao( hidrohaviao1, tabuleiro1);
+	adicionarHidroaviao2( hidrohaviao1, tabuleiro1);
 	
 
 	/*
