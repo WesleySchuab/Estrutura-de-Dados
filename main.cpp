@@ -710,7 +710,7 @@ void adicionarHidroaviao2(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 			{ // caso a coluna seja 1 a letra nao pode ser A ou O				
 				do
 				{
-					linhaLetra1 = hidrohaviao1.LerIndiceLetra(j, H); // como indice numero esta ok le o indice letra
+					linhaLetra1 = hidrohaviao1.LerIndiceLetra(j, H); // verifica se a linha e a primeira ou ultima
 				} while ( ! (linhaLetra1 > 0 && linhaLetra1 < 15 ) );
 				
 				//linhaLetra1 = gerarNumeroAleatorio(1, 13);
@@ -718,7 +718,7 @@ void adicionarHidroaviao2(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 			else
 			{
 				// linhaLetra1 = 0;
-				linhaLetra1 = hidrohaviao1.LerIndiceLetra(j, H); // como indice numero esta ok le o indice letra
+				linhaLetra1 = hidrohaviao1.LerIndiceLetra(j, H); 
 			}
 			if (linhaLetra1 == 0 || linhaLetra1 == 14)
 			{
@@ -727,6 +727,11 @@ void adicionarHidroaviao2(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 				if (linhaLetra1 == 0)
 				{
 					colunaNumero2 = hidrohaviao1.LerIndiceNumero(entradaValida, j+1, H);
+					do
+					{
+						cout << endl << "OK";
+					} while (! ( hidrohaviao1.verificaSegundaEntrada(colunaNumero1, colunaNumero2) ));
+					
 					if( hidrohaviao1.verificaSegundaEntrada(colunaNumero1, colunaNumero2) ){
 						cout << endl << "OK";
 					}
