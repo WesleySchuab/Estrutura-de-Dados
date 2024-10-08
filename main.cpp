@@ -344,17 +344,14 @@ public:
 			return true;
 		}
 	}
-	bool verificaSegundaEntrada(int coluna1, int coluna2) {
-    cout << endl << "coluna1 " << coluna1;
-    cout << endl << "coluna2 " << coluna2;
+	bool verificaSegundaEntrada(int coluna1, int coluna2)
+	{
+		int coluna1Incrementado = coluna1 + 1;
+		int coluna1Decrementado = coluna1 - 1;
 
-    int coluna1Incrementado = coluna1 + 1;
-    int coluna1Decrementado = coluna1 - 1;
+		return (coluna2 == coluna1) || (coluna2 == coluna1Incrementado) || (coluna2 == coluna1Decrementado);
+	}
 
-    return (coluna2 == coluna1) || (coluna2 == coluna1Incrementado) || (coluna2 == coluna1Decrementado);
-}
-
- 
 	bool validarFormaHidro(int colunaNumero1, int colunaNumero2, int letra1, int letra2, char m[15][15])
 	{
 		bool retorno = false;
@@ -689,36 +686,36 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 }
 void adicionarHidroaviao2(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 {
-    bool entradaValida = false, inseriuHidro = false;
+	bool entradaValida = false, inseriuHidro = false;
 	int linhaLetra1 = 0;
 	int linhaLetra2 = 0;
 	int linhaLetra3 = 0;
 	int colunaNumero1 = 0;
 	int colunaNumero2 = 0;
-	int colunaNumero3 = 0;	
+	int colunaNumero3 = 0;
 	int posicao = 0;
 
 	srand(time(0));
-//Todo precisa corrigi o for do cpu adionaHidro
-    for (int j = 1; j <= hidrohaviao1.quantidade; j++)
+	// Todo precisa corrigi o for do cpu adionaHidro
+	for (int j = 1; j <= hidrohaviao1.quantidade; j++)
 	{
 		do
 		{
 			colunaNumero1 = hidrohaviao1.LerIndiceNumero(entradaValida, j, H);
 
 			if (colunaNumero1 == 0 || colunaNumero1 == 14)
-			{ // caso a coluna seja 1 a letra nao pode ser A ou O				
+			{ // caso a coluna seja 1 a letra nao pode ser A ou O
 				do
 				{
 					linhaLetra1 = hidrohaviao1.LerIndiceLetra(j, H); // verifica se a linha e a primeira ou ultima
-				} while ( ! (linhaLetra1 > 0 && linhaLetra1 < 15 ) );
-				
-				//linhaLetra1 = gerarNumeroAleatorio(1, 13);
+				} while (!(linhaLetra1 > 0 && linhaLetra1 < 15));
+
+				// linhaLetra1 = gerarNumeroAleatorio(1, 13);
 			}
 			else
 			{
 				// linhaLetra1 = 0;
-				linhaLetra1 = hidrohaviao1.LerIndiceLetra(j, H); 
+				linhaLetra1 = hidrohaviao1.LerIndiceLetra(j, H);
 			}
 			if (linhaLetra1 == 0 || linhaLetra1 == 14)
 			{
@@ -726,21 +723,35 @@ void adicionarHidroaviao2(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 				// quando estiver na primeira linha posiciona para baixo e quando estiver na ultima para cima
 				if (linhaLetra1 == 0)
 				{
-					colunaNumero2 = hidrohaviao1.LerIndiceNumero(entradaValida, j+1, H);
-					do
-					{
-						cout << endl << "OK";
-					} while (! ( hidrohaviao1.verificaSegundaEntrada(colunaNumero1, colunaNumero2) ));
 					
-					if( hidrohaviao1.verificaSegundaEntrada(colunaNumero1, colunaNumero2) ){
-						cout << endl << "OK";
+					int coluna1Igual = colunaNumero1;
+					int coluna1Incrementado = colunaNumero1 + 1;
+					int coluna1Decrementado = colunaNumero1 - 1;
+					colunaNumero2 = hidrohaviao1.LerIndiceNumero(entradaValida, j + 1, H);
+
+					if (colunaNumero2 == colunaNumero1)
+					{
+						
+						linhaLetra2 = 1;
+						colunaNumero3 = hidrohaviao1.LerIndiceNumero(entradaValida, j + 2, H);
+						// Neste if a 3 coluna3 tem que atender as condições abaixo
+						if (colunaNumero3 == coluna1Incrementado)
+						{
+							// Verifica se coluna3 é igual a coluna1 + 1
+							entradaValida = true;
+						}
+						else if (colunaNumero3 == coluna1Decrementado)
+						{
+							// Verifica se coluna3 é igual a coluna1 - 1
+							entradaValida = true;
+						}
 					}
-					else{
-						cout << endl << "fail";
-					}
-					linhaLetra2 = 1;
-					colunaNumero3 = colunaNumero1 + 1;
-					linhaLetra3 = 1;
+					
+
+					
+					//linhaLetra2 = 1;
+					//colunaNumero3 = colunaNumero1 + 1;
+					//linhaLetra3 = 1;
 				}
 				else if (linhaLetra1 == 14)
 				{
@@ -755,7 +766,6 @@ void adicionarHidroaviao2(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 	}
 
 	limparTela();
-
 }
 
 void adicionarBarcos(Barcos &barco, string tipoBarco, char simbolo, char tabuleiro[15][15])
@@ -877,7 +887,7 @@ bool casasVazias(int linhaLetra1, int linhaLetra2, int linhaLetra3, int colunaNu
 
 	return tabuleiro[linhaLetra1][colunaNumero1] == AGUA && tabuleiro[linhaLetra2][colunaNumero2] == AGUA && tabuleiro[linhaLetra3][colunaNumero3] == AGUA;
 }
-void cpuAdicionaBarcos( Barcos &barco, string tipoBarco, char simbolo, char tabuleiro[15][15])
+void cpuAdicionaBarcos(Barcos &barco, string tipoBarco, char simbolo, char tabuleiro[15][15])
 {
 	srand(time(0));
 	int direcao, indiceNumero;
@@ -1190,8 +1200,6 @@ void cpuAtirar(char tabuleiroAdversario[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO], i
 		tabuleiroAdversario[posicaoLetra][posicaoNumero] = TIRO_AGUA;
 		// cout << "Cgua. Tiro perdido!" << endl;
 	}
-
-	
 }
 
 void batalhaCpuxCpu()
@@ -1209,23 +1217,20 @@ void batalhaCpuxCpu()
 	int quantBarcos = hidrohaviao1.quantidade * 3 + submarino1.quantidade * submarino1.tamanho +
 					  cruzador1.quantidade * cruzador1.tamanho + portaaviao1.tamanho + encoracado.quantidade * encoracado.tamanho;
 
-
 	limparTela();
 
 	// displayTabuleiro();
 
 	// Adicionando barcos da CPU 1
-	cpuAdicionaHidro( hidrohaviao1, tabuleiro1);
+	cpuAdicionaHidro(hidrohaviao1, tabuleiro1);
 
-	cpuAdicionaBarcos( submarino1, S, SUBMARINO, tabuleiro1);
+	cpuAdicionaBarcos(submarino1, S, SUBMARINO, tabuleiro1);
 
-	cpuAdicionaBarcos( cruzador1, C, CRUZADOR, tabuleiro1);
+	cpuAdicionaBarcos(cruzador1, C, CRUZADOR, tabuleiro1);
 
-	cpuAdicionaBarcos( encoracado, E, ENCORACADO, tabuleiro1);
+	cpuAdicionaBarcos(encoracado, E, ENCORACADO, tabuleiro1);
 
-	cpuAdicionaBarcos( portaaviao1, P, PORTAAVIAO, tabuleiro1);
-
-
+	cpuAdicionaBarcos(portaaviao1, P, PORTAAVIAO, tabuleiro1);
 
 	imprimirTabuleiro(tabuleiro1);
 	// cout << endl << "tabuleiro CPU1 Pressione Enter para continuar...";
@@ -1233,7 +1238,7 @@ void batalhaCpuxCpu()
 	limparTela();
 
 	// Adicionando barcos da CPU 2
-	cpuAdicionaHidro( hidrohaviao1, tabuleiro2);
+	cpuAdicionaHidro(hidrohaviao1, tabuleiro2);
 
 	cpuAdicionaBarcos(submarino1, S, SUBMARINO, tabuleiro2);
 	cpuAdicionaBarcos(cruzador1, C, CRUZADOR, tabuleiro2);
@@ -1257,7 +1262,6 @@ void batalhaCpuxCpu()
 		}
 
 	} while (!(quantidadeDeAcertosJogador1 == quantBarcos || quantidadeDeAcertosJogador2 == quantBarcos));
-
 
 	if (quantidadeDeAcertosJogador1 == quantBarcos)
 	{
@@ -1296,11 +1300,10 @@ void BatalhaPvp()
 
 	// Le o nome do Jogador
 	cout << BRANCO << endl;
-	 cout << "Jogador 1 informe o seu nome: " << endl;
+	cout << "Jogador 1 informe o seu nome: " << endl;
 	// getline(cin, nomeJogador);
-   //adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
-	adicionarHidroaviao2( hidrohaviao1, tabuleiro1);
-	
+	// adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
+	adicionarHidroaviao2(hidrohaviao1, tabuleiro1);
 
 	/*
 
