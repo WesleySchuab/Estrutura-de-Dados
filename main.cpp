@@ -536,9 +536,10 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 	int colunaNumero1 = 0;
 	int colunaNumero2 = 0;
 	int colunaNumero3 = 0;
+	//TODO trocar o 2 por hidro hidrohaviao1.quantidade;
 	for (int j = 1; j <= 2; j++)
 	{
-		for (int i = 1; i <= hidrohaviao1.quantidade; i++)
+		for (int i = 1; i <= 3; i++)
 		{
 
 			do
@@ -1203,7 +1204,7 @@ void BatalhaPvp()
 	inicializarTabuleiro(tabuleiro2);
 	// inicializarTabuleiro(tabuleiroJogador2);
 	string nomeJogador = "Wesley";
-	int quantBarcos = 6;
+	
 
 	Submarino submarino1;
 	Cruzador cruzador1;
@@ -1223,8 +1224,19 @@ void BatalhaPvp()
 	cout << "Jogador 1 informe o seu nome: " << endl;
 	// getline(cin, nomeJogador);
 	 adicionarHidroaviao( hidrohaviao1, tabuleiro1);
-	 imprimirTabuleiro(tabuleiro1);
-	//adicionarHidroaviao2(hidrohaviao1, tabuleiro1);
+	adicionarBarcos( encoracado, E, ENCORACADO, tabuleiro1);
+	 imprimirTabuleiro(tabuleiro1);	
+	 cout << endl
+		  << " acabou ";
+	 cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
+	 cout << endl;
+	 // cin >> continuar;
+
+	 limparTela();
+	 cout << endl
+		  << "Jogador 2 ira colocar os barcos " << endl;
+	adicionarBarcos( encoracado, E, ENCORACADO, tabuleiro2);
+	 imprimirTabuleiro(tabuleiro2);	
 
 	/*
 
