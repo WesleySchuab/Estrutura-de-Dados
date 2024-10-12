@@ -679,6 +679,8 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 						i--;
 					}
 				}
+				limparTela();
+				imprimirTabuleiro(tabuleiro);
 
 			} while (!(entradaValida));
 
@@ -765,7 +767,7 @@ void adicionarBarcos(Barcos &barco, string tipoBarco, char simbolo, char tabulei
 
 		} while (!(entradaValida));
 
-		// limparTela();
+		 limparTela();
 		imprimirTabuleiro(tabuleiro);
 
 	} // for add ENCORACADO
@@ -1200,79 +1202,75 @@ void batalhaCpuxCpu()
 }
 void BatalhaPvp()
 {
-	inicializarTabuleiro(tabuleiro1);
-	inicializarTabuleiro(tabuleiro2);
-	// inicializarTabuleiro(tabuleiroJogador2);
-	string nomeJogador = "Wesley";
-	
+    inicializarTabuleiro(tabuleiro1);
+    inicializarTabuleiro(tabuleiro2);
 
-	Submarino submarino1;
-	Cruzador cruzador1;
-	PortaAviao portaaviao1;
-	Hidrohaviao hidrohaviao1;
-	Encoracado encoracado;
+    string nomeJogador1, nomeJogador2;
+    int quantidadeDeAcertosJogador1 = 0;
+    int quantidadeDeAcertosJogador2 = 0;
 
-	limparTela();
+    // Inicializar os barcos
+    Submarino submarino1;
+    Cruzador cruzador1;
+    PortaAviao portaaviao1;
+    Hidrohaviao hidrohaviao1;
+    Encoracado encoracado;
 
-	displayTabuleiro();
+    int quantBarcos = hidrohaviao1.quantidade * 3 + submarino1.quantidade * submarino1.tamanho +
+                      cruzador1.quantidade * cruzador1.tamanho + portaaviao1.tamanho + encoracado.quantidade * encoracado.tamanho;
 
-	// cout << endl
-	//    << " Jogador " << nomeJogador << " Insira seus barcos" << endl;
+    // Ler os nomes dos jogadores
+    cout << "Jogador 1, informe o seu nome: ";
+    getline(cin, nomeJogador1);
 
-	// Le o nome do Jogador
-	cout << BRANCO << endl;
-	cout << "Jogador 1 informe o seu nome: " << endl;
-	// getline(cin, nomeJogador);
-	 adicionarHidroaviao( hidrohaviao1, tabuleiro1);
-	adicionarBarcos( encoracado, E, ENCORACADO, tabuleiro1);
-	 imprimirTabuleiro(tabuleiro1);	
-	 cout << endl
-		  << " acabou ";
-	 cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
-	 cout << endl;
-	 // cin >> continuar;
+    cout << "Jogador 2, informe o seu nome: ";
+    getline(cin, nomeJogador2);
 
-	 limparTela();
-	 cout << endl
-		  << "Jogador 2 ira colocar os barcos " << endl;
-	adicionarBarcos( encoracado, E, ENCORACADO, tabuleiro2);
-	 imprimirTabuleiro(tabuleiro2);	
+    // Jogador 1 adiciona seus barcos
+    limparTela();
+    cout << nomeJogador1 << ", insira seus barcos no tabuleiro:\n";
+    adicionarHidroaviao(hidrohaviao1, tabuleiro1);
+    adicionarBarcos(encoracado, E, ENCORACADO, tabuleiro1);
+    imprimirTabuleiro(tabuleiro1);
+    cout << "Pressione qualquer tecla para trocar de jogador...\n";
+    // cin.get(); // Aguarda o jogador pressionar Enter
 
-	/*
+    // Jogador 2 adiciona seus barcos
+    limparTela();
+    cout << nomeJogador2 << ", insira seus barcos no tabuleiro:\n";
+    adicionarHidroaviao(hidrohaviao1, tabuleiro2);
+    adicionarBarcos(encoracado, E, ENCORACADO, tabuleiro2);
+    imprimirTabuleiro(tabuleiro2);
+    cout << "Pressione qualquer tecla para iniciar a batalha...\n";
+    // cin.get(); // Aguarda o jogador pressionar Enter
 
-	 //	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
-	 // adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
-	 //	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
-	 // adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
+    // Loop da batalha
+    do
+    {
+        // Jogador 1 atira
+        limparTela();
+        cout << nomeJogador1 << " está atirando...\n";
+        cpuAtirar(tabuleiro2, quantidadeDeAcertosJogador1);
+        if (quantidadeDeAcertosJogador1 == quantBarcos) break;
 
-	 cout << endl
-		  << " acabou ";
-	 cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
-	 cout << endl;
-	 // cin >> continuar;
+        // Jogador 2 atira
+        limparTela();
+        cout << nomeJogador2 << " está atirando...\n";
+        cpuAtirar(tabuleiro1, quantidadeDeAcertosJogador2);
+        
+    } while (quantidadeDeAcertosJogador1 < quantBarcos && quantidadeDeAcertosJogador2 < quantBarcos);
 
-	 limparTela();
-	 cout << endl
-		  << "Jogador 2 ira colocar os barcos " << endl;
-	 cout << endl
-		  << " acabou ";
-
-	 // adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
-	 // adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
-	 //	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro2);
-	 // adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro2);
-
-	 cout << endl
-		  << " acabou ";
-	 cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
-	 cout << endl;
-	 // cin >> continuar;
-
-	 // passa o tabuleiro do adversC!rio  e o do jogador para marcar a jogada
-	 // atirar(tabuleiro2);
-	  imprimirTabuleiro(tabuleiroJogador1);
-	 */
-	
+    // Exibir o vencedor
+    if (quantidadeDeAcertosJogador1 == quantBarcos)
+    {
+        cout << "\n" << nomeJogador1 << " Ganhou!\n";
+        imprimirTabuleiro(tabuleiro2);
+    }
+    else if (quantidadeDeAcertosJogador2 == quantBarcos)
+    {
+        cout << "\n" << nomeJogador2 << " Ganhou!\n";
+        imprimirTabuleiro(tabuleiro1);
+    }
 }
 
 void menuBatalhaNaval()
