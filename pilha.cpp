@@ -69,6 +69,9 @@ public:
 int main() {
     Pilha p;
     int opcao, elemento;
+    cout << "Estrutura de Dados Pilha" << endl;
+    cout << "Professor Avelino" << endl;
+
 
     do {
         cout << "\nMenu:\n";
