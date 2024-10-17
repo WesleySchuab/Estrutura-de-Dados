@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+// Classe com todos os atributos e metodos
 class Pilha {
 private:
     int topo;           // Índice do topo da pilha
@@ -98,11 +99,13 @@ public:
 int main() {
     Pilha p;
     int opcao, elemento;
+    cout << "Estrutura de Dados Pilha" << endl;
+    cout << "Professor Avelino" << endl;
 
     do {
         cout << "\nMenu:\n";
-        cout << "1. Inserir elemento (push)\n";
-        cout << "2. Remover elemento (pop)\n";
+        cout << "1. Inserir elemento \n";
+        cout << "2. Remover elemento \n";
         cout << "3. Mostrar topo da pilha\n";
         cout << "4. Mostrar início da pilha (fundo)\n";  // Nova opção
         cout << "5. Mostrar elementos da pilha\n";
