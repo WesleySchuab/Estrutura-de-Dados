@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+// Classe com todos os atributos e metodos
 class Fila {
 private:
     int frente;          // Índice do primeiro elemento da fila
