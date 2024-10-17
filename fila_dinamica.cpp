@@ -97,6 +97,10 @@ int main() {
     Fila f;
     int opcao, elemento;
 
+    cout << "Estrutura de Dados Fila dinamica" << endl;
+    cout << "Professor Avelino" << endl;
+
+
     do {
         cout << "\nMenu:\n";
         cout << "1. Inserir elemento \n";
