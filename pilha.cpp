@@ -3,6 +3,7 @@ using namespace std;
 
 #define MAX 10  // Definindo o tamanho máximo da pilha
 
+// Classe com todos os atributos e metodos
 class Pilha {
 private:
     int topo;           // Índice do topo da pilha
