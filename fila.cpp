@@ -54,17 +54,18 @@ public:
     }
 
     // Função para imprimir todos os elementos da fila
-    void imprimirFila() {
-        if (estaVazia()) {
-            cout << "A fila está vazia!" << endl;
-        } else {
-            cout << "Elementos da fila: ";
-            for (int i = frente; i <= tras; i++) {
-                cout << fila[i] << " ";
-            }
-            cout << endl;
+   void imprimirFila() {
+    if (estaVazia()) {
+        cout << "A fila está vazia!" << endl;
+    } else {
+        cout << "Elementos da fila : ";
+        for (int i = tras; i >= frente; i--) {
+            cout << fila[i] << " ";
         }
+        cout << endl;
     }
+}
+
 };
 
 int main() {
