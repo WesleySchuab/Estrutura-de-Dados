@@ -70,11 +70,13 @@ public:
 int main() {
     Fila f;
     int opcao, elemento;
+    cout << "Estrutura de Dados Fila" << endl;
+    cout << "Professor Avelino" << endl;
 
     do {
         cout << "\nMenu:\n";
-        cout << "1. Inserir elemento (enqueue)\n";
-        cout << "2. Remover elemento (dequeue)\n";
+        cout << "1. Inserir elemento \n";
+        cout << "2. Remover elemento \n";
         cout << "3. Mostrar frente da fila\n";
         cout << "4. Mostrar elementos da fila\n";
         cout << "5. Sair\n";
