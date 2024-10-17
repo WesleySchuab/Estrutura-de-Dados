@@ -68,5 +68,5 @@ As imagens a seguir ilustram diferentes momentos do jogo:
 Contribuições são bem-vindas! Se você encontrar algum bug ou tiver alguma sugestão de melhoria, por favor, abra um issue ou faça um pull request.
 
 ## Segunda Entrega Pilha e Fila
-Implementar algoritmo de pilha e fila com ponteiro e com vetor de 10 posições não precisa ser vetor dinâmico. O ponteiro deve dinâmico, mostrar a quantidade de elementos o primeiro e último 
+Implementar algoritmo de pilha e fila com vetor de 10 posições e com ponteiro usando vetor dinâmico, mostrar a quantidade de elementos, o primeiro e último item.
 
