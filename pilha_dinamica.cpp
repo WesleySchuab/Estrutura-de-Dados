@@ -99,7 +99,7 @@ public:
 int main() {
     Pilha p;
     int opcao, elemento;
-    cout << "Estrutura de Dados Pilha" << endl;
+    cout << "Estrutura de Dados Pilha Dinamica" << endl;
     cout << "Professor Avelino" << endl;
 
     do {
