@@ -89,11 +89,12 @@ public:
         } else {
             cout << "Elementos da pilha: ";
             for (int i = topo; i >= 0; i--) {
-                cout << pilha[i] << " ";
+                cout << endl << pilha[i] ;
             }
             cout << endl;
         }
     }
+  
 };
 
 int main() {
