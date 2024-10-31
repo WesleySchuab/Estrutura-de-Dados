@@ -70,3 +70,20 @@ Contribuições são bem-vindas! Se você encontrar algum bug ou tiver alguma su
 ## Segunda Entrega Pilha e Fila
 Implementar algoritmo de pilha e fila com vetor de 10 posições e com ponteiro usando vetor dinâmico, mostrar a quantidade de elementos, o primeiro e último item.
 
+## Lista apresentar até dia 07/11/2024
+
+Implementação de uma estrutura de dados do tipo lista com as seguintes operações:
+
+Busca: Verifica se um elemento está presente na lista e retorna sua posição (ou -1 caso não encontrado).
+
+Inserção: Permite adicionar um elemento no início ou no final da lista.
+
+Remoção: Remove um elemento da lista por seu valor ou por sua posição.
+
+Tamanho: Retorna o número de elementos da lista.
+
+Impressão: Exibe todos os elementos da lista.
+
+Ordenação: Ordena os elementos da lista em ordem crescente ou decrescente.
+
+
