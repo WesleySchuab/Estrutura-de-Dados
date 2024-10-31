@@ -1,11 +1,12 @@
-#include <iostream> // controla entra e saida
-#include <iomanip>	// Inclua para usar setw
-#include <cstdlib>	// Para a funo?=o?=o atoi
-#include <string>
-#include <ncurses.h>
-#include <cctype> // para veriica entrada numero
-#include <random> // Gerar numeros aleatorios
-using namespace std;
+#include <iostream> // Controle de entrada e saída de dados, permitindo o uso de cin, cout, endl, etc.
+#include <iomanip>  // Incluída para manipulação de formatação de saída, como setw (definir largura de campo) e setprecision (definir precisão de ponto flutuante).
+#include <cstdlib>  // Fornece funções de utilidade geral, como atoi (converter string para inteiro) e funções de geração de números aleatórios (rand, srand).
+#include <string>   // Permite o uso da classe string, que facilita o manuseio de cadeias de caracteres.
+#include <ncurses.h> // Biblioteca para criação de interfaces de texto em terminal, que permite a manipulação avançada do terminal (como janelas, cores e controle de entrada).
+#include <cctype>   // Incluída para verificar e manipular caracteres, como funções para verificar se um caractere é um dígito (isdigit) ou converter para maiúsculas/minúsculas.
+#include <random>   // Fornece classes e funções para gerar números aleatórios de forma mais robusta do que as funções tradicionais da biblioteca <cstdlib>.
+using namespace std; // Permite o uso de elementos do namespace std sem a necessidade de prefixo (como std::cout).
+
 
 // Criando constantes para selecionar o SO
 #if defined(_WIN32)
