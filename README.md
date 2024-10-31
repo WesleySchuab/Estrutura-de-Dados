@@ -72,7 +72,7 @@ Implementar algoritmo de pilha e fila com vetor de 10 posições e com ponteiro 
 
 ## Lista apresentar até dia 07/11/2024
 
-Implementação de uma estrutura de dados do tipo lista com as seguintes operações:
+Implementação de uma estrutura de dados do tipo lista dinamica que o usuário irá inserir quantos dados quiser com as seguintes operações:
 
 Busca: Verifica se um elemento está presente na lista e retorna sua posição (ou -1 caso não encontrado).
 
