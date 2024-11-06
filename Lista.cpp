@@ -190,10 +190,10 @@ int main() {
 
 	do {
 		std::cout << "Escolha uma operacao:\n";
-		std::cout << "1. Insert in to the Begin\n";
+		std::cout << "1. Inserir no comeco\n";
 		std::cout << "2. Inserir no final\n";
 		std::cout << "3. Remover por valor\n";
-		std::cout << "4. Remove by position\n";
+		std::cout << "4. Remove por posicao\n";
 		std::cout << "5. Buscar\n";
 		std::cout << "6. Tamanho da lista\n";
 		std::cout << "7. Imprimir lista\n";
