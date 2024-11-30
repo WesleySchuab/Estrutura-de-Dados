@@ -679,14 +679,13 @@ void adicionarHidroaviao(Hidrohaviao hidrohaviao1, char tabuleiro[15][15])
 }
 void adicionarBarcos(Barcos &barco, string tipoBarco, char simbolo, char tabuleiro[15][15])
 {
-	//	char letra1;
+
 	cout << endl
 		 << AMARELO << " Vamos adicionar " << tipoBarco << endl;
 	cout << BRANCO;
 	int indiceNumero;
 	int indiceLetra1;
-	int tamanhoParaExibir = barco.tamanho + 1;
-	// barco.tamanho;
+	int tamanhoParaExibir = barco.tamanho;
 
 	for (int i = 1; i <= barco.quantidade; i++)
 	{
@@ -698,9 +697,12 @@ void adicionarBarcos(Barcos &barco, string tipoBarco, char simbolo, char tabulei
 		cout << endl
 			 << " tamanho do barco " << tamanhoParaExibir << endl;
 		cout << endl
-			 << " caracter que sera grvado " << simbolo << endl;
-		cout << " digite [ 1 ] inserir na Horizontal e [ 2 ] para inserir na vertical " << endl;
-		cin >> direcao;
+			 << " caracter que sera gravado " << simbolo << endl;
+	    if(barco.tamanho > 1)
+	    {
+	   		cout << " digite [ 1 ] inserir na Horizontal e [ 2 ] para inserir na vertical " << endl;
+	    	cin >> direcao;
+	    }
 
 		do
 		{
@@ -1200,26 +1202,28 @@ void BatalhaPvp()
 	string nomeJogador = "Wesley";
 	int quantBarcos = 6;
 
-	Submarino submarino1;
-	Cruzador cruzador1;
-	PortaAviao portaaviao1;
-	Hidrohaviao hidrohaviao1;
+	Submarino submarino;
+	Cruzador cruzador;
+	PortaAviao portaaviao;
+	Hidrohaviao hidrohaviao;
 	Encoracado encoracado;
 
 	limparTela();
 
 	displayTabuleiro();
 
-	// cout << endl
-	//    << " Jogador " << nomeJogador << " Insira seus barcos" << endl;
+	 cout << endl
+	   << " Jogador " << nomeJogador << " Insira seus barcos" << endl;
 
 	// Le o nome do Jogador
 	cout << BRANCO << endl;
 	// cout << "Jogador 1 informe o seu nome: " << endl;
 	// getline(cin, nomeJogador);
 
-	// adicionarHidroaviao(quantBarcos, hidrohaviao1, tabuleiro1);
-
+    cout << endl
+    	   << " Jogador 1 Vamos inserir os barcos " << endl;
+	
+/*
 	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
 
 	cpuAdicionaBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
@@ -1227,8 +1231,26 @@ void BatalhaPvp()
 	cpuAdicionaBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
 	cpuAdicionaBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
 	cpuAdicionaBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
+	
+*/
+    adicionarHidroaviao( hidrohaviao, tabuleiro1);
+	adicionarBarcos( submarino, S, SUBMARINO, tabuleiro1);
+	adicionarBarcos( cruzador, C, CRUZADOR, tabuleiro1);
+	adicionarBarcos( encoracado, E, ENCORACADO, tabuleiro1);
+	adicionarBarcos( portaaviao, P, PORTAAVIAO, tabuleiro1);
+	
+	
+	cout << endl
+    	   << " Player 1 do finish to input your barcos " << endl;
+    	   
+  	/*  	   
+    void adicionarBarcos(Barcos &barco, string tipoBarco, char simbolo, char tabuleiro[15][15])
+    	   
+  	   
+    cout << endl
+            << " Jogador 1 Vamos inserir os barcos " << endl;
 
-	/*
+
 
 	 //	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
 	 // adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
@@ -1358,7 +1380,7 @@ void menuPrincipal()
 	int resp = 0;
 	cout << "Estrutura de Dados" << endl;
 	cout << endl;
-	cout << "[1] Matrizes e Vetores " << endl;
+	cout << "[1] PVP " << endl;
 	cout << "[2] CPU x CPU" << endl;
 	cout << "[3] Programa 3" << endl;
 	cout << "[4] Programa 4" << endl;
