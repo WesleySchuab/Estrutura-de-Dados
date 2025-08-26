@@ -37,22 +37,19 @@ const string C = "CRUZADOR";
 
 // Constantes para as cores
 #define AMARELO "\x1b[33m"
-#define VERDE_CLARO "\x1b[92m"
 #define RESET "\x1b[0m"
-#define PRETO "\x1b[30m"
 #define VERDE "\x1b[32m"
 #define BRANCO "\x1B[37m"
 #define VERMELHO "\x1b[91m"
 #define AZUL "\x1b[94m"
 #define AZULC "\x1b[96m"
 
-#define VERDEC "\x1b[92m"
 
 #define RESET "\x1b[0m"
 #define BLACK "\x1b[30m"
 #define RED "\x1b[31m"
 #define GREEN "\x1b[32m"
-#define YELLOW "\x1b[33m"
+
 #define BLUE "\x1b[34m"
 #define MAGENTA "\x1b[35m"
 #define CYAN "\x1b[36m"
@@ -451,7 +448,7 @@ void imprimirTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 			}
 			else if (tabuleiro[i][j] == TIRO_AGUA) // red word
 			{
-				cout << PRETO << BBLUE << setw(LARGURA_COLUNA) << tabuleiro[i][j];
+				cout << BLACK << BBLUE << setw(LARGURA_COLUNA) << tabuleiro[i][j];
 			}
 			else if (tabuleiro[i][j] == TIRO_NAVIO) //
 			{
@@ -1133,9 +1130,7 @@ void batalhaCpuxCpu()
 
 	limparTela();
 
-	// displayTabuleiro();
 
-	// Adicionando barcos da CPU 1
 	cpuAdicionaHidro(5, hidrohaviao1, tabuleiro1);
 
 	cpuAdicionaBarcos(4, submarino1, S, SUBMARINO, tabuleiro1);
@@ -1149,8 +1144,7 @@ void batalhaCpuxCpu()
 
 
 	imprimirTabuleiro(tabuleiro1);
-	// cout << endl << "tabuleiro CPU1 Pressione Enter para continuar...";
-	// cin.get();
+
 	limparTela();
 
 	// Adicionando barcos da CPU 2
@@ -1164,8 +1158,7 @@ void batalhaCpuxCpu()
 
 	limparTela();
 	imprimirTabuleiro(tabuleiro2);
-	// cout << endl << "tabuleiro CPU2 Pressione Enter para continuar...";
-	// cin.get();
+
 
 	limparTela();
 	do
@@ -1217,22 +1210,12 @@ void BatalhaPvp()
 
 	// Le o nome do Jogador
 	cout << BRANCO << endl;
-	// cout << "Jogador 1 informe o seu nome: " << endl;
-	// getline(cin, nomeJogador);
+
 
     cout << endl
     	   << " Jogador 1 Vamos inserir os barcos " << endl;
 	
-/*
-	cpuAdicionaHidro(quantBarcos, hidrohaviao1, tabuleiro1);
 
-	cpuAdicionaBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
-
-	cpuAdicionaBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
-	cpuAdicionaBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
-	cpuAdicionaBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
-	
-*/
     adicionarHidroaviao( hidrohaviao, tabuleiro1);
 	adicionarBarcos( submarino, S, SUBMARINO, tabuleiro1);
 	adicionarBarcos( cruzador, C, CRUZADOR, tabuleiro1);
@@ -1243,47 +1226,7 @@ void BatalhaPvp()
 	cout << endl
     	   << " Player 1 do finish to input your barcos " << endl;
     	   
-  	/*  	   
-    void adicionarBarcos(Barcos &barco, string tipoBarco, char simbolo, char tabuleiro[15][15])
-    	   
-  	   
-    cout << endl
-            << " Jogador 1 Vamos inserir os barcos " << endl;
-
-
-
-	 //	adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro1);
-	 // adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro1);
-	 //	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro1);
-	 // adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro1);
-
-	 cout << endl
-		  << " acabou ";
-	 cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
-	 cout << endl;
-	 // cin >> continuar;
-
-	 limparTela();
-	 cout << endl
-		  << "Jogador 2 ira colocar os barcos " << endl;
-	 cout << endl
-		  << " acabou ";
-
-	 // adicionarBarcos(quantBarcos, encoracado, E, ENCORACADO, tabuleiro2);
-	 // adicionarBarcos(quantBarcos, portaaviao1, P, PORTAAVIAO, tabuleiro2);
-	 //	adicionarBarcos(quantBarcos, cruzador1, C, CRUZADOR, tabuleiro2);
-	 // adicionarBarcos(quantBarcos, submarino1, S, SUBMARINO, tabuleiro2);
-
-	 cout << endl
-		  << " acabou ";
-	 cout << "Tecle < Qualquer numero > e < Enter> para trocar de jogador...";
-	 cout << endl;
-	 // cin >> continuar;
-
-	 // passa o tabuleiro do adversC!rio  e o do jogador para marcar a jogada
-	 // atirar(tabuleiro2);
-	 // imprimirTabuleiro(tabuleiroJogador1);
-	 */
+  	
 }
 
 void menuBatalhaNaval()
@@ -1313,35 +1256,9 @@ void menuBatalhaNaval()
 	}
 }
 
-void Programa2()
-{
-	limparTela();
-	int resp = 0;
-	cout << "Bem-vindo ao Programa2, mundo que ainda no?=o o?= mundo" << endl;
-	cout << "Digite 0 para sair " << endl;
-	cin >> resp;
-	cin.ignore(80, '\n');
-}
 
-void Programa3()
-{
-	limparTela();
-	int resp = 0;
-	cout << "Bem-vindo ao Programa3, mundo que ainda no?=o o?= mundo" << endl;
-	cout << "Digite 0 para sair " << endl;
-	cin >> resp;
-	cin.ignore(80, '\n');
-}
 
-void Programa4()
-{
-	limparTela();
-	int resp = 0;
-	cout << "Bem-vindo ao Programa4, mundo que ainda no?=o o?= mundo" << endl;
-	cout << "Digite 0 para sair " << endl;
-	cin >> resp;
-	cin.ignore(80, '\n');
-}
+
 
 void MatrizesVetores()
 {
@@ -1362,15 +1279,6 @@ void MatrizesVetores()
 	case 1:
 		BatalhaPvp();
 		break;
-	case 2:
-		Programa2();
-		break;
-	case 3:
-		Programa3();
-		break;
-	case 4:
-		Programa4();
-		break;
 	}
 }
 
@@ -1382,8 +1290,6 @@ void menuPrincipal()
 	cout << endl;
 	cout << "[1] PVP " << endl;
 	cout << "[2] CPU x CPU" << endl;
-	cout << "[3] Programa 3" << endl;
-	cout << "[4] Programa 4" << endl;
 	cout << "[0] Digite para sair " << endl;
 	cout << "Entre com a opo?=o?=o desejada" << endl;
 	cin >> resp;
@@ -1395,12 +1301,6 @@ void menuPrincipal()
 		break;
 	case 2:
 		batalhaCpuxCpu();
-		break;
-	case 3:
-		Programa3();
-		break;
-	case 4:
-		Programa4();
 		break;
 	}
 }
