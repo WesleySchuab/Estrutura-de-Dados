@@ -76,7 +76,7 @@ void limparTela()
 #endif
 }
 
-void inicializarTabuleiro(char tabuleiro[15][15])
+void inicializarTabuleiro(char tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO])
 {
 	for (int i = 0; i < TAMANHO_TABULEIRO; i++)
 	{
@@ -101,7 +101,8 @@ int validarNumero()
 		{
 			cout << "Entrada invalida. Digite um numero inteiro positivo." << endl;
 			cin.clear();		  // Limpa o estado de falha do cin
-			cin.ignore(80, '\n'); // Ignora caracteres restantes na linha
+			//cin.ignore(80, '\n'); // Ignora caracteres restantes na linha
+			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}
 	} while (cin.fail() || numero <= 0);
 	return numero;
@@ -121,7 +122,7 @@ public:
 	bool limiteNumero(int indice)
 	{
 		// if (indice >= 0 && indice <= 9)
-		return indice >= 0 && indice <= TAMANHO_TABULEIRO;
+		return indice >= 0 && indice < TAMANHO_TABULEIRO;
 	}
 	bool casaOcupada(char indice, int numero)
 	{
@@ -218,14 +219,7 @@ public:
 	virtual bool validarPosicao(int p1, int p2, char m[15][15]) = 0;
 };
 
-/*
-Barcos(int tamanho) : tamanho(tamanho) {}:
 
-Este é o construtor da classe Barcos.
-Ele recebe um parâmetro tamanho do tipo inteiro, que  representa o tamanho do barco.
-A parte : tamanho(tamanho) é uma lista de inicializadores, que é uma forma eficiente de inicializar membros de uma classe.
-Nesse caso, o membro tamanho do objeto Barcos está sendo inicializado com o valor passado para o construtor.
-*/
 class Barcos : public Embarcacoes
 {
 public:
