@@ -38,41 +38,27 @@ const string C = "CRUZADOR";
 // Constantes para as cores
 #define AMARELO "\x1b[33m"
 #define RESET "\x1b[0m"
-#define VERDE "\x1b[32m"
 #define BRANCO "\x1B[37m"
 #define VERMELHO "\x1b[91m"
-#define AZUL "\x1b[94m"
 #define AZULC "\x1b[96m"
-
-
-#define RESET "\x1b[0m"
 #define BLACK "\x1b[30m"
-#define RED "\x1b[31m"
-#define GREEN "\x1b[32m"
-
 #define BLUE "\x1b[34m"
-#define MAGENTA "\x1b[35m"
 #define CYAN "\x1b[36m"
 #define WHITE "\x1b[37m"
-#define BOLD "\x1b[1m"
-#define UNDERLINE "\x1b[4m"
 
-#define INVERSE "\x1b[7m"
 
-// Cores de fundo
-#define BBLACK "\x1b[40m"
+
+
 // #define BDARK_GREY "\x1b[40;30m"
-#define BDARK_GREY "\x1b[9m"
 
-#define BGray "\x1b[40m"
 #define BRED "\x1b[41m"
 #define BGREEN "\x1b[42m"
 #define BYellow "\x1b[43m"
 #define BBLUE "\x1b[44m"
-#define BMAGENTA "\x1b[45m"
+
 #define BCYAN "\x1b[46m"
 #define BWHITE "\x1b[47m"
-#define RESET "\x1b[0m"
+
 
 // variaveis Globais
 
